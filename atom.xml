@@ -6,7 +6,7 @@
   <link href="/MyBlog/atom.xml" rel="self"/>
   
   <link href="https://winyter.github.io/MyBlog/"/>
-  <updated>2020-01-30T05:24:25.621Z</updated>
+  <updated>2020-01-08T08:53:03.607Z</updated>
   <id>https://winyter.github.io/MyBlog/</id>
   
   <author>
@@ -15,29 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test</title>
-    <link href="https://winyter.github.io/MyBlog/2020/01/30/test/"/>
-    <id>https://winyter.github.io/MyBlog/2020/01/30/test/</id>
-    <published>2020-01-30T05:24:00.000Z</published>
-    <updated>2020-01-30T05:24:25.621Z</updated>
-    
-    <content type="html"><![CDATA[<p>11111</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;11111&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>华为FusionInsight大数据集群关系型数据库——Libra入门</title>
