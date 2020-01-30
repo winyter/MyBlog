@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>华为FusionInsight大数据集群关系型数据库——Libra入门 | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Libra,FusionInsight,PostgreSQL,MPP,BigData">
+    <meta name="description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示      模块说明MP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为FusionInsight大数据集群关系型数据库——Libra入门">
+<meta property="og:url" content="176.122.163.119&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示      模块说明MP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image1.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image2.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image3.png">
+<meta property="article:published_time" content="2020-01-07T16:46:51.000Z">
+<meta property="article:modified_time" content="2020-01-08T08:53:03.607Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Libra">
+<meta property="article:tag" content="FusionInsight">
+<meta property="article:tag" content="PostgreSQL">
+<meta property="article:tag" content="MPP">
+<meta property="article:tag" content="BigData">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">华为FusionInsight大数据集群关系型数据库——Libra入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">华为FusionInsight大数据集群关系型数据库——Libra入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-07T16:46:51.000Z" itemprop="datePublished" class="page-time">
+  2020-01-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Libra简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Libra简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Libra架构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Libra架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模块说明"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">模块说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Libra数据查询流程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Libra数据查询流程</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Libra客户端的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">Libra客户端的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#命令行客户端的使用操作步骤："><span class="post-toc-number">2.1.</span> <span class="post-toc-text">命令行客户端的使用操作步骤：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#图形化客户端的使用"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">图形化客户端的使用</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-FusionInsight-Libra-introduction"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">华为FusionInsight大数据集群关系型数据库——Libra入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-08 00:46:51" datetime="2020-01-07T16:46:51.000Z"  itemprop="datePublished">2020-01-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="Libra简介"><a href="#Libra简介" class="headerlink" title="Libra简介"></a>Libra简介</h2><p>LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。</p>
+<h3 id="Libra架构"><a href="#Libra架构" class="headerlink" title="Libra架构"></a>Libra架构</h3><p>LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示</p>
+<div align="center">
+<img src="/2020/01/07/FusionInsight-Libra-introduction/image1.png" class title="图1 Libra架构图">
+</div>
+
+
+<h4 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h4><p><strong>MPPDBServer(CM)</strong><br>LibrA集群管理模块CM（Cluster Manager），即含CMServer进程的特殊MPPDBServer，负责管理和监控分布式系统中各个功能单元和物理资源的运行情况，确保整个系统的稳定运行。CM分为主CM和备CM。正常情况下，只由主CM提供LibrA集群管理服务。当主CM发生故障的情况下，备CM会主动升为主CM提供LibrA集群管理服务。</p>
+<p>CM通过CM服务完成对各个MPPDBServer管理。CM服务由CMServer、CMAgent、Monitor组成。</p>
+<p>CMServer是整个LibrA集群的大脑，它会根据CMAgent上报上来的各MPPDBServer状态信息来决定是否需要状态变更。CMServer只部署在主备CM上。</p>
+<p>CMAgent是MPPDBServer上面部署的实例代理线程，负责接收CMServer下发的命令和上报MPPDBServer的Coordinator、Datanode、GTM的状态给CMServer。每个MPPDBServer均会部署一个CMAgent，也包括主备CM和主备GTM。</p>
+<p>Monitor是watchdog定时任务，其唯一的任务是在CMAgent停止的情况下将CMAgent重启。每个MPPDBServer均会部署一个Monitor，也包括主备CM和主备GTM。</p>
+<p><strong>MPPDBServer(GTM)</strong><br>全局事务管理模块GTM（Global Transaction Manager），即含GTM进程的特殊MPPDBServer，负责生成和维护全局事务ID、事务快照、时间戳等需要全局唯一的信息。GTM分为主GTM和备GTM。正常情况下，只由主GTM提供全局事务管理服务。当主GTM发生故障的情况下，备GTM会主动升为主GTM提供服务。</p>
+<p><strong>MPPDBServer</strong><br>业务模块，即除MPPDBServer(CM)、MPPDBServer(GTM)以外的MPPDBServer，由Coordinator及多个Datanode组成，负责执行CM、GTM下发的任务。业务模块与MPPDBServer(CM)、MPPDBServer(GTM)主要区别是不包含CMServer与GTM进程。</p>
+<p><strong>Coordinator</strong><br>负责提供外部应用接口、优化全局执行计划、向Datanode分发执行计划，以及汇总、处理执行结果。</p>
+<p><strong>Datanode</strong><br>负责存储业务数据、执行数据查询任务以及向Coordinator返回执行结果。</p>
+<p>Datanode实例分为主Datanode实例、备Datanode实例和从备Datanode实例，它们之间的工作原理如下：</p>
+<p>主、备实例间可以正常同步数据时，主实例不会同步数据到从备实例。<br>主、备实例间无法正常同步数据时，主实例会将数据同步到从备实例。<br>主、备实例间数据同步恢复正常后，主实例会将异常期间的数据同步到备实例上，并在完成后知会从备实例清空之前同步的这部分数据。备实例同步主实例数据期间，如果主实例发生故障不可用，备实例将升为主实例，并在升为主实例成功后从备实例上同步之前异常期间的数据。</p>
+<p><strong>Storage</strong><br>服务器的本地存储资源，持久化存储数据（支持行存、列存、混合存储）。</p>
+<h3 id="Libra数据查询流程"><a href="#Libra数据查询流程" class="headerlink" title="Libra数据查询流程"></a>Libra数据查询流程</h3><p>作为关系型数据库系统，LibrA主要业务为数据的查询与存储。LibrA进行数据查询的流程如图2所示。</p>
+<div align="center">
+<img src="/2020/01/07/FusionInsight-Libra-introduction/image2.png" class title="图2 数据查询流程">
+</div>
+
+
+<p><strong>具体查询流程如下：</strong><br>1、用户通过应用程序发出查询本地数据的SQL请求到Coordinator。<br>2、Coordinator接收用户的SQL请求，分配服务进程，向GTM请求分配全局事务信息。<br>3、GTM接收到Coordinator的请求，返回全局事务信息给Coordinator。<br>4、Coordinator根据数据分布信息以及系统元信息，解析SQL为查询计划树，从查询计划树中提取可以发送到Datanode的执行步骤，封装成SQL语句或者子执行计划树，发送到Datanode执行。<br>5、Datanode接收到读取任务后，查询具体Storage上的本地数据块。<br>6、Datanode任务执行后，将执行结果返回给Coordinator。<br>7、Coordinator将查询结果通过应用程序返回给用户。<br>LibrA数据存储流程与数据查询流程相近，请参考数据查询流程，此处不再介绍。</p>
+<h2 id="Libra客户端的使用"><a href="#Libra客户端的使用" class="headerlink" title="Libra客户端的使用"></a>Libra客户端的使用</h2><h3 id="命令行客户端的使用操作步骤："><a href="#命令行客户端的使用操作步骤：" class="headerlink" title="命令行客户端的使用操作步骤："></a>命令行客户端的使用操作步骤：</h3><p>1、登录安装了客户端的节点及用户<br>2、执行环境变量语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source &lt;环境变量文件&gt;</span><br></pre></td></tr></table></figure>
+<p>3、执行安全认证（如果使用的是非安全认证的集群，本步骤可以跳过）<br>进入 认证文件所在目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg.&#x2F;home&#x2F;websrv&#x2F;keytab&#x2F;hbase</span><br></pre></td></tr></table></figure>
+<p>查看认证用户名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klist -kt user.keytab</span><br></pre></td></tr></table></figure>
+<p>执行认证：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kinit -kt user.keytab &lt;组件业务用户名&gt;  --&lt;组件业务用户名&gt;即上一步看到的</span><br></pre></td></tr></table></figure>
+<p>认证用户名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg. kinit -kt user.keytab admin@HBASE.COM</span><br></pre></td></tr></table></figure>
+<p>4、登录Libra集群命令行交互</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gsql –U &lt;用户名&gt; -W &lt;密码&gt; -d &lt;数据库名&gt; -p &lt;数据库端口号&gt; -h &lt;集群主Master所在节点IP&gt;</span><br><span class="line">eg.gsql -U pfdb -W Bigdata123@ -d tianjin -p 25308 -h 17.22.139.3</span><br></pre></td></tr></table></figure>
+<p>5、Libra个性化操作命令<br>Libra有着完备的SQL支持，只需要使用与其他关系型数据库相同的SQL语句即可对Libra数据库做增删改查操作，但Libra客户端有一些基础的操作命令，可以帮助用户简单快捷的对数据库做操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Informational</span><br><span class="line">  (options: S &#x3D; show system objects, + &#x3D; additional detail)</span><br><span class="line">  \d[S+]                 list tables, views, and sequences</span><br><span class="line">  \d[S+]  NAME           describe table, view, sequence, or index</span><br><span class="line">  \da[S]  [PATTERN]      list aggregates</span><br><span class="line">  \db[+]  [PATTERN]      list tablespaces</span><br><span class="line">  \dc[S+] [PATTERN]      list conversions</span><br><span class="line">  \dC[+]  [PATTERN]      list casts</span><br><span class="line">  \dd[S]  [PATTERN]      show object descriptions not displayed elsewhere</span><br><span class="line">  \ddp    [PATTERN]      list default privileges</span><br><span class="line">  \dD[S+] [PATTERN]      list domains</span><br><span class="line">  \ded[+] [PATTERN]      list data sources</span><br><span class="line">  \det[+] [PATTERN]      list foreign tables</span><br><span class="line">  \des[+] [PATTERN]      list foreign servers</span><br><span class="line">  \deu[+] [PATTERN]      list user mappings</span><br><span class="line">  \dew[+] [PATTERN]      list foreign-data wrappers</span><br><span class="line">  \df[antw][S+] [PATRN]  list [only agg&#x2F;normal&#x2F;trigger&#x2F;window] functions</span><br><span class="line">  \dF[+]  [PATTERN]      list text search configurations</span><br><span class="line">  \dFd[+] [PATTERN]      list text search dictionaries</span><br><span class="line">  \dFp[+] [PATTERN]      list text search parsers</span><br><span class="line">  \dFt[+] [PATTERN]      list text search templates</span><br><span class="line">  \dg[+]  [PATTERN]      list roles</span><br><span class="line">  \di[S+] [PATTERN]      list indexes</span><br><span class="line">  \dl                    list large objects, same as \lo_list</span><br><span class="line">  \dL[S+] [PATTERN]      list procedural languages</span><br><span class="line">  \dn[S+] [PATTERN]      list schemas</span><br><span class="line">  \do[S]  [PATTERN]      list operators</span><br><span class="line">  \dO[S+] [PATTERN]      list collations</span><br><span class="line">  \dp     [PATTERN]      list table, view, and sequence access privileges</span><br><span class="line">  \drds [PATRN1 [PATRN2]] list per-database role settings</span><br><span class="line">  \ds[S+] [PATTERN]      list sequences</span><br><span class="line">  \dt[S+] [PATTERN]      list tables</span><br><span class="line">  \dT[S+] [PATTERN]      list data types</span><br><span class="line">  \du[+]  [PATTERN]      list roles</span><br><span class="line">  \dv[S+] [PATTERN]      list views</span><br><span class="line">  \dE[S+] [PATTERN]      list foreign tables</span><br><span class="line">  \dx[+]  [PATTERN]      list extensions</span><br><span class="line">  \l[+]                  list all databases</span><br><span class="line">  \sf[+] FUNCNAME        show a function&#39;s definition</span><br><span class="line">  \z      [PATTERN]      same as \dp</span><br></pre></td></tr></table></figure>
+
+<h3 id="图形化客户端的使用"><a href="#图形化客户端的使用" class="headerlink" title="图形化客户端的使用"></a>图形化客户端的使用</h3><p>由于Libra是基于Postgres进行开发的，所以所有支持Postgres的图形化客户端均能对Libra进行操作(例如：Navicat)，这里推荐一个客户端——Data Studio，供参考使用下面简单讲一讲该软件的使用方法：</p>
+<div align="center">
+<img src="/2020/01/07/FusionInsight-Libra-introduction/image3.png" class title="图3 Data Studio界面">
+</div>
+
+<p>①此处为连接按钮，点击后，会有新建连接信息的弹窗，按照要求，填写相关连接信息即可登录；<br>②Data Studio支持对表做一些操作，右击相应的表，即可根据菜单，对表做操作；<br>③此处为SQL命令输入框；<br>④此处为结果反馈显示区域；<br>⑤该按钮是执行语句的按钮，Data Studio对语句执行的操作与PL/SQL对语句的操作基本一样：对于鼠标选中的预警进行执行，如果没有选中，则执行整个命令框内的所有命令；<br>⑥Data Studio支持表修改操作自动提交，该功能默认为开启，如果想关闭，可以点击⑥处的按钮进行关闭，在对生产环境进行操作时，为了保证数据的安全，建议将该功能关闭，手动对表修改进行提交。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-08T08:53:03.607Z" itemprop="dateUpdated">2020-01-08 16:53:03</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="176.122.163.119">
+            <img src="/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigData/" rel="tag">BigData</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FusionInsight/" rel="tag">FusionInsight</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Libra/" rel="tag">Libra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MPP/" rel="tag">MPP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PostgreSQL/" rel="tag">PostgreSQL</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&title=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&title=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/01/07/hadoop-kafka/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hadoop快速入门系列——篇五：Kafka</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&title=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&title=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《华为FusionInsight大数据集群关系型数据库——Libra入门》 — Winyter&url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/07/FusionInsight-Libra-introduction/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aW26DUAxF0cx/0ukAEmAfm1TC3nxVCgSvVLKuH68Xvt6n19H9n89+fnr+7M2XDBkyHssgIR4FTV5JvrNzjwwZMvYwSNKspUtyf/ouGTJkyCBfl6Zjcljkh0gZMmTIqCVZHly/3JUhQ8ZOBikmz490PDWnR8Oba3EZMmQ8kMG77v//90/mGzJkyHgU4x1etTZZGlYclQwZMkYzOmNIXprWAuXxyJAhYzajvwZxfn/aRONDUBkyZOxhdJYteLi/Q8qQIWMnIy1f++k4HYWiSawMGTKGMnjqrK1K3FUGH6ZjGTJkDGXUmmL80MbTKylWL7ZFZMiQMZrRKVBJckwLXZ52v3QNZciQMZTBm/L8lWkJyp/98pQMGTJGM/gxLk2CtaKXJ/3DEaYMGTLGMWpDR3405KVp+sMd/h9kyJAxlMGPaHe15M5hfBUMnXBlyJDxcEZ/nYtg0KpE2KSLH5MhQ8bDGbVGW1or89ECT8oyZMjYzEhb/OmAobOOJkOGjJ2MtBDlgfK38OQezDdkyJAxlFHLYGlY6Tegtp0MGTLWMGrNfR50sYlG0roMGTKGMoqHMFAAp603vooRpFoZMmSMYKRpjq9f1MrXWrNPhgwZGxid1Yp+KPxwedHgkyFDxgIGH2qmBW16Z5r6ZciQIaPT6O+MNlvbIjJkyFjPqKXIuxY7LpYtZMiQMZrBW/l8eFAbiJJPZciQsY1RS5rpeKAGSBtwMmTIGMf4AxLm8C7rFVLfAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

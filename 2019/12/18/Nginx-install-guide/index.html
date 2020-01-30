@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Nginx快速部署指南 | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Tools,Nginx">
+    <meta name="description" content="Nginx快速部署指南转自：菜鸟教程  （在其基础上做了一些修改） 什么是NginxNginx(“engine x”)是一款是由俄罗斯的程序设计师Igor Sysoev所开发高性能的 Web和 反向代理 服务器，也是一个 IMAP&#x2F;POP3&#x2F;SMTP 代理服务器。 在高连接并发的情况下，Nginx是Apache服务器不错的替代品。 Nginx安装系统平台：CentOS 7.3 x86_64 一、安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx快速部署指南">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;18&#x2F;Nginx-install-guide&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="Nginx快速部署指南转自：菜鸟教程  （在其基础上做了一些修改） 什么是NginxNginx(“engine x”)是一款是由俄罗斯的程序设计师Igor Sysoev所开发高性能的 Web和 反向代理 服务器，也是一个 IMAP&#x2F;POP3&#x2F;SMTP 代理服务器。 在高连接并发的情况下，Nginx是Apache服务器不错的替代品。 Nginx安装系统平台：CentOS 7.3 x86_64 一、安">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-18T10:04:44.000Z">
+<meta property="article:modified_time" content="2019-12-19T02:07:16.671Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Tools">
+<meta property="article:tag" content="Nginx">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx快速部署指南</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx快速部署指南</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-18T10:04:44.000Z" itemprop="datePublished" class="page-time">
+  2019-12-18
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Nginx快速部署指南"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx快速部署指南</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是Nginx"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">什么是Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx安装"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Nginx安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、安装编译工具及库文件"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">一、安装编译工具及库文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、新建Nginx用户"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">二、新建Nginx用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、安装PCRE"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">三、安装PCRE</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、安装Nginx"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">四、安装Nginx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx配置"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">Nginx配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动Nginx"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">启动Nginx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#访问站点"><span class="post-toc-number">1.2.7.</span> <span class="post-toc-text">访问站点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Nginx其他常用命令"><span class="post-toc-number">1.2.8.</span> <span class="post-toc-text">Nginx其他常用命令</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Nginx-install-guide"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx快速部署指南</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-18 18:04:44" datetime="2019-12-18T10:04:44.000Z"  itemprop="datePublished">2019-12-18</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="Nginx快速部署指南"><a href="#Nginx快速部署指南" class="headerlink" title="Nginx快速部署指南"></a>Nginx快速部署指南</h1><p>转自：<a href="https://www.runoob.com/linux/nginx-install-setup.html" target="_blank" rel="noopener">菜鸟教程</a>  （在其基础上做了一些修改）</p>
+<h2 id="什么是Nginx"><a href="#什么是Nginx" class="headerlink" title="什么是Nginx"></a>什么是Nginx</h2><p>Nginx(“engine x”)是一款是由俄罗斯的程序设计师Igor Sysoev所开发高性能的 Web和 反向代理 服务器，也是一个 IMAP/POP3/SMTP 代理服务器。</p>
+<p>在高连接并发的情况下，Nginx是Apache服务器不错的替代品。</p>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><p>系统平台：CentOS 7.3 x86_64</p>
+<h3 id="一、安装编译工具及库文件"><a href="#一、安装编译工具及库文件" class="headerlink" title="一、安装编译工具及库文件"></a>一、安装编译工具及库文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h3 id="二、新建Nginx用户"><a href="#二、新建Nginx用户" class="headerlink" title="二、新建Nginx用户"></a>二、新建Nginx用户</h3><p>基于环境安全，不建议使用root用户部署Nginx，尤其是生产环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd -g users nginx -m -d &#x2F;home&#x2F;nginx</span><br><span class="line">passwd nginx   # 设置nginx用户密码</span><br><span class="line">su - nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、安装PCRE"><a href="#三、安装PCRE" class="headerlink" title="三、安装PCRE"></a>三、安装PCRE</h3><p>PCRE 作用是让 Nginx 支持 Rewrite 功能。</p>
+<ol>
+<li>下载PCRE安装包：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;downloads.sourceforge.net&#x2F;project&#x2F;pcre&#x2F;pcre&#x2F;8.35&#x2F;pcre-8.35.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>解压安装包：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf pcre-8.35.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>进入安装包目录：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd pcre-8.35</span><br></pre></td></tr></table></figure></li>
+<li>编译安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></li>
+<li>安装完成，查看pcre版本：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcre-config --version</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="四、安装Nginx"><a href="#四、安装Nginx" class="headerlink" title="四、安装Nginx"></a>四、安装Nginx</h3><ol>
+<li>下载Nignx<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.6.2.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>解压安装包<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.6.2.tar.gz</span><br></pre></td></tr></table></figure></li>
+<li>进入安装包目录<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.6.2</span><br></pre></td></tr></table></figure></li>
+<li>编译安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre&#x3D;&#x2F;home&#x2F;nginx&#x2F;pcre-8.35</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></li>
+<li>查看Nginx版本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx -v</span><br></pre></td></tr></table></figure>
+至此，Nginx安装完成</li>
+</ol>
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><ol>
+<li>配置<code>nginx.conf</code>，将<code>/home/nginx/webserver/nginx/conf/nginx.conf</code>替换为以下内容:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">user nginx users;  # user &lt;username&gt; &lt;groupname&gt;</span><br><span class="line">worker_processes 2; #设置值和CPU核心数一致</span><br><span class="line">error_log &#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;logs&#x2F;nginx_error.log crit; #日志位置和日志级别</span><br><span class="line">pid &#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;nginx.pid;</span><br><span class="line">#Specifies the value for maximum file descriptors that can be opened by this process.</span><br><span class="line">worker_rlimit_nofile 65535;</span><br><span class="line">events</span><br><span class="line">&#123;</span><br><span class="line">  use epoll;</span><br><span class="line">  worker_connections 65535;</span><br><span class="line">&#125;</span><br><span class="line">http</span><br><span class="line">&#123;</span><br><span class="line">  include mime.types;</span><br><span class="line">  default_type application&#x2F;octet-stream;</span><br><span class="line">  log_format main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;</span><br><span class="line">               &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span><br><span class="line">               &#39;&quot;$http_user_agent&quot; $http_x_forwarded_for&#39;;</span><br><span class="line">  </span><br><span class="line">#charset gb2312;</span><br><span class="line">     </span><br><span class="line">  server_names_hash_bucket_size 128;</span><br><span class="line">  client_header_buffer_size 32k;</span><br><span class="line">  large_client_header_buffers 4 32k;</span><br><span class="line">  client_max_body_size 8m;</span><br><span class="line">     </span><br><span class="line">  sendfile on;</span><br><span class="line">  tcp_nopush on;</span><br><span class="line">  keepalive_timeout 60;</span><br><span class="line">  tcp_nodelay on;</span><br><span class="line">  fastcgi_connect_timeout 300;</span><br><span class="line">  fastcgi_send_timeout 300;</span><br><span class="line">  fastcgi_read_timeout 300;</span><br><span class="line">  fastcgi_buffer_size 64k;</span><br><span class="line">  fastcgi_buffers 4 64k;</span><br><span class="line">  fastcgi_busy_buffers_size 128k;</span><br><span class="line">  fastcgi_temp_file_write_size 128k;</span><br><span class="line">  gzip on; </span><br><span class="line">  gzip_min_length 1k;</span><br><span class="line">  gzip_buffers 4 16k;</span><br><span class="line">  gzip_http_version 1.0;</span><br><span class="line">  gzip_comp_level 2;</span><br><span class="line">  gzip_types text&#x2F;plain application&#x2F;x-javascript text&#x2F;css application&#x2F;xml;</span><br><span class="line">  gzip_vary on;</span><br><span class="line"> </span><br><span class="line">  #limit_zone crawler $binary_remote_addr 10m;</span><br><span class="line"> #下面是server虚拟主机的配置</span><br><span class="line"> server</span><br><span class="line">  &#123;</span><br><span class="line">    listen 80;#监听端口</span><br><span class="line">    server_name localhost;#域名</span><br><span class="line">    index index.html index.htm index.php;</span><br><span class="line">    root &#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;html;#站点目录</span><br><span class="line">      location ~ .*\.(php|php5)?$</span><br><span class="line">    &#123;</span><br><span class="line">      #fastcgi_pass unix:&#x2F;tmp&#x2F;php-cgi.sock;</span><br><span class="line">      fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">      fastcgi_index index.php;</span><br><span class="line">      include fastcgi.conf;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico)$</span><br><span class="line">    &#123;</span><br><span class="line">      expires 30d;</span><br><span class="line">  # access_log off;</span><br><span class="line">    &#125;</span><br><span class="line">    location ~ .*\.(js|css)?$</span><br><span class="line">    &#123;</span><br><span class="line">      expires 15d;</span><br><span class="line">   # access_log off;</span><br><span class="line">    &#125;</span><br><span class="line">    access_log off;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+检查配置文件nginx.conf的正确性：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx -t</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="启动Nginx"><a href="#启动Nginx" class="headerlink" title="启动Nginx"></a>启动Nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问站点"><a href="#访问站点" class="headerlink" title="访问站点"></a>访问站点</h3><p>从浏览器访问我们配置的站点IP，如果出现了：<code>Welcome to nginx</code>。就表示部署成功。</p>
+<h3 id="Nginx其他常用命令"><a href="#Nginx其他常用命令" class="headerlink" title="Nginx其他常用命令"></a>Nginx其他常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx -s reload            # 重新载入配置文件</span><br><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx -s reopen            # 重启 Nginx</span><br><span class="line">&#x2F;home&#x2F;nginx&#x2F;webserver&#x2F;nginx&#x2F;sbin&#x2F;nginx -s stop              # 停止 Nginx</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-19T02:07:16.671Z" itemprop="dateUpdated">2019-12-19 10:07:16</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Nginx/" rel="tag">Nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Tools/" rel="tag">Tools</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&title=《Nginx快速部署指南》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&title=《Nginx快速部署指南》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx快速部署指南》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2019/12/19/ftp-increment-download-with-shell/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Shell脚本实现FTP文件增量传输</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2019/12/16/Hexo_install_guide/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hexo部署指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&title=《Nginx快速部署指南》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&title=《Nginx快速部署指南》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx快速部署指南》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwUlEQVR42u3aQXLjMAwEwPz/096qvcaiZwhR8aF1cimxxeaBgAD8/MTX6//1+/PVnd9/vfqf18W1XsPNFx4eHt7W0tePubqT/LVd6HoN+Zrx8PDwTvOSYLB+2DoYtBu3t314eHh438ZrD+gk2KzT7nxD8fDw8L6ZlwePPFQkT8HDw8P7Nl5+iM+Lv6/BdbDWgoeHhxfz5gt9/vND/T08PDy8squeB4k2mZ4Ui4vV4uHh4R3g5a36fKDqrtZXmygXbwx4eHh4N/HaXLQtNyRPTAJGAn4TGPDw8PBu5e09cl62aAuvbcKNh4eHd463l9q2RdXJ8EEekC7jHh4eHt5NvMnRXOzfIGy0Kynqx3h4eHgD3qQsmxdqk8LEhHSZTOPh4eEd5iUp7Lzxn99pA9ibyQg8PDy8A7z8KM+LFG2bai9B//BdPDw8vGO8yQBWneYGB30+KPDhPh4eHt4BXnvsToYG5phky/Dw8PCe57XDAfmRnQSJdhgr+i4eHh7erbxJMWIdANrxqaQYkYSEN28MeHh4eLfy2uJsjmzT8Un77UP6joeHh3crb57g7m1K/puTpBwPDw/vBG+vVd+2yvJQMWl6FQ0wPDw8vJt4ewWItkix1wBrwXh4eHjP8NrPk/Jue3/UZsPDw8M7wJuUUHNMcZSXwwp5EMLDw8Ob8/KCwl5Da68x1g4c4OHh4f0Vr21E1TGnHBTIt6CYKcPDw8Mb8+bNp3Zx7ShV2+6K3hXw8PDwBrxXee0VLNqC796wwpvfwcPDwzvA2ysrzAusyaDAvCGHh4eHd443CQZtK2uSUudJPx4eHt4zvEn7al2kyBtXe8WIqICLh4eH90e8PAy0W9B+t2594eHh4X0Nry0N3Fv8jcIJHh4e3jFeW4xYJ9DrQz9vdK1/PwoPeHh4eAd47Ut+/pj299vNnTwRDw8Pb4v3D3LfVLmnEFyNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

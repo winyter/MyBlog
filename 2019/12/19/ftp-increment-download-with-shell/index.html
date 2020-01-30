@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Shell脚本实现FTP文件增量传输 | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Shell,FTP,code">
+    <meta name="description" content="#Shell脚本实现FTP文件增量传输  环境：CentOS 7.3使用语言：shellFrom：shell脚本中的实时ftp传输实例  前言该脚本基本思路是定时读取FTP远程目录上的文件名列表，然后将本次列表与上次列表对比，获取增量文件列表，然后按照此列表下载文件。 获取当前文件列表12345678910#!&#x2F;bin&#x2F;bashcd &lt;本机目录&gt;  # 进入本机目录，你需要指定一个目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本实现FTP文件增量传输">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;19&#x2F;ftp-increment-download-with-shell&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="#Shell脚本实现FTP文件增量传输  环境：CentOS 7.3使用语言：shellFrom：shell脚本中的实时ftp传输实例  前言该脚本基本思路是定时读取FTP远程目录上的文件名列表，然后将本次列表与上次列表对比，获取增量文件列表，然后按照此列表下载文件。 获取当前文件列表12345678910#!&#x2F;bin&#x2F;bashcd &lt;本机目录&gt;  # 进入本机目录，你需要指定一个目录">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-19T11:29:51.000Z">
+<meta property="article:modified_time" content="2019-12-20T03:30:57.260Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Shell">
+<meta property="article:tag" content="FTP">
+<meta property="article:tag" content="code">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Shell脚本实现FTP文件增量传输</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Shell脚本实现FTP文件增量传输</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-19T11:29:51.000Z" itemprop="datePublished" class="page-time">
+  2019-12-19
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取当前文件列表"><span class="post-toc-number">2.</span> <span class="post-toc-text">获取当前文件列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对比文件列表"><span class="post-toc-number">3.</span> <span class="post-toc-text">对比文件列表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载增量文件"><span class="post-toc-number">4.</span> <span class="post-toc-text">下载增量文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置定时任务"><span class="post-toc-number">5.</span> <span class="post-toc-text">设置定时任务</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">6.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ftp-increment-download-with-shell"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Shell脚本实现FTP文件增量传输</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-19 19:29:51" datetime="2019-12-19T11:29:51.000Z"  itemprop="datePublished">2019-12-19</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>#Shell脚本实现FTP文件增量传输</p>
+<hr>
+<p>环境：CentOS 7.3<br>使用语言：shell<br>From：<a href="https://blog.csdn.net/qq_34485930/article/details/79916169" target="_blank" rel="noopener">shell脚本中的实时ftp传输实例</a></p>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>该脚本基本思路是定时读取FTP远程目录上的文件名列表，然后将本次列表与上次列表对比，获取增量文件列表，然后按照此列表下载文件。</p>
+<h2 id="获取当前文件列表"><a href="#获取当前文件列表" class="headerlink" title="获取当前文件列表"></a>获取当前文件列表</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">cd &lt;本机目录&gt;  # 进入本机目录，你需要指定一个目录，用来存放文件列表记录</span><br><span class="line"></span><br><span class="line">ftp -n -v &lt;远程FTP IP地址&gt; &lt;&lt;!</span><br><span class="line">   user &lt;用户名&gt; &lt;密码&gt;</span><br><span class="line">   prompt off    # 关闭交互模式</span><br><span class="line">   nlist &lt;文件名正则表达式&gt; list_origin.txt    # 获取本次文件列表，生成list_origin.txt文件</span><br><span class="line">   close</span><br><span class="line">   bye</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+<p>这时，在本机目录下，会产生一个<code>list_origin.txt</code>文件，这个文件就是本次运行读取的当前文件列表。</p>
+<h2 id="对比文件列表"><a href="#对比文件列表" class="headerlink" title="对比文件列表"></a>对比文件列表</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 将当前文件列表与前次文件列表比对，获得增量文件列表</span></span><br><span class="line">comm -3 list_origin.txt list_last.txt &gt; list_mid.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 统计增量文件数量</span></span><br><span class="line">num="`cat list_mid.txt | wc -l`"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将本次文件列表以覆盖方式写入前次文件列表</span></span><br><span class="line">cat list_origin.txt &gt; list_last.txt</span><br></pre></td></tr></table></figure>
+<p>这个步骤就是增量传输思路的核心，利用<code>comm</code>命令，将本次列表与前次列表比对的结果写入增量列表，供下一步FTP下载文件使用</p>
+<h2 id="下载增量文件"><a href="#下载增量文件" class="headerlink" title="下载增量文件"></a>下载增量文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">for ((i = 1; i &lt;= $num; i++));</span><br><span class="line">do</span><br><span class="line">ftp -n -v &lt;远程FTP IP地址&gt; &lt;&lt;!</span><br><span class="line">   user &lt;用户名&gt; &lt;密码&gt;</span><br><span class="line">   binary  # 使用二进制传输</span><br><span class="line">   passive  # 进入被动传输</span><br><span class="line">   prompt off  # 关闭交互模式</span><br><span class="line">   cd &lt;远程文件目录&gt;</span><br><span class="line">   lcd &lt;本地数据文件存储目录&gt;    # 这个目录可以和上面的“本地目录”不一样，且建议不一样</span><br><span class="line">   get `cat list_mid.txt | tail -n +$i | head -n 1`</span><br><span class="line">   close</span><br><span class="line">   bye</span><br><span class="line">!</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>这段代码即是实时下载文件，使用<code>for</code>循环，逐行下载增量文件列表中的文件，至此，就完成了增量传输脚本的所有内容。</p>
+<h2 id="设置定时任务"><a href="#设置定时任务" class="headerlink" title="设置定时任务"></a>设置定时任务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+<p>写入定时任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#x2F;5 * * * * nohup &#x2F;bin&#x2F;bash &lt;脚本路径&gt; &gt;&gt; &lt;脚本日志路径&gt; 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个脚本简单粗暴，适用于非严谨场合下的快速部署。该脚本稳定性较好，实测生产环境一年的运行中，未出现问题。但由于使用<code>for</code>循环，每次下载一个文件都需要打开关闭一次FTP，所以，这个脚本性能一般，而且日志生成量较大，大量文件传输的情况下，需要再搭配日志清除的定时任务，基于此，也建议设置脚本执行的定时任务时，定时时间间隔尽可能小一些。另外，三个文件列表文件，尤其是<code>list_last.txt</code>这个前次列表文件，切勿删除，否则，将会丢失所有增量传输进度。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-20T03:30:57.260Z" itemprop="dateUpdated">2019-12-20 11:30:57</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/FTP/" rel="tag">FTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Shell/" rel="tag">Shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/code/" rel="tag">code</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&title=《Shell脚本实现FTP文件增量传输》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&title=《Shell脚本实现FTP文件增量传输》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell脚本实现FTP文件增量传输》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">PostgreSQL表间复制数据</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2019/12/18/Nginx-install-guide/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx快速部署指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&title=《Shell脚本实现FTP文件增量传输》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&title=《Shell脚本实现FTP文件增量传输》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell脚本实现FTP文件增量传输》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrUlEQVR42u3aQZLiQAwEwPn/p2eve1igSuoGNiJ9IgZjd/rQ1pT08xMfv38dj759dH77q0d3fHSdAwceHh7eYumPlvX82+dLTNjPr/kc/2JVeHh4eNd4+UKff062+3z3nl0HDw8P7zt5s9vnZXryIsHDw8P7X3htAT17tSQlPh4eHt5nefnl8k0/39yTYvp61oKHh4cX8/Iu0vd8vtLfw8PDw1t31fNmVV5Y75tbxWrx8PDwLvBORa43AtzZ+Xh4eHi3eZvWV/7CSMYF8jGCIubAw8PDu8DLW/Vts38TZERtrU2mgoeHh3eB1270+dafj6tuslk8PDy8z/JOLWv2gNrd/kAfDw8PDy/+7WwcahYQtOckf4kmy/Dw8PDWvHzRyeuhLa9nza3iWzw8PLwLvDx4nYUFq8b/4gG9mIzAw8PDW/M2jav2cbThRZst4OHh4b2Tl4Szs015U7K3YQQeHh7ebd5+FDVv7edlcR7XFu86PDw8vEO8pI2UN8BOLa54gyVlOh4eHt5RXlv+5m37NpCdRbcvym48PDy8C7xZOyq/ZbvF50s/EBDj4eHhjXinmvRJQdwOeBUNrUfXx8PDw7vGa2OCfOgqX1aLiUa18PDw8K7xZotrN/1NwX04a8HDw8Nb8JLRpeS1MWtftXdM7oWHh4f3WV4bs87Oz9tmwyEDPDw8vGu8Nlxow4t2UKAt94vRKzw8PLxDvE300G7rbVDbHnh4eHj3eL/lkQe4+6HV9iH+4zp4eHh4F3iz9nz+IO4tehYc4+Hh4Z3ibV4GbZCRx7ibB4GHh4f3Hl7batoU3LPG27Ahh4eHh/dlvLxm3z/E4QABHh4e3tfwZuMCszPbfwDw8PDw3sObBQGnQoR8ufXgAh4eHt4FXj2lFYe27ejVc3y7Hjw8PLwLvD/Tul6TAqAuGwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

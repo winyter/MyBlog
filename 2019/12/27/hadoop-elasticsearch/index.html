@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hadoop快速入门系列——篇二：ElasticSearch | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hadoop,ElasticSearch">
+    <meta name="description" content="ES简介ES数据模型Index：即索引，是Elasticsearch中一个逻辑命名空间，指向一个或多个分片，内部Apache Lucene实现索引中数据的读写。索引与关系数据库实例Database相当。一个Elasticsearch实例可以包含多个索引。Type：文档类型，文档类型使得同一个索引中在存储结构不同的文档时，只需要依据文档类型就可以找到对应的参数映射信息，方便文档的存储。相当于数据库中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop快速入门系列——篇二：ElasticSearch">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;27&#x2F;hadoop-elasticsearch&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="ES简介ES数据模型Index：即索引，是Elasticsearch中一个逻辑命名空间，指向一个或多个分片，内部Apache Lucene实现索引中数据的读写。索引与关系数据库实例Database相当。一个Elasticsearch实例可以包含多个索引。Type：文档类型，文档类型使得同一个索引中在存储结构不同的文档时，只需要依据文档类型就可以找到对应的参数映射信息，方便文档的存储。相当于数据库中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;hadoop-elasticsearch&#x2F;image1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;hadoop-elasticsearch&#x2F;image2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;hadoop-elasticsearch&#x2F;image3.png">
+<meta property="article:published_time" content="2019-12-26T16:35:11.000Z">
+<meta property="article:modified_time" content="2019-12-27T09:01:08.246Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="ElasticSearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;hadoop-elasticsearch&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇二：ElasticSearch</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hadoop快速入门系列——篇二：ElasticSearch</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-26T16:35:11.000Z" itemprop="datePublished" class="page-time">
+  2019-12-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">ES简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES数据模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">ES数据模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES架构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">ES架构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES环境加载"><span class="post-toc-number">2.</span> <span class="post-toc-text">ES环境加载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ES命令的使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">ES命令的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JSON基本语法原则"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">JSON基本语法原则</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础curl命令"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">基础curl命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#获取集群基础信息"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">获取集群基础信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本的数据增删改命令"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">基本的数据增删改命令</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES搜索-查询命令，以及高级的query、filter、聚合搜索操作"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">ES搜索&#x2F;查询命令，以及高级的query、filter、聚合搜索操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#基础的查询命令"><span class="post-toc-number">3.5.1.</span> <span class="post-toc-text">基础的查询命令</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查询DSL-—-query"><span class="post-toc-number">3.5.2.</span> <span class="post-toc-text">查询DSL — query</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#过滤DSL-—-filter"><span class="post-toc-number">3.5.3.</span> <span class="post-toc-text">过滤DSL — filter</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#query与filter的区别"><span class="post-toc-number">3.5.4.</span> <span class="post-toc-text">query与filter的区别</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#聚合查询"><span class="post-toc-number">3.5.5.</span> <span class="post-toc-text">聚合查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Metric聚合"><span class="post-toc-number">3.5.5.1.</span> <span class="post-toc-text">Metric聚合</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#Bucket聚合"><span class="post-toc-number">3.5.5.2.</span> <span class="post-toc-text">Bucket聚合</span></a></li></ol></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hadoop-elasticsearch"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hadoop快速入门系列——篇二：ElasticSearch</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-27 00:35:11" datetime="2019-12-26T16:35:11.000Z"  itemprop="datePublished">2019-12-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="ES简介"><a href="#ES简介" class="headerlink" title="ES简介"></a>ES简介</h2><h3 id="ES数据模型"><a href="#ES数据模型" class="headerlink" title="ES数据模型"></a>ES数据模型</h3><p><strong>Index</strong>：即索引，是Elasticsearch中一个逻辑命名空间，指向一个或多个分片，内部Apache Lucene实现索引中数据的读写。索引与关系数据库实例Database相当。一个Elasticsearch实例可以包含多个索引。<br><strong>Type</strong>：文档类型，文档类型使得同一个索引中在存储结构不同的文档时，只需要依据文档类型就可以找到对应的参数映射信息，方便文档的存储。相当于数据库中的Table。一个索引对应一个文档类型。<br><strong>Document</strong>：文档，是可以被索引的基本单位，特指最顶层结构或根对象序列化成的JSON数据。相当于数据库中的Row。一个类型包含多个文档。<br><strong>Field</strong>：字段，组成文档的最小单位。相当于数据库中的Column。每个文档包含多个字段。<br><strong>Mapping</strong>：相当于数据库中的schema，用来约束字段的类型，不过 Elasticsearch 的 mapping 可以自动根据数据创建</p>
+<div align="center">
+<img src="/2019/12/26/hadoop-elasticsearch/image1.png" class title="图1 ES数据模型模拟">
+</div>
+
+<h3 id="ES架构"><a href="#ES架构" class="headerlink" title="ES架构"></a>ES架构</h3><p><strong>EsNode</strong>：Elasticsearch节点，一个节点就是一个Elasticsearch实例。<br><strong>EsMaster</strong>：主节点，可以临时管理集群级别的一些变更，例如新建或删除索引、增加或移除节点等。主节点不参与文档级别的变更或搜索，在流量增长时，该主节点不会成为集群的瓶颈。<br><strong>primary shard</strong>：主分片，索引中的每个文档属于一个单独的主分片，主分片的数量决定了索引最多能存储多少数据。<br><strong>replica shard</strong>：即复制分片，它是主分片的一个副本，可以防止硬件故障导致的数据丢失，同时可以提供读请求，比如搜索或者从别的shard取回文档。<br><strong>recovery</strong>：代表数据恢复或叫数据重新分布，Elasticsearch在有节点加入或退出时会根据机器的负载对索引分片进行重新分配，挂掉的节点重新启动时也会进行数据恢复。<br><strong>gateway</strong>：代表Elasticsearch索引快照的存储方式，默认是先把索引存放到内存中，当内存满了时再持久化到本地硬盘。gateway对索引快照进行存储，当这个Elasticsearch集群关闭再重新启动时就会从gateway中读取索引备份数据。支持多种类型的gateway，有本地文件系统（默认），分布式文件系统，Hadoop的HDFS和amazon的s3云存储服务。<br><strong>transport</strong>：代表Elasticsearch内部节点或集群与客户端的交互方式，默认内部是使用tcp协议进行交互，同时它支持http协议（json格式）、thrift、servlet、memcached、zeroMQ等的传输协议（通过插件方式集成）。<br><strong>ZooKeeper</strong>：它在Elasticsearch是必须的，提供安全认证信息的存储等功能。<br><strong>shard（分片）</strong>：是工作单元(worker unit) 底层的一员，用来分配集群中的数据，它只负责保存索引中所有数据的一小片。</p>
+<ul>
+<li>分片是一个独立的Lucene实例，并且它自身也是一个完整的搜索引擎。</li>
+<li>文档存储并且被索引在分片中，但是我们的程序并不会直接与它们通信。取而代之，它们直接与索引进行通信的</li>
+<li>把分片想象成一个数据的容器。数据被存储在分片中，然后分片又被分配在集群的节点上。当你的集群扩展或者缩小时，elasticsearch 会自动的在节点之间迁移分配分片，以便集群保持均衡</li>
+<li>分片分为 主分片(primary shard) 以及 从分片(replica shard) 两种。在你的索引中，每一个文档都属于一个主分片</li>
+<li>从分片只是主分片的一个副本，它用于提供数据的冗余副本，在硬件故障时提供数据保护，同时服务于搜索和检索这种只读请求</li>
+<li>索引中的主分片的数量在索引创建后就固定下来了，但是从分片的数量可以随时改变。</li>
+<li>一个索引默认设置了5个主分片，每个主分片有一个从分片对应</li>
+</ul>
+<h2 id="ES环境加载"><a href="#ES环境加载" class="headerlink" title="ES环境加载"></a>ES环境加载</h2><p>1、登录安装了ES客户端的节点<br>2、登录相应用户<br>3、加载环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg.source &#x2F;home&#x2F;websrv&#x2F;client&#x2F;hadoopClient&#x2F;bigdata_env</span><br></pre></td></tr></table></figure>
+<p>4、执行安全认证（如果使用的是非安全认证的集群，本步骤可以跳过）<br>进入 认证文件所在目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg.&#x2F;home&#x2F;websrv&#x2F;keytab&#x2F;hbase</span><br></pre></td></tr></table></figure>
+<p>查看认证用户名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">klist -kt user.keytab</span><br></pre></td></tr></table></figure>
+<p>执行认证：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kinit -kt user.keytab &lt;组件业务用户名&gt;  --&lt;组件业务用户名&gt;即上一步看到的</span><br></pre></td></tr></table></figure>
+<p>认证用户名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eg. kinit -kt user.keytab tjhj_zxsk_jj@HBASE.COM</span><br></pre></td></tr></table></figure>
+<p>然后再登录hbase shell即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">拓展：klist  ——&gt;  查看认证时间</span><br></pre></td></tr></table></figure>
+<p>5、使用curl命令进行操作<br>命令使用方法参见下一节的介绍</p>
+<h2 id="ES命令的使用"><a href="#ES命令的使用" class="headerlink" title="ES命令的使用"></a>ES命令的使用</h2><p>ES 的命令主要是curl命令。ElasticSearch的命令调用是基于http的，提供了丰富的RESTFul API，从功能上来分可以分为3类：<br>    (1)    获取集群基础信息；<br>    (2)    基本的数据增删改命令；<br>(3)    ES搜索/查询命令，以及高级的query、filter、聚合搜索操作；<br>其中，对于ES数据的搜索时本节讲述的重点，也是日常维护工作中使用最频繁的ES命令。ES的搜索命令从命令格式上来划分有两种方式：<br>一是通过RESTfulrequest API传递查询参数，也称“query-string”；<br>另一个是通过发送REST request body，也称作JSON格式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># query-string格式：</span><br><span class="line">curl -XGET ‘192.168.226.133:9200&#x2F;my_index&#x2F;my_type&#x2F;_search?pretty’</span><br><span class="line"># JSON格式：</span><br><span class="line">curl - XGET &#39;localhost:9200&#x2F;my_index&#x2F;my_type&#x2F;_search?pretty&#39; -d&#39;</span><br><span class="line">       &#123;</span><br><span class="line">         &quot;query&quot;: &#123;&quot;match_all&quot;: &#123;&#125; &#125;</span><br><span class="line">       &#125;&#39;</span><br></pre></td></tr></table></figure>
+<p>由于JSON格式更加友好美观，所以目前大部分对ES的查询命令都使用该格式表达，本节也会以这种格式介绍为主，所以在介绍详细命令的使用之前，会先介绍基本的JSON语法原则和基本CURL命令格式。</p>
+<h3 id="JSON基本语法原则"><a href="#JSON基本语法原则" class="headerlink" title="JSON基本语法原则"></a>JSON基本语法原则</h3><ul>
+<li>数据在键/值对中：<br>JSON 数据的书写格式是：键/值对。键/值对包括字段名称（在双引号中），后面写一个冒号，然后是值：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;firstName&quot; : &quot;John&quot;</span><br></pre></td></tr></table></figure></li>
+<li>数据由逗号分隔</li>
+<li>花括号保存对象：<br>JSON 对象在花括号中书写，对象可以包含多个键/值对，多个键值对用逗号分隔：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;firstName&quot;:&quot;John&quot; , &quot;lastName&quot;:&quot;Doe&quot; &#125;</span><br></pre></td></tr></table></figure></li>
+<li>方括号保存数组：<br>JSON 数组在方括号中书写，数组可包含多个对象：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;employees&quot;: [</span><br><span class="line">&#123; &quot;firstName&quot;:&quot;John&quot; , &quot;lastName&quot;:&quot;Doe&quot; &#125;,</span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Anna&quot; , &quot;lastName&quot;:&quot;Smith&quot; &#125;,</span><br><span class="line">&#123; &quot;firstName&quot;:&quot;Peter&quot; , &quot;lastName&quot;:&quot;Jones&quot; &#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="基础curl命令"><a href="#基础curl命令" class="headerlink" title="基础curl命令"></a>基础curl命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl [options…] &lt;url&gt;</span><br><span class="line"></span><br><span class="line">	常用操作符：</span><br><span class="line">	-XGET	--指定本次命令为查询请求</span><br><span class="line">	-XPUT	--指定本次命令为新增修改请求</span><br><span class="line">	-XDELETE	--指定本次命令为删除请求</span><br><span class="line">	### 上面三个操作符必须选择一个，具体如何选择根据实际的增删改查操作需求</span><br><span class="line">	--negotiate	--使用HTTP身份认证，如果使用HTTP协议方式连接，该操作符必选</span><br><span class="line">	-k	--允许不使用证书到SSL站点，天津现场建议选择，其他现场按需选择</span><br><span class="line">	-v	--显示版本信息</span><br><span class="line">	-u	--设置服务器的用户名和密码</span><br><span class="line">	-H	--自定义头信息传递给服务，默认即可</span><br><span class="line">	-d	--HTTP POST方式传送数据，此处指文档内容</span><br><span class="line">以上操作符为常用的curl命令操作符，如果有其它操作符需求，可以在命令行键入：curl –help</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取集群基础信息"><a href="#获取集群基础信息" class="headerlink" title="获取集群基础信息"></a>获取集群基础信息</h3><p>获取集群健康状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -k -v -u : https:&#x2F;&#x2F;ip:httpport&#x2F;_cluster&#x2F;health?pretty</span><br></pre></td></tr></table></figure>
+<p>注意：ip:httpport需要填写ES集群中一个节点的IP地址，不需要填写所有的节点IP，ES集群会自行查询整个集群，httpport是该节点上已安装的任意ES实例的HTTP端口，需要查询确定<br>查询所有索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;_cat&#x2F;indices?v&#39;</span><br></pre></td></tr></table></figure>
+<p>查看指定索引的mapping</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;_mapping?pretty&#39;</span><br></pre></td></tr></table></figure>
+<p>查看指定索引的setting</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;_settings?pretty&#39; --setting	即该索引的结构</span><br></pre></td></tr></table></figure>
+<p>检查文档是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -XHEAD --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;文档类型&#x2F;索引ID&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本的数据增删改命令"><a href="#基本的数据增删改命令" class="headerlink" title="基本的数据增删改命令"></a>基本的数据增删改命令</h3><p>新建索引，并设置副本数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名?pretty&#39; -H &#39;Content-Type: application&#x2F;json&#39; -d&#39; &#123;&quot;settings&quot; : &#123;&quot;number_of_shards&quot; : 分片数量,&quot;number_of_replicas&quot; : 副本数量&#125; &#125;&#39;</span><br><span class="line"></span><br><span class="line">例如：curl -XPUT --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;1.1.1.1:24148&#x2F;website?pretty&#39; -H &#39;Content-Type: application&#x2F;json&#39; -d&#39; &#123;&quot;settings&quot; : &#123;&quot;number_of_shards&quot; : 3,&quot;number_of_replicas&quot; : 1&#125; &#125;&#39;</span><br></pre></td></tr></table></figure>
+<p>写入数据，更新索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;文档类型&#x2F;索引ID?pretty&#39; -H &#39;Content-Type: application&#x2F;json&#39; -d&#39; &#123; &#125;&#39;</span><br><span class="line"></span><br><span class="line">例如：curl -XPOST --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;1.1.1.1:24148&#x2F;website&#x2F;blog&#x2F;123?pretty&#39; -H &#39;Content-Type: application&#x2F;json&#39; -d&#39; &#123;&quot;title&quot;: &quot;My first blog entry&quot;, &quot;text&quot;: &quot;Just trying this out...&quot;,&quot;date&quot;: &quot;2014&#x2F;01&#x2F;01&quot;&#125;&#39;</span><br></pre></td></tr></table></figure>
+<p>删除文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;索引类型&#x2F;索引ID?pretty&#39;</span><br><span class="line"></span><br><span class="line">例如：curl -XDELETE --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;1.1.1.1:24148&#x2F;website&#x2F;blog&#x2F;123?pretty&#39;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ES搜索-查询命令，以及高级的query、filter、聚合搜索操作"><a href="#ES搜索-查询命令，以及高级的query、filter、聚合搜索操作" class="headerlink" title="ES搜索/查询命令，以及高级的query、filter、聚合搜索操作"></a>ES搜索/查询命令，以及高级的query、filter、聚合搜索操作</h3><h4 id="基础的查询命令"><a href="#基础的查询命令" class="headerlink" title="基础的查询命令"></a>基础的查询命令</h4><p>查询所有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;索引名&#x2F;文档类型&#x2F;_search?pretty&#39;  -d&#39; &#123;</span><br><span class="line">&quot;query&quot; : &#123;</span><br><span class="line">        &quot;match_all&quot; : &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#39;</span><br></pre></td></tr></table></figure>
+<p>根据rowkey查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;索引名&#x2F;文档类型&#x2F;_search?pretty&#39;  -d&#39; &#123;</span><br><span class="line">&quot;query&quot; : &#123;</span><br><span class="line">        &quot;match&quot; : &#123;&quot;rowkey&quot;:&quot;KX6ncmYBWgNWo4LeB0VD&quot;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#39;</span><br><span class="line">索引名可以用2019*形式，表示查询范围是以2019开头的索引</span><br></pre></td></tr></table></figure>
+<p>返回文档的一部分数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -k -v -u : &#39;https:&#x2F;&#x2F;ip:httpport&#x2F;索引名&#x2F;文档类型&#x2F;索引ID?_source&#x3D;文档属性名,文档属性名&amp;pretty&#39;</span><br></pre></td></tr></table></figure>
+<p>此外，在搜索时url中可以指定索引名和类型名以减少搜索的范围：</p>
+<ul>
+<li>/_search：搜索所有索引的所有类型；</li>
+<li>/my_index/_search：搜索my_index索引的所有类型；</li>
+<li>/students, my_index /_search：搜索students和my_index索引的所有类型；</li>
+<li>/ my_*/_search：搜索名称以my_开头的所有索引的所有类型；</li>
+<li>/ my_index/customer/_search：搜索my_index索引的customer类型；</li>
+<li>/_all/customer/_search：搜索所有索引的customer类型</li>
+</ul>
+<p>PS：一旦你取回了你的搜索结果，Elasticsearch就完成了使命，它不会维护任何服务器端的资源或者在你的结果中打开游标，这也是RESTFul风格的一个特性，也注定了ES每次返回值默认是有限制的。</p>
+<p>由于REST request body的JSON格式从可读性和灵活性来说都给开发者带来太多的美感，所以实际应用中重点使用JSON格式，这种查询语句又被称为DSL。而DSL又因原理不同被划分为查询DSL(query DSL)和过滤DSL(filter DSL)。</p>
+<p>DSL格式如果再使用linux的curl命令来书写那真是太累了，建议使用ELK组合中的Kibana来帮助查询ES。<br>下载地址：<a href="https://www.elastic.co/downloads/kibana" target="_blank" rel="noopener">https://www.elastic.co/downloads/kibana</a></p>
+<p>按照官网的教程：<br>1下载解压<br>2配置config/kibana.yml<br>3执行bin/kibana<br>4浏览器访问<a href="http://localhost:5601" target="_blank" rel="noopener">http://localhost:5601</a></p>
+<div align="center">
+<img src="/2019/12/26/hadoop-elasticsearch/image2.png" class title="图2 Kibana界面展示">
+</div>
+
+<p>从上面的很多命令可以看到，基础的curl命令实际上是使用的query-string格式，但是，该格式仅在简单的命令中有着优势，在面对较为复杂的查询需求，query-string格式就显得心有余而力不足，因此，随着查询需求的越来越高级，curl命令主体的格式也慢慢转变成了JSON格式，这个现象在本段上面的两条查询语句中得到了证实，而下面将会深入讲解curl命令的几个高级搜索特性，这些搜索特性，全都基于JSON格式。</p>
+<h4 id="查询DSL-—-query"><a href="#查询DSL-—-query" class="headerlink" title="查询DSL — query"></a>查询DSL — query</h4><p>在查询上下文中，查询会回答这个问题——“这个文档匹不匹配这个查询，它的相关度高么？”<br>虽然与Oracle、MySQL同有数据存储的功能，但ES本质上是一个搜索引擎，搜索引擎意味着它需要去判断查询请求与查询内容之间的“相关度”的问题，ES为了实现“相关度”，引入了“评分”（score）这个概念，而query查询就是实现“评分”这个能力的关键<br>下面会使用一个例子体现query查询的特性，顺带，也会展示ES查询的请求与响应的细节：</p>
+<p>请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39; &#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;match&quot;: &#123;</span><br><span class="line">      &quot;state&quot;: &quot;UT&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;from&quot;: 10, </span><br><span class="line">  &quot;size&quot;: 2,</span><br><span class="line">  &quot;sort&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;age&quot;: &#123;</span><br><span class="line">        &quot;order&quot;: &quot;desc&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  &quot;_source&quot;: [&quot;account_number&quot;,&quot;address&quot;,&quot;state&quot;,&quot;age&quot;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--query		与之相对的是filter，两者的区别后面会详细介绍</span><br><span class="line">--match		里面是查询条件，与query匹配使用</span><br><span class="line">--size		代表结果取数返回记录数，像limit或rownum的作用。默认为10</span><br><span class="line">--from		是标识从第几条记录开始取值。默认为0</span><br><span class="line">--sort		标识按什么排序</span><br><span class="line">--_source	标识返回集中的字段名，像select后的属性，默认是select *</span><br></pre></td></tr></table></figure>
+<p>响应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 30,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;skipped&quot;: 0,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 20,</span><br><span class="line">    &quot;max_score&quot;: null,</span><br><span class="line">    &quot;hits&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;my_index&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;customer&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;465&quot;,</span><br><span class="line">        &quot;_score&quot;: null,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;account_number&quot;: 465,</span><br><span class="line">          &quot;address&quot;: &quot;916 Evergreen Avenue&quot;,</span><br><span class="line">          &quot;state&quot;: &quot;UT&quot;,</span><br><span class="line">          &quot;age&quot;: 29</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;sort&quot;: [</span><br><span class="line">          29</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;_index&quot;: &quot;my_index&quot;,</span><br><span class="line">        &quot;_type&quot;: &quot;customer&quot;,</span><br><span class="line">        &quot;_id&quot;: &quot;758&quot;,</span><br><span class="line">        &quot;_score&quot;: null,</span><br><span class="line">        &quot;_source&quot;: &#123;</span><br><span class="line">          &quot;account_number&quot;: 758,</span><br><span class="line">          &quot;address&quot;: &quot;149 Surf Avenue&quot;,</span><br><span class="line">          &quot;state&quot;: &quot;UT&quot;,</span><br><span class="line">          &quot;age&quot;: 28</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;sort&quot;: [</span><br><span class="line">          28</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">简单说返回内容包括2部分。</span><br><span class="line">一部分是本次搜索的基本信息：</span><br><span class="line">--took		消耗的时间，单位是ms</span><br><span class="line">--shards		分片被检索的信息</span><br><span class="line">--hits.total		满足搜索条件的记录个数；</span><br><span class="line">--hits.hits		返回结果集</span><br><span class="line">另一部分是搜索结果集：</span><br><span class="line">--index		结果所在索引</span><br><span class="line">--type		结果所在类型</span><br><span class="line">--id			结果的ID</span><br><span class="line">--score		结果的评分（需要了解Lucene中df&#x2F;tf的概念Lucene原理分析）</span><br><span class="line">--source		如前面所说select *里的内容</span><br></pre></td></tr></table></figure>
+
+<h4 id="过滤DSL-—-filter"><a href="#过滤DSL-—-filter" class="headerlink" title="过滤DSL — filter"></a>过滤DSL — filter</h4><p>在过滤器上下文中，查询会回答这个问题——“这个文档匹不匹配？”</p>
+<p>答案很简单，是或者不是。它不会去计算任何分值，也不会关心返回的排序问题，因此效率会高一点。</p>
+<p>过滤上下文 是在使用filter参数时候的执行环境，比如在bool查询中使用Must_not或者filter</p>
+<p>另外，经常使用过滤器，ES会自动的缓存过滤器的内容，这对于查询来说，会提高很多性能。</p>
+<p>为了便于理解，下面列举一些过滤的情况：<br>创建日期是否在2013-2014年间？<br>status字段是否为published？<br>lat_lon字段是否在某个坐标的10公里范围内？</p>
+<p>从上面的例子中可以看到，过滤器上下文中，查询操作仅判断是否满足查询条件。</p>
+<p>最后，使用一个例子，来演示一下filter的使用：<br>搜索年龄在20-25之间，余额在20000-35000之间，地址包含Street，或者邮箱包含schultzmoreno的这样的记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39; &#123;</span><br><span class="line">  &quot;query&quot;: &#123;</span><br><span class="line">    &quot;bool&quot;:&#123;</span><br><span class="line">      &quot;should&quot;: [</span><br><span class="line">        &#123;&quot;match&quot;: &#123;</span><br><span class="line">          &quot;address&quot;: &quot;Street&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123;&quot;match&quot;: &#123;</span><br><span class="line">          &quot;email&quot;: &quot;schultzmoreno&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      ],</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">        &quot;age&quot;: &#123;</span><br><span class="line">          &quot;gte&quot;: 20,</span><br><span class="line">          &quot;lte&quot;: 25</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;filter&quot;: &#123;</span><br><span class="line">        &quot;range&quot;: &#123;</span><br><span class="line">        &quot;balance&quot;: &#123;</span><br><span class="line">          &quot;gte&quot;: 20000,</span><br><span class="line">          &quot;lte&quot;: 35000</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;from&quot;: 0, </span><br><span class="line">  &quot;size&quot;: 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="query与filter的区别"><a href="#query与filter的区别" class="headerlink" title="query与filter的区别"></a>query与filter的区别</h4><div align="center">
+<img src="/2019/12/26/hadoop-elasticsearch/image3.png" class title="图3 query与filter的区别">
+</div>
+
+<p>query与filter虽然有相对关系，但在实际使用中，并不存在两者不能共用的问题，正如上面的那个查询语句示例，filter嵌套在query里面，在实际使用中，两者的使用仅看查询的需求，如果需要query查询那样的全文搜索、评分功能，那么就使用query，如果需要filter过滤那样的精准判断，那么就使用filter，下面同样以一个例子，展示query与filter的混合使用，以及如何去根据实际需求，组织查询语句：</p>
+<p>假设现在我们需要查询一个邮箱数据库，查询收件箱中，邮件内容包含business opportunity 的邮件：</p>
+<p>首先，获取邮件内容中有“business opportunity”的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">    &quot;match&quot;: &#123; </span><br><span class="line">        &quot;email&quot;: &quot;business opportunity&quot; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，限定只在收件箱中查找：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">    &quot;term&quot;: &#123; </span><br><span class="line">        &quot;folder&quot;: &quot;inbox&quot; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着，对这两条语句进行拼合，match语句很明显是一个query查询，而team语句则可以看出是一个filter过滤，由于search API中只能包含 query 语句，所以我们需要用 filtered 来同时包含 “query” 和 “filter” 子句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123; </span><br><span class="line">    &quot;filtered&quot;: &#123; </span><br><span class="line">        &quot;query&quot;:  &#123; &quot;match&quot;: &#123; &quot;email&quot;: &quot;business opportunity&quot; &#125;&#125;, </span><br><span class="line">        &quot;filter&quot;: &#123; &quot;term&quot;:  &#123; &quot;folder&quot;: &quot;inbox&quot; &#125;&#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们在最外层加上query的上下文关系以及curl命令主体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39;</span><br><span class="line">&#123; </span><br><span class="line">    &quot;query&quot;: &#123; </span><br><span class="line">        &quot;filtered&quot;: &#123; </span><br><span class="line">            &quot;query&quot;:  &#123; &quot;match&quot;: &#123; &quot;email&quot;: &quot;business opportunity&quot; &#125;&#125;, </span><br><span class="line">            &quot;filter&quot;: &#123; &quot;term&quot;: &#123; &quot;folder&quot;: &quot;inbox&quot; &#125;&#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，一个简单的复合查询命令就已经完成，只需要执行，便能得到想要的结果。</p>
+<h4 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h4><p>Elasticsearch具有称为聚合的功能，允许您对数据生成复杂的分组和分析，像是Oracle中的group by、avg等，而且更强大。</p>
+<h5 id="Metric聚合"><a href="#Metric聚合" class="headerlink" title="Metric聚合"></a>Metric聚合</h5><p>先看运算，跟Oracle类似有sum、max、min、avg、count等，在ES中可以单独算某一种运算外，还提供了一个stats参数，一次请求把以上所有结果都返回出来。</p>
+<p>请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39;&#123;</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;my_name&quot;: &#123;</span><br><span class="line">      &quot;stats&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;age&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;size&quot;: 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">--Aggs		代表是启用聚合功能了，固定套路。</span><br><span class="line">--My_name	给聚合返回的结果集起一个别名，单独看不出意义，嵌套聚合的时候体现价值。</span><br><span class="line">--Stats		聚合的操作命令，这里是统计的命令，可以换成sum、max、min、avg、term等各种各样ES内置的命令。</span><br><span class="line">--Field		指定被聚合的属性名。</span><br><span class="line">--Size		指定结果集中要返回多少条被本次聚合命中的document，如果只关心聚合结果不关心命中的记录，size请指定为0。</span><br></pre></td></tr></table></figure>
+<p>返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 24,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;skipped&quot;: 0,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1000,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;my_name&quot;: &#123;</span><br><span class="line">      &quot;count&quot;: 1000,</span><br><span class="line">      &quot;min&quot;: 20,</span><br><span class="line">      &quot;max&quot;: 40,</span><br><span class="line">      &quot;avg&quot;: 30.171,</span><br><span class="line">      &quot;sum&quot;: 30171</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Bucket聚合"><a href="#Bucket聚合" class="headerlink" title="Bucket聚合"></a>Bucket聚合</h5><p>桶子的意思，根据条件把数据按照木桶封装好，有点Oracle中group by的意思。</p>
+<p>请求：按照年龄把文档按桶子分分类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39;&#123;</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;my_name&quot;: &#123;</span><br><span class="line">      &quot;terms&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;age&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;size&quot;: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;took&quot;: 92,</span><br><span class="line">  &quot;timed_out&quot;: false,</span><br><span class="line">  &quot;_shards&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 5,</span><br><span class="line">    &quot;successful&quot;: 5,</span><br><span class="line">    &quot;skipped&quot;: 0,</span><br><span class="line">    &quot;failed&quot;: 0</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;hits&quot;: &#123;</span><br><span class="line">    &quot;total&quot;: 1000,</span><br><span class="line">    &quot;max_score&quot;: 0,</span><br><span class="line">    &quot;hits&quot;: []</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;my_name&quot;: &#123;</span><br><span class="line">      &quot;doc_count_error_upper_bound&quot;: 0,</span><br><span class="line">      &quot;sum_other_doc_count&quot;: 463,</span><br><span class="line">      &quot;buckets&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 31,</span><br><span class="line">          &quot;doc_count&quot;: 61</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 39,</span><br><span class="line">          &quot;doc_count&quot;: 60</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 26,</span><br><span class="line">          &quot;doc_count&quot;: 59</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 32,</span><br><span class="line">          &quot;doc_count&quot;: 52</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 35,</span><br><span class="line">          &quot;doc_count&quot;: 52</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 36,</span><br><span class="line">          &quot;doc_count&quot;: 52</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 22,</span><br><span class="line">          &quot;doc_count&quot;: 51</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 28,</span><br><span class="line">          &quot;doc_count&quot;: 51</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 33,</span><br><span class="line">          &quot;doc_count&quot;: 50</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          &quot;key&quot;: 34,</span><br><span class="line">          &quot;doc_count&quot;: 49</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个年龄都有一桶记录在里面，默认是按照桶里数据多少来排序的，可以在field后添加 <code>&quot;order&quot; : { &quot;_term&quot; : &quot;asc&quot;}</code>指定按照内容来排序。</p>
+<p>还可以与前面的运算嵌套使用，我想算一下每个年龄存款的平均水平：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET --negotiate -H &#39;Content-Type: application&#x2F;json&#39; -k -v -u : &#39;https:&#x2F;&#x2F;17.22.142.3:24148&#x2F;sample&#x2F;type&#x2F;_search?pretty&#39;  -d&#39;&#123;</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;my_name&quot;: &#123;</span><br><span class="line">      &quot;terms&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;age&quot;,</span><br><span class="line">        &quot;order&quot;: &#123;</span><br><span class="line">          &quot;avg_balance&quot;: &quot;desc&quot;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;aggs&quot;: &#123;</span><br><span class="line">        &quot;avg_balance&quot;: &#123;</span><br><span class="line">          &quot;avg&quot;: &#123;</span><br><span class="line">            &quot;field&quot;: &quot;balance&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;size&quot;: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此，ES命令的介绍基本结束，本章讲述的命令并非ES搜索命令的全部，ES有着强大的搜索功能，这也意味着ES的查询语句将比较复杂，建议在掌握了本节所列举的这些基础语法后，再上网搜索其他更复杂更强大的命令。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-27T09:01:08.246Z" itemprop="dateUpdated">2019-12-27 17:01:08</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/01/06/hadoop-hive/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hadoop快速入门系列——篇三：Hive</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2019/12/25/hbase-shell-filter/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">HBase Shell 过滤器 —— HBase Shell Filter</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3a0U7kMAwFUP7/p3elfYXp3msnDEKnT6jQTo6REo/tj4/4+vPv+nzn+Xp+9tWdz2949dSxCw8PD2+09GSJ+UfO7udhSv4eDw8P7zbveSnPvHbrTz4l4UXhw8PDw3sr73lDT5Y7CwEeHh7e7+O1BYuzQcTDw8N7F29Tis039DwQ7f0DtRY8PDy8mNc2wH7Czxf7e3h4eHiLrnqbCrdLSYrC+WHwxWrx8PDwLvCStDXZb5OdOX92ligX3xjw8PDwDvGSBW2aVWeDlRdK8PDw8G7z8sbYbAwrH7HawPDw8PC+h9eWBmbbd3LwzML9n4MBDw8P7wLv1JBT3qbKR6w2iTgeHh7eDd6ppv6sSdYObyXHWFTMxcPDwxvx2tJAXpzdAw603PDw8PCu8fLUNimn5mNbeQjaoEe5OR4eHt6C174i/6bflolnjbGX9/Hw8PAu8JKtPF/WLDVPArRq1OHh4eEd5eUNpFmZoC0H7xtgRTECDw8Pb8Rrt/XhS8vA5Ul2/QUADw8P7xBvk8627bH2ENoUmvHw8PBu8NqG1qmF5s+uyr54eHh4F3izKy8rtGfUpgk3+0s8PDy8ltc2uvLNt936h2NVz7/Fw8PDu8zbp7NtgypJ4jfFETw8PLwbvNmWvR+rmt3Pj7Hov4qHh4c34iXbdBuh9gg59eywAYaHh4e35rXpdXKEJAWOTSurGB3Aw8PDW/NmXbJokmvRhdvzjn08Hh4eXtAAS8oNyW/zQ2U2fJCMIODh4eHd4G028eSlmyMkDxweHh7e9/Paw2DW4rpR7Cj+M3h4eHgXeG0NI2mDzZY7ZLyy4OHh4b2Vt0mINyMC7WAWHh4e3s/n5WWCGT4vJX/xZjw8PLxrvFkxYpb4tgWRVVkEDw8P727FddgA2yTBm5GCU8HFw8PDi3l/AY0FXpPr5zdzAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

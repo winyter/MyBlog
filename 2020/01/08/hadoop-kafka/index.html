@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hadoop快速入门系列——篇五：Kafka | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hadoop,Kafka">
+    <meta name="description" content="Kafka简介Kafka是用于构建实时数据管道和数据流的应用程序。具有实时横向扩展、高吞吐量、支持大量堆积具有容错性和速度快等特点。它是一个高性能分布式消息系统。 Kafka架构及业务实现原理    生产者（Producer）将消息发布到Kafka主题（Topic），消费者（Consumer）订阅这些主题并消费这些消息。在Kafka集群上一个服务器称为一个Broker。对于每一个主题，Kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop快速入门系列——篇五：Kafka">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;01&#x2F;08&#x2F;hadoop-kafka&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="Kafka简介Kafka是用于构建实时数据管道和数据流的应用程序。具有实时横向扩展、高吞吐量、支持大量堆积具有容错性和速度快等特点。它是一个高性能分布式消息系统。 Kafka架构及业务实现原理    生产者（Producer）将消息发布到Kafka主题（Topic），消费者（Consumer）订阅这些主题并消费这些消息。在Kafka集群上一个服务器称为一个Broker。对于每一个主题，Kafka">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-kafka&#x2F;image1.png">
+<meta property="article:published_time" content="2020-01-07T16:46:17.000Z">
+<meta property="article:modified_time" content="2020-01-08T08:50:19.449Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Kafka">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-kafka&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇五：Kafka</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hadoop快速入门系列——篇五：Kafka</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-07T16:46:17.000Z" itemprop="datePublished" class="page-time">
+  2020-01-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kafka简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Kafka简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kafka架构及业务实现原理"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Kafka架构及业务实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kafka特性"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Kafka特性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Kafka操作指南"><span class="post-toc-number">2.</span> <span class="post-toc-text">Kafka操作指南</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Kafka命令精要"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Kafka命令精要</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hadoop-kafka"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hadoop快速入门系列——篇五：Kafka</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-08 00:46:17" datetime="2020-01-07T16:46:17.000Z"  itemprop="datePublished">2020-01-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h2><p>Kafka是用于构建实时数据管道和数据流的应用程序。具有实时横向扩展、高吞吐量、支持大量堆积具有容错性和速度快等特点。它是一个高性能分布式消息系统。</p>
+<h3 id="Kafka架构及业务实现原理"><a href="#Kafka架构及业务实现原理" class="headerlink" title="Kafka架构及业务实现原理"></a>Kafka架构及业务实现原理</h3><div align="center">
+<img src="/2020/01/07/hadoop-kafka/image1.png" class title="图1 Kafka结构">
+</div>
+
+<p>生产者（Producer）将消息发布到Kafka主题（Topic），消费者（Consumer）订阅这些主题并消费这些消息。在Kafka集群上一个服务器称为一个Broker。对于每一个主题，Kafka集群保留一个用于缩放、并行化和容错性的分区（Partition）。每个分区是一个有序、不可变的消息序列，并不断追加到提交日志文件。分区的消息每个也被赋值一个称为偏移顺序（Offset）的序列化编号。</p>
+<p>消费者使用一个消费者组名称来标记自己，主题的每个消息被传递给每个订阅消费者组中的一个消费者。如果所有的消费者实例都属于同样的消费组，它们就像传统队列负载均衡方式工作。如上图中，Consumer1与Consumer2之间为负载均衡方式；Consumer3、Consumer4、Consumer5与Consumer6之间为负载均衡方式。如果消费者实例都属于不同的消费组，则消息会被广播给所有消费者。如上图中，Topic1中的消息，同时会广播到Consumer Group1与Consumer Group2中。</p>
+<p><strong>结构图说明</strong><br><strong>Broker</strong><br>在Kafka集群上一个服务器称为一个Broker。<br><strong>Topic/主题</strong><br>一个Topic就是一个类别或者一个可订阅的条目名称，也即一类消息。一个主题可以有多个分区，这些分区可以作为并行的一个单元。<br><strong>Partition/分区</strong><br>是一个有序的、不可变的消息序列，这个序列可以被连续地追加—个提交日志。在分区内的每条消息都有一个有序的ID号，这个ID号被称为偏移（Offset），这个偏移量可以唯一确定每条消息在分区内的位置。<br><strong>Producer/生产者</strong><br>向Kafka的主题发布消息。<br><strong>Consumer/消费者</strong><br>向Topic订阅，并且接收发布到这些Topic的消息。</p>
+<h3 id="Kafka特性"><a href="#Kafka特性" class="headerlink" title="Kafka特性"></a>Kafka特性</h3><p><strong>消息可靠性</strong><br>Kafka Broker收到消息后，会持久化到磁盘，同时，Topic的每个Partition有自己的Replica（备份），每个Replica分布在不同的Broker节点上，以保证当某一节点失效时，可以自动故障转移到可用消息节点。</p>
+<p>高吞吐量<br>Kafka通过以下方式提供系统高吞吐量：<br>数据磁盘持久化：消息不在内存中cache，直接写入到磁盘，充分利用磁盘的顺序读写性能。<br>Zero-copy：减少IO操作步骤。<br>数据批量发送：提高网络利用率。<br>Topic划分为多个Partition，提高并发度，可以由多个Producer、Consumer数目之间的关系并发来读、写消息。Producer根据用户指定的算法，将消息发送到指定的Partition。</p>
+<p><strong>消息订阅-通知机制</strong><br>消费者对感兴趣的主题进行订阅，并采取pull的方式消费数据，使得消费者可以根据其消费能力自主地控制消息拉取速度，同时，可以根据自身情况自主选择消费模式，例如批量、重复消费，从尾端开始消费等；另外，需要消费者自己负责维护其自身消息的消费记录。</p>
+<p><strong>可扩展性</strong><br>当在Kafka集群中可通过增加Broker节点以提供更大容量时。新增的Broker会向Zookeeper注册，而Producer及Consumer会及时从Zookeeper感知到这些变化，并及时作出调整。</p>
+<h2 id="Kafka操作指南"><a href="#Kafka操作指南" class="headerlink" title="Kafka操作指南"></a>Kafka操作指南</h2><h3 id="Kafka命令精要"><a href="#Kafka命令精要" class="headerlink" title="Kafka命令精要"></a>Kafka命令精要</h3><p>首先需要声明，由于Kafka很多业务需要有Zookeeper去完成，所以Kafka的操作命令中，有一部分需要用到Zookeeper组件的节点IP，在实际使用中，需要注意哪些命令使用Kafka节点IP，哪些使用Zookeeper节点IP，如果使用混了，很容易会导致查询出错。另外，还需要关注Kafka的不同端口，比如一些带有安全认证的集群，有安全端口和非安全端口的区别。</p>
+<p>查看当前集群Topic列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-topics.sh --list --zookeeper &lt;ZooKeeper集群IP:24002&#x2F;kafka&gt;</span><br></pre></td></tr></table></figure>
+<p>查看单个Topic详细信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-topics.sh --describe --zookeeper &lt;ZooKeeper集群IP:24002&#x2F;kafka&gt; --topic &lt;Topic名称&gt;</span><br></pre></td></tr></table></figure>
+<p>删除Topic，由管理员用户操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-topics.sh --delete --zookeeper &lt;ZooKeeper集群IP:24002&#x2F;kafka&gt; --topic &lt;Topic名称&gt;</span><br></pre></td></tr></table></figure>
+<p>创建Topic，由管理员用户操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-topics.sh --create --zookeeper &lt;ZooKeeper集群IP:24002&#x2F;kafka&gt; --partitions 6 --replication-factor 2 --topic &lt;Topic名称&gt;</span><br></pre></td></tr></table></figure>
+<p>Old Producer API生产数据，服务端“allow.everyone.if.no.acl.found”配置为“True”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-console-producer.sh --broker-list &lt;Kafka集群IP:21005&gt; --topic &lt;Topic名称&gt; --old-producer -sync</span><br></pre></td></tr></table></figure>
+<p>Old Consumer API消费数据，服务端“allow.everyone.if.no.acl.found”配置为“True”。该命令从topic头部开始消费数据，也即从最老的数据向新数据开始消费</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-console-consumer.sh --zookeeper &lt;ZooKeeper集群IP:24002&#x2F;kafka&gt; --topic &lt;Topic名称&gt; --from-beginning</span><br></pre></td></tr></table></figure>
+<p>赋Consumer权限命令，由管理员用户操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-acls.sh --authorizer-properties zookeeper.connect&#x3D;&lt;ZooKeeper集群IP:24002&#x2F;kafka &gt; --add --allow-principal User:&lt;用户名&gt; --consumer --topic &lt;Topic名称&gt; --group &lt;消费者组名称&gt;</span><br></pre></td></tr></table></figure>
+<p>赋Producer权限命令，由管理员用户操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-acls.sh --authorizer-properties zookeeper.connect&#x3D;&lt;ZooKeeper集群IP:24002&#x2F;kafka &gt; --add --allow-principal User:&lt;用户名&gt; --producer --topic &lt;Topic名称&gt;</span><br></pre></td></tr></table></figure>
+<p>New Producer API生产消息，需要拥有该Topic生产者权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-console-producer.sh --broker-list &lt;Kafka集群IP:21007&gt; --topic &lt;Topic名称&gt; --producer.config config&#x2F;producer.properties</span><br></pre></td></tr></table></figure>
+<p>New Consumer API消费数据，需要拥有该Topic的消费者权限，该命令是从topic尾部开始消费数据，也即从最新的数据向老数据开始消费</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-console-consumer.sh --topic &lt;Topic名称&gt; --bootstrap-server &lt;Kafka集群IP:21007&gt; --new-consumer --consumer.config config&#x2F;consumer.properties</span><br></pre></td></tr></table></figure>
+<p>消费kafka数据并输出（通常用来查看topic中是否有数据，以及监控topic数据）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;kafka-console-consumer.sh --topic business_imperson --bootstrap-server 17.22.148.17:21005,17.22.148.18:21005,17.22.148.19:21005,17.22.148.20:21005</span><br></pre></td></tr></table></figure>
+<p>Tips：在已经运行了一段时间的现场环境中，如果有些命令如果不知道怎么使用，可以在命令行下，Ctrl+R，然后输入相应命令的关键词，以查找该命令的历史使用记录（该技巧不仅可以用于Kafka命令的查找，也可以用于其他命令）<br>更多Kafka知识和命令介绍参考hadoop官网说明文档：<a href="http://kafka.apache.org/" target="_blank" rel="noopener">http://kafka.apache.org/</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-08T08:50:19.449Z" itemprop="dateUpdated">2020-01-08 16:50:19</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Kafka/" rel="tag">Kafka</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&title=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&title=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/01/08/FusionInsight-Libra-introduction/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">华为FusionInsight大数据集群关系型数据库——Libra入门</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/01/08/hadoop-other/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hadoop快速入门系列——篇六：其他组件简介</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&title=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&title=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇五：Kafka》 — Winyter&url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3awW6EMAxF0fn/n6ab7qoJ99lQKfFlVaFAchjJdex8Pvi6/lx8DBn/7c7DlwwZMrZlXMuLT8nvEAxfmwwZMuYwvkUwHjRr05PPt16bDBkyZKRBMH2KzCVDhgwZtYDLN5zrMWkqKUOGjMmMfkAkhbP3UkwZMmSczeBV9///+5X+hgwZMrZiXOGVPrtOK/vr+X2PDBkyjmbwAJcmZ3xMZ2MsQ4aMCQx+9IGncTy8cvzNG2TIkDGAQZZeC6n9ghoq58mQIWMAg6eAacLH37CGBbVAGTJkHMd4dtvJU8b1XKTMJ0OGjDmMOAkDd9JmZLFGKEOGjDEMUmjrhF1eyCNzoRXKkCFjAKNTGqtNnDJunpIhQ8ahDN7IrLUE0s9Ewv3N7yBDhozjGP1WQb+1WUtGZciQMYHB0zKy0M4RjU6bU4YMGRMYJLyuwy6v1ZPF8YZB/F9ChgwZGzLSEjxn1N5QaxXIkCFjAuONYxZPheBW81KGDBnHMfg2sn9QjJft+LZWhgwZcxjxMawQyT9ZWqSTIUPGHAbvdnaSyE5x7ebMiAwZMo5j1NoAtYNcnQCNCm0yZMg4lJF2BnkDstOk5ONjjAwZMrZl9IMsGV9rf8YnR2TIkHE0Iz2dkW5Z49Mf4WplyJAhg5BqGSjZ4qK3yZAhQwYOnXwbzI+XkeRVhgwZExjpkQgyJU8TeQJabGTKkCFjc0a/lsWTxVra91gjU4YMGfsxfgDPFQPx54gdjwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

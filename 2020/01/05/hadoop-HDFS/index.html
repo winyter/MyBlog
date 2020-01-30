@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hadoop快速入门系列——篇四：HDFS | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hadoop,HDFS">
+    <meta name="description" content="HDFS简介Hadoop分布式文件系统（Hadoop Distributed File System）能提供高吞吐量的数据访问，适合大规模数据集方面的应用，为海量数据提供存储。 HDFS架构HDFS包含主、备NameNode和多个DataNode，如图1所示。 HDFS是一个Master&#x2F;Slave的架构，在Master上运行NameNode，而在每一个Slave上运行DataNode，ZKFC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop快速入门系列——篇四：HDFS">
+<meta property="og:url" content="176.122.163.119&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="HDFS简介Hadoop分布式文件系统（Hadoop Distributed File System）能提供高吞吐量的数据访问，适合大规模数据集方面的应用，为海量数据提供存储。 HDFS架构HDFS包含主、备NameNode和多个DataNode，如图1所示。 HDFS是一个Master&#x2F;Slave的架构，在Master上运行NameNode，而在每一个Slave上运行DataNode，ZKFC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image1.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image2.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image3.png">
+<meta property="article:published_time" content="2020-01-05T16:17:10.000Z">
+<meta property="article:modified_time" content="2020-01-08T08:45:18.233Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="HDFS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇四：HDFS</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hadoop快速入门系列——篇四：HDFS</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-05T16:17:10.000Z" itemprop="datePublished" class="page-time">
+  2020-01-05
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HDFS简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">HDFS简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS架构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">HDFS架构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#模块说明"><span class="post-toc-number">1.1.1.</span> <span class="post-toc-text">模块说明</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS原理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">HDFS原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HDFS与其他组件之间的关系"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">HDFS与其他组件之间的关系</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HDFS和HBase的配合关系"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">HDFS和HBase的配合关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce和HDFS的配合关系"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">MapReduce和HDFS的配合关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Spark和HDFS的配合关系"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">Spark和HDFS的配合关系</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ZooKeeper和HDFS的配合关系"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">ZooKeeper和HDFS的配合关系</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HDFS操作指南"><span class="post-toc-number">2.</span> <span class="post-toc-text">HDFS操作指南</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hadoop-HDFS"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hadoop快速入门系列——篇四：HDFS</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-06 00:17:10" datetime="2020-01-05T16:17:10.000Z"  itemprop="datePublished">2020-01-06</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="HDFS简介"><a href="#HDFS简介" class="headerlink" title="HDFS简介"></a>HDFS简介</h2><p>Hadoop分布式文件系统（Hadoop Distributed File System）能提供高吞吐量的数据访问，适合大规模数据集方面的应用，为海量数据提供存储。</p>
+<h3 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h3><p>HDFS包含主、备NameNode和多个DataNode，如图1所示。</p>
+<p>HDFS是一个Master/Slave的架构，在Master上运行NameNode，而在每一个Slave上运行DataNode，ZKFC需要和NameNode一起运行。</p>
+<p>NameNode和DataNode之间的通信都是建立在TCP/IP的基础之上的。NameNode、DataNode、ZKFC和JournalNode能部署在运行Linux的服务器上。</p>
+<div align="center">
+<img src="/2020/01/05/hadoop-HDFS/image1.png" class title="图1 HDFS结构图">
+</div>
+
+<h4 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h4><p><strong>NameNode</strong><br>用于管理文件系统的命名空间、目录结构、元数据信息以及提供备份机制等，分为：</p>
+<p>Active NameNode：管理文件系统的命名空间、维护文件系统的目录结构树以及元数据信息；记录写入的每个“数据块”与其归属文件的对应关系。</p>
+<p>Standby NameNode：与Active NameNode中的数据保持同步；随时准备在Active NameNode出现异常时接管其服务。<br><strong>DataNode</strong><br>用于存储每个文件的“数据块”数据，并且会周期性地向NameNode报告该DataNode的数据存放情况。<br><strong>JournalNode</strong><br>HA集群下，用于同步主备NameNode之间的元数据信息。<br><strong>ZKFC</strong><br>ZKFC是需要和NameNode一一对应的服务，即每个NameNode都需要部署ZKFC。它负责监控NameNode的状态，并及时把状态写入Zookeeper。ZKFC也有选择谁作为Active NameNode的权利。<br><strong>ZK Cluster</strong><br>ZooKeeper是一个协调服务，帮助ZKFC执行主NameNode的选举。<br><strong>HttpFS gateway</strong><br>HttpFS是个单独无状态的gateway进程，对外提供webHDFS接口，对HDFS使用FileSystem接口对接。可用于不同Hadoop版本间的数据传输，及用于访问在防火墙后的HDFS(HttpFS用作gateway)。</p>
+<h3 id="HDFS原理"><a href="#HDFS原理" class="headerlink" title="HDFS原理"></a>HDFS原理</h3><div align="center">
+<img src="/2020/01/05/hadoop-HDFS/image2.png" class title="图2 HDFS运行原理">
+</div>
+
+<p>在HDFS内部，一个文件分成一个或多个“数据块”，这些“数据块”存储在DataNode集合里，NameNode负责保存和管理所有的HDFS元数据。客户端连接到NameNode，执行文件系统的“命名空间”操作，例如打开、关闭、重命名文件和目录，同时决定“数据块”到具体DataNode节点的映射。DataNode在NameNode的指挥下进行“数据块”的创建、删除和复制。客户端连接到DataNode，执行读写数据块操作。</p>
+<h3 id="HDFS与其他组件之间的关系"><a href="#HDFS与其他组件之间的关系" class="headerlink" title="HDFS与其他组件之间的关系"></a>HDFS与其他组件之间的关系</h3><p>HDFS是整个Hadoop系统的底层存储实现，与其他很多组件都有着交互，了解HDFS与他们之间的交互将有助于理解Hadoop整套系统的交互运作方式。</p>
+<h4 id="HDFS和HBase的配合关系"><a href="#HDFS和HBase的配合关系" class="headerlink" title="HDFS和HBase的配合关系"></a>HDFS和HBase的配合关系</h4><p>HDFS是Apache的Hadoop项目的子项目，HBase利用Hadoop HDFS作为其文件存储系统。HBase位于结构化存储层，Hadoop HDFS为HBase提供了高可靠性的底层存储支持。除了HBase产生的一些日志文件，HBase中的所有数据文件都可以存储在Hadoop HDFS文件系统上。</p>
+<h4 id="MapReduce和HDFS的配合关系"><a href="#MapReduce和HDFS的配合关系" class="headerlink" title="MapReduce和HDFS的配合关系"></a>MapReduce和HDFS的配合关系</h4><p>HDFS是Hadoop分布式文件系统，具有高容错和高吞吐量的特性，可以部署在价格低廉的硬件上，存储应用程序的数据，适合有超大数据集的应用程序。<br>而MapReduce是一种编程模型，用于大数据集（大于1TB）的并行运算。在MapReduce程序中计算的数据可以来自多个数据源，如Local FileSystem、HDFS、数据库等。最常用的是HDFS，可以利用HDFS的高吞吐性能读取大规模的数据进行计算。同时在计算完成后，也可以将数据存储到HDFS。</p>
+<h4 id="Spark和HDFS的配合关系"><a href="#Spark和HDFS的配合关系" class="headerlink" title="Spark和HDFS的配合关系"></a>Spark和HDFS的配合关系</h4><p>通常，Spark中计算的数据可以来自多个数据源，如Local File、HDFS等。最常用的是HDFS，用户可以一次读取大规模的数据进行并行计算。在计算完成后，也可以将数据存储到HDFS。<br>分解来看，Spark分成控制端(Driver)和执行端（Executor）。控制端负责任务调度，执行端负责任务执行。</p>
+<h4 id="ZooKeeper和HDFS的配合关系"><a href="#ZooKeeper和HDFS的配合关系" class="headerlink" title="ZooKeeper和HDFS的配合关系"></a>ZooKeeper和HDFS的配合关系</h4><div align="center">
+<img src="/2020/01/05/hadoop-HDFS/image3.png" class title="图3 ZooKeeper与HDFS">
+</div>
+
+<p>ZKFC（ZKFailoverController）作为一个ZooKeeper集群的客 户端，用来监控NameNode的状态信息。ZKFC进程仅在部署了NameNode的节点中存在。HDFS NameNode的Active和Standby节点均部署有zkfc进程。<br>1、HDFS NameNode的ZKFC连接到ZooKeeper，把主机名等信息保存到ZooKeeper中，即“/hadoop-ha”下的znode目录里。先创建znode目录的NameNode节点为主节点，另一个为备节点。HDFS NameNode Standby通过ZooKeeper定时读取NameNode信息。<br>2、当主节点进程异常结束时，HDFS NameNode Standby通过ZooKeeper感知“/hadoop-ha”目录下发生了变化，NameNode会进行主备切换。</p>
+<h2 id="HDFS操作指南"><a href="#HDFS操作指南" class="headerlink" title="HDFS操作指南"></a>HDFS操作指南</h2><p>HDFS命令需要在安装了HDFS命令环境的操作系统上才能使用，由于各家大数据集群产品客户端使用方法不尽相同，因此，这里不再介绍环境加载的方法，仅提供HDFS操作命令。</p>
+<p>操作HDFS需要使用hadoop fs 或者 hdfs dfs命令，这两个命令没有实质上的区别，实际使用中可以随意选择，下面会简单介绍一些常用的命令使用方法，如果想要了解这两条命令的详细使用，可以在服务器上执行帮助命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs –help 或者 hdfs dfs –help</span><br><span class="line">命令举例：</span><br><span class="line">eg. hdfs dfs -ls &#x2F;tenant&#x2F;</span><br></pre></td></tr></table></figure>
+<p>常用的hadoop fs(或 hdfs dfs)命令：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>使用方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-ls</td>
+<td>-ls &lt;路径&gt;</td>
+<td>查看指定路径的当前目录结构</td>
+</tr>
+<tr>
+<td>-lsr</td>
+<td>-lsr &lt;路径&gt;</td>
+<td>递归查看指定路径的目录结构</td>
+</tr>
+<tr>
+<td>-du</td>
+<td>-du &lt;路径&gt;</td>
+<td>统计目录下各文件的大小</td>
+</tr>
+<tr>
+<td>-dus</td>
+<td>-dus &lt;路径&gt;</td>
+<td>汇总统计目录下文件(夹)大小</td>
+</tr>
+<tr>
+<td>-count</td>
+<td>-count [-q] &lt;路径&gt;</td>
+<td>统计文件(夹)数量</td>
+</tr>
+<tr>
+<td>-mv</td>
+<td>-mv &lt;源路径&gt; &lt;目的路径&gt;</td>
+<td>移动</td>
+</tr>
+<tr>
+<td>-cp</td>
+<td>-cp &lt;源路径&gt; &lt;目的路径&gt;</td>
+<td>复制</td>
+</tr>
+<tr>
+<td>-rm</td>
+<td>-rm [-skipTrash] &lt;路径&gt;</td>
+<td>删除文件/空白文件夹 &lt;慎用，数据无价&gt;</td>
+</tr>
+<tr>
+<td>-rmr</td>
+<td>-rmr [-skipTrash] &lt;路径&gt;</td>
+<td>递归删除 &lt;慎用，数据无价&gt;</td>
+</tr>
+<tr>
+<td>-put</td>
+<td>-put &lt;多个Linux上的文件&gt; &lt;hdfs路径&gt;</td>
+<td>上传文件</td>
+</tr>
+<tr>
+<td>-copyFromLocal</td>
+<td>-copyFromLocal &lt;多个Linux上的文件&gt; &lt;hdfs路径&gt;</td>
+<td>从本地复制</td>
+</tr>
+<tr>
+<td>-moveFromLocal</td>
+<td>-moveFromLocal &lt;多个Linux上的文件&gt; &lt;hdfs路径&gt;</td>
+<td>从本地移动</td>
+</tr>
+<tr>
+<td>-getmerge</td>
+<td>-getmerge &lt;源路径&gt; &lt;Linux路径&gt;</td>
+<td>合并到本地</td>
+</tr>
+<tr>
+<td>-cat</td>
+<td>-cat &lt;hdfs路径&gt;</td>
+<td>查看文件内容</td>
+</tr>
+<tr>
+<td>-text</td>
+<td>-text &lt;hdfs路径&gt;</td>
+<td>查看文件内容</td>
+</tr>
+<tr>
+<td>-copyToLocal</td>
+<td>-copyToLocal [-ignoreCrc] [-crc] [hdfs源路径] [Linux目的路径]</td>
+<td>从本地复制</td>
+</tr>
+<tr>
+<td>-moveToLocal</td>
+<td>-moveToLocal [-crc] &lt;hdfs源路径&gt; &lt;Linux目的路径&gt;</td>
+<td>从本地移动</td>
+</tr>
+<tr>
+<td>-mkdir</td>
+<td>-mkdir &lt;hdfs路径&gt;</td>
+<td>创建空白文件夹</td>
+</tr>
+<tr>
+<td>-setrep</td>
+<td>-setrep [-R] [-w] &lt;副本数&gt; &lt;路径&gt;</td>
+<td>修改副本数量</td>
+</tr>
+<tr>
+<td>-touchz</td>
+<td>-touchz &lt;文件路径&gt;</td>
+<td>创建空白文件</td>
+</tr>
+<tr>
+<td>-stat</td>
+<td>-stat [format] &lt;路径&gt;</td>
+<td>显示文件统计信息</td>
+</tr>
+<tr>
+<td>-tail</td>
+<td>-tail [-f] &lt;文件&gt;</td>
+<td>查看文件尾部信息</td>
+</tr>
+<tr>
+<td>-chmod</td>
+<td>-chmod [-R] &lt;权限模式&gt; [路径]</td>
+<td>修改权限</td>
+</tr>
+<tr>
+<td>-chown</td>
+<td>-chown [-R] [属主][:[属组]] &lt;路径&gt;</td>
+<td>修改属主</td>
+</tr>
+<tr>
+<td>-chgrp</td>
+<td>-chgrp [-R] &lt;属组名称&gt; &lt;路径&gt;</td>
+<td>修改属组</td>
+</tr>
+<tr>
+<td>-help</td>
+<td>-help [命令选项]</td>
+<td>帮助</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-08T08:45:18.233Z" itemprop="dateUpdated">2020-01-08 16:45:18</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="176.122.163.119">
+            <img src="/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HDFS/" rel="tag">HDFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/05/hadoop-HDFS/&title=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/05/hadoop-HDFS/&title=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/05/hadoop-HDFS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&url=176.122.163.119/2020/01/05/hadoop-HDFS/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/05/hadoop-HDFS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/01/05/install-hexo-on-MacOS-EACCES/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MacOS 安装 Hexo 时提示 EACCES 时的解决方法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/01/05/hadoop-hive/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hadoop快速入门系列——篇三：Hive</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/05/hadoop-HDFS/&title=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/05/hadoop-HDFS/&title=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/05/hadoop-HDFS/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇四：HDFS》 — Winyter&url=176.122.163.119/2020/01/05/hadoop-HDFS/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/05/hadoop-HDFS/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aS26EMBAFwNz/0hMpq9kMvGfjThSVVwiBKW9a9OfrK16vn/V+/X5n7a1kh8WFi4u7zX1drnzrZJ/kMDfv4uLiDnKT7a6fSRBtUMPFxf373E8faIMXLi7uf+J++vB1UvRsoMTFxZ3kJslPEoaSd4dyNVxc3A3uWsH02evj9V1cXNyHuhJrJdTXsYWLizvDbZumbYS5fnKx+YqLizvOvS5/tA2VtQPcfBcXF/cwNy9xtoEpSaLapiwuLu4Mtw1DO2XTNmzdxF1cXNwRbvL5PMy1zxc/Rri4uIe5ye9Im/DspEBFPwcXF3eQ244+7BRJ691wcXFHuG2pIh+hSBKhxV8iXFzcw9x8tGK/KZI0WW/u4+LijnCfarLmoxV52LpppeDi4h7mJhsVgWZjdKMYz8LFxR3h5pSdIa21UulNRQcXF3eE2wa79rdmp8GDi4t7mntiAKsd38yLMri4uDPcfOWljZ2AWJdFcHFxj3HXgld7jDzFwsXF/TvcnVLmWjqUhLmiIIKLi/ur3LXma5721HOmuLi4v8pdG9FoA99iPRUXF/cAN0l+2gJom0pFRRZcXNwR7lON1fwAO40WXFzcw9xvM1TnHnjwIfYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>HBase Shell 过滤器 —— HBase Shell Filter | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="HBase,Hadoop">
+    <meta name="description" content="转自：https:&#x2F;&#x2F;blog.csdn.net&#x2F;u014034934&#x2F;article&#x2F;details&#x2F;74330848 &amp; https:&#x2F;&#x2F;blog.csdn.net&#x2F;liuxiao723846&#x2F;article&#x2F;details&#x2F;73823056  基础查询123456789101112131415161718192021222324252627282930313233343536373">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase Shell 过滤器 —— HBase Shell Filter">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;25&#x2F;hbase-shell-filter&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;blog.csdn.net&#x2F;u014034934&#x2F;article&#x2F;details&#x2F;74330848 &amp; https:&#x2F;&#x2F;blog.csdn.net&#x2F;liuxiao723846&#x2F;article&#x2F;details&#x2F;73823056  基础查询123456789101112131415161718192021222324252627282930313233343536373">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-25T15:29:33.000Z">
+<meta property="article:modified_time" content="2019-12-26T07:31:08.698Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="HBase">
+<meta property="article:tag" content="Hadoop">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">HBase Shell 过滤器 —— HBase Shell Filter</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">HBase Shell 过滤器 —— HBase Shell Filter</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-25T15:29:33.000Z" itemprop="datePublished" class="page-time">
+  2019-12-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础查询"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在hbase-shell用show-filters命令查看一下可以用什么Filter。"><span class="post-toc-number">2.</span> <span class="post-toc-text">在hbase shell用show_filters命令查看一下可以用什么Filter。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-keyOnlyFilter"><span class="post-toc-number">3.</span> <span class="post-toc-text">1.keyOnlyFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-FirstKeyOnlyFilter"><span class="post-toc-number">4.</span> <span class="post-toc-text">2.FirstKeyOnlyFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3-PrefixFilter"><span class="post-toc-number">5.</span> <span class="post-toc-text">3.PrefixFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-ColumnPrefixFilter"><span class="post-toc-number">6.</span> <span class="post-toc-text">4.ColumnPrefixFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-multipleColumnPrefixFilter"><span class="post-toc-number">7.</span> <span class="post-toc-text">5.multipleColumnPrefixFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6-ColumnCountGetFilter"><span class="post-toc-number">8.</span> <span class="post-toc-text">6.ColumnCountGetFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#7-PageFilter"><span class="post-toc-number">9.</span> <span class="post-toc-text">7. PageFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#8-ColumnPaginationFilter"><span class="post-toc-number">10.</span> <span class="post-toc-text">8. ColumnPaginationFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#9-InclusiveStopFilter"><span class="post-toc-number">11.</span> <span class="post-toc-text">9. InclusiveStopFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#10-TimeStampsFilter"><span class="post-toc-number">12.</span> <span class="post-toc-text">10. TimeStampsFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#11-RowFilter"><span class="post-toc-number">13.</span> <span class="post-toc-text">11.RowFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#12-FamilyFilter"><span class="post-toc-number">14.</span> <span class="post-toc-text">12. FamilyFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#13-QualifierFilter"><span class="post-toc-number">15.</span> <span class="post-toc-text">13. QualifierFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#14-ValueFilter"><span class="post-toc-number">16.</span> <span class="post-toc-text">14. ValueFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#15-SingleColumnValueFilter"><span class="post-toc-number">17.</span> <span class="post-toc-text">15. SingleColumnValueFilter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#16-使用AND"><span class="post-toc-number">18.</span> <span class="post-toc-text">16.使用AND</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#17-使用OR"><span class="post-toc-number">19.</span> <span class="post-toc-text">17.使用OR</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#18、查询rowkey里面包含ts的"><span class="post-toc-number">20.</span> <span class="post-toc-text">18、查询rowkey里面包含ts的</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#番外、hbase-zkcli-的使用"><span class="post-toc-number">21.</span> <span class="post-toc-text">番外、hbase zkcli 的使用</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hbase-shell-filter"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">HBase Shell 过滤器 —— HBase Shell Filter</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-25 23:29:33" datetime="2019-12-25T15:29:33.000Z"  itemprop="datePublished">2019-12-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<p>转自：<a href="https://blog.csdn.net/u014034934/article/details/74330848" target="_blank" rel="noopener">https://blog.csdn.net/u014034934/article/details/74330848</a> &amp; <a href="https://blog.csdn.net/liuxiao723846/article/details/73823056" target="_blank" rel="noopener">https://blog.csdn.net/liuxiao723846/article/details/73823056</a></p>
+<hr>
+<h3 id="基础查询"><a href="#基础查询" class="headerlink" title="基础查询"></a>基础查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">hbase(main):046:0&gt; scan &#39;hbaseFilter&#39;</span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:age, timestamp&#x3D;1499150787908, value&#x3D;age12                                                                                           </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12                                                                                         </span><br><span class="line"> row13                                           column&#x3D;f2:age, timestamp&#x3D;1499150787911, value&#x3D;age13                                                                                           </span><br><span class="line"> row13                                           column&#x3D;f2:name, timestamp&#x3D;1499150787911, value&#x3D;name13                                                                                         </span><br><span class="line"> row14                                           column&#x3D;f2:age, timestamp&#x3D;1499150787913, value&#x3D;age14                                                                                           </span><br><span class="line"> row14                                           column&#x3D;f2:name, timestamp&#x3D;1499150787913, value&#x3D;name14                                                                                         </span><br><span class="line"> row15                                           column&#x3D;f2:age, timestamp&#x3D;1499150787917, value&#x3D;age15                                                                                           </span><br><span class="line"> row15                                           column&#x3D;f2:name, timestamp&#x3D;1499150787917, value&#x3D;name15                                                                                         </span><br><span class="line"> row16                                           column&#x3D;f2:age, timestamp&#x3D;1499150787920, value&#x3D;age16                                                                                           </span><br><span class="line"> row16                                           column&#x3D;f2:name, timestamp&#x3D;1499150787920, value&#x3D;name16                                                                                         </span><br><span class="line"> row17                                           column&#x3D;f2:age, timestamp&#x3D;1499150787923, value&#x3D;age17                                                                                           </span><br><span class="line"> row17                                           column&#x3D;f2:name, timestamp&#x3D;1499150787923, value&#x3D;name17                                                                                         </span><br><span class="line"> row18                                           column&#x3D;f2:age, timestamp&#x3D;1499150787927, value&#x3D;age18                                                                                           </span><br><span class="line"> row18                                           column&#x3D;f2:name, timestamp&#x3D;1499150787927, value&#x3D;name18                                                                                         </span><br><span class="line"> row19                                           column&#x3D;f2:age, timestamp&#x3D;1499150787930, value&#x3D;age19                                                                                           </span><br><span class="line"> row19                                           column&#x3D;f2:name, timestamp&#x3D;1499150787930, value&#x3D;name19                                                                                         </span><br><span class="line"> row2                                            column&#x3D;f:age, timestamp&#x3D;1499150787879, value&#x3D;age2                                                                                             </span><br><span class="line"> row2                                            column&#x3D;f:name, timestamp&#x3D;1499150787879, value&#x3D;name2                                                                                           </span><br><span class="line"> row3                                            column&#x3D;f:age, timestamp&#x3D;1499150787882, value&#x3D;age3                                                                                             </span><br><span class="line"> row3                                            column&#x3D;f:name, timestamp&#x3D;1499150787882, value&#x3D;name3                                                                                           </span><br><span class="line"> row4                                            column&#x3D;f:age, timestamp&#x3D;1499150787885, value&#x3D;age4                                                                                             </span><br><span class="line"> row4                                            column&#x3D;f:name, timestamp&#x3D;1499150787885, value&#x3D;name4                                                                                           </span><br><span class="line"> row5                                            column&#x3D;f:age, timestamp&#x3D;1499150787888, value&#x3D;age5                                                                                             </span><br><span class="line"> row5                                            column&#x3D;f:name, timestamp&#x3D;1499150787888, value&#x3D;name5                                                                                           </span><br><span class="line"> row6                                            column&#x3D;f:age, timestamp&#x3D;1499150787890, value&#x3D;age6                                                                                             </span><br><span class="line"> row6                                            column&#x3D;f:name, timestamp&#x3D;1499150787890, value&#x3D;name6                                                                                           </span><br><span class="line"> row7                                            column&#x3D;f:age, timestamp&#x3D;1499150787893, value&#x3D;age7                                                                                             </span><br><span class="line"> row7                                            column&#x3D;f:name, timestamp&#x3D;1499150787893, value&#x3D;name7                                                                                           </span><br><span class="line"> row8                                            column&#x3D;f:age, timestamp&#x3D;1499150787896, value&#x3D;age8                                                                                             </span><br><span class="line"> row8                                            column&#x3D;f:name, timestamp&#x3D;1499150787896, value&#x3D;name8                                                                                           </span><br><span class="line"> row9                                            column&#x3D;f:age, timestamp&#x3D;1499150787898, value&#x3D;age9                                                                                             </span><br><span class="line"> row9                                            column&#x3D;f:name, timestamp&#x3D;1499150787898, value&#x3D;name9                                                                                           </span><br><span class="line">20 row(s) in 0.1990 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="在hbase-shell用show-filters命令查看一下可以用什么Filter。"><a href="#在hbase-shell用show-filters命令查看一下可以用什么Filter。" class="headerlink" title="在hbase shell用show_filters命令查看一下可以用什么Filter。"></a>在hbase shell用show_filters命令查看一下可以用什么Filter。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):009:0&gt; show_filters</span><br><span class="line">ColumnPrefixFilter                   </span><br><span class="line">TimestampsFilter                                 </span><br><span class="line">PageFilter                 </span><br><span class="line">MultipleColumnPrefixFilter                         </span><br><span class="line">FamilyFilter         </span><br><span class="line">ColumnPaginationFilter                       </span><br><span class="line">SingleColumnValueFilter             </span><br><span class="line">RowFilter            </span><br><span class="line">QualifierFilter                          </span><br><span class="line">ColumnRangeFilter                    </span><br><span class="line">ValueFilter                  </span><br><span class="line">PrefixFilter                        </span><br><span class="line">SingleColumnValueExcludeFilter                       </span><br><span class="line">ColumnCountGetFilter     </span><br><span class="line">InclusiveStopFilter               </span><br><span class="line">DependentColumnFilter                </span><br><span class="line">FirstKeyOnlyFilter              </span><br><span class="line">KeyOnlyFilter</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-keyOnlyFilter"><a href="#1-keyOnlyFilter" class="headerlink" title="1.keyOnlyFilter"></a>1.keyOnlyFilter</h3><p>返回的列值全部为空，即只要key，不要value。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.hadoop.hbase.filter.KeyOnlyFilter;</span><br><span class="line">scan &#39;hbaseFilter&#39;, &#123;FILTER&#x3D;&gt;KeyOnlyFilter.new()&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;                                                                                                 </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;                                                                                                </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;                                                                                                 </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;                                                                                                </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-FirstKeyOnlyFilter"><a href="#2-FirstKeyOnlyFilter" class="headerlink" title="2.FirstKeyOnlyFilter"></a>2.FirstKeyOnlyFilter</h3><p>一个rowkey可以有多个version,同一个rowkey的同一个column也会有多个的值, 只拿出key中的第一个column的第一个version。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):096:0&gt; import org.apache.hadoop.hbase.filter.FirstKeyOnlyFilter;</span><br><span class="line">hbase(main):097:0* scan &#39;hbaseFilter&#39;,&#123;FILTER&#x3D;&gt;FirstKeyOnlyFilter.new()&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row12                                           column&#x3D;f2:age, timestamp&#x3D;1499150787908, value&#x3D;age12</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-PrefixFilter"><a href="#3-PrefixFilter" class="headerlink" title="3.PrefixFilter"></a>3.PrefixFilter</h3><p>根据行的前缀过滤行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):106:0&gt; import org.apache.hadoop.hbase.filter.PrefixFilter;</span><br><span class="line">hbase(main):107:0* import org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line">hbase(main):108:0* scan &#39;hbaseFilter&#39;,&#123;FILTER&#x3D;&gt;PrefixFilter.new(Bytes.toBytes(&#39;row3&#39;))&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row3                                            column&#x3D;f:age, timestamp&#x3D;1499150787882, value&#x3D;age3                                                                                             </span><br><span class="line"> row3                                            column&#x3D;f:name, timestamp&#x3D;1499150787882, value&#x3D;name3                                                                                           </span><br><span class="line">1 row(s) in 0.1670 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-ColumnPrefixFilter"><a href="#4-ColumnPrefixFilter" class="headerlink" title="4.ColumnPrefixFilter"></a>4.ColumnPrefixFilter</h3><p>返回满足条件的列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):113:0&gt; import org.apache.hadoop.hbase.filter.ColumnPrefixFilter;</span><br><span class="line">hbase(main):114:0* import org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line">hbase(main):115:0* scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;ColumnPrefixFilter.new(Bytes.toBytes(&#39;n&#39;))&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12                                                                                         </span><br><span class="line"> row13                                           column&#x3D;f2:name, timestamp&#x3D;1499150787911, value&#x3D;name13</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-multipleColumnPrefixFilter"><a href="#5-multipleColumnPrefixFilter" class="headerlink" title="5.multipleColumnPrefixFilter"></a>5.multipleColumnPrefixFilter</h3><p>根据列名得前缀过滤，有范围，下面是列名‘a’开始到‘b’结束。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):011:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;MultipleColumnPrefixFilter(&#39;a&#39;,&#39;b&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row12                                           column&#x3D;f2:age, timestamp&#x3D;1499150787908, value&#x3D;age12</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-ColumnCountGetFilter"><a href="#6-ColumnCountGetFilter" class="headerlink" title="6.ColumnCountGetFilter"></a>6.ColumnCountGetFilter</h3><p>返回多少列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):012:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;ColumnCountGetFilter(2)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:age, timestamp&#x3D;1499150787908, value&#x3D;age12                                                                                           </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-PageFilter"><a href="#7-PageFilter" class="headerlink" title="7. PageFilter"></a>7. PageFilter</h3><p>返回多少行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):013:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;PageFilter(3)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line">3 row(s) in 0.1680 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-ColumnPaginationFilter"><a href="#8-ColumnPaginationFilter" class="headerlink" title="8. ColumnPaginationFilter"></a>8. ColumnPaginationFilter</h3><p>根据limit和offset得到数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):014:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;ColumnPaginationFilter(2,1)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12                                                                                         </span><br><span class="line"> row13                                           column&#x3D;f2:name, timestamp&#x3D;1499150787911, value&#x3D;name13</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-InclusiveStopFilter"><a href="#9-InclusiveStopFilter" class="headerlink" title="9. InclusiveStopFilter"></a>9. InclusiveStopFilter</h3><p>设置停止的行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):015:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;InclusiveStopFilter(&#39;row15&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:age, timestamp&#x3D;1499150787908, value&#x3D;age12                                                                                           </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12                                                                                         </span><br><span class="line"> row13                                           column&#x3D;f2:age, timestamp&#x3D;1499150787911, value&#x3D;age13                                                                                           </span><br><span class="line"> row13                                           column&#x3D;f2:name, timestamp&#x3D;1499150787911, value&#x3D;name13                                                                                         </span><br><span class="line"> row14                                           column&#x3D;f2:age, timestamp&#x3D;1499150787913, value&#x3D;age14                                                                                           </span><br><span class="line"> row14                                           column&#x3D;f2:name, timestamp&#x3D;1499150787913, value&#x3D;name14                                                                                         </span><br><span class="line"> row15                                           column&#x3D;f2:age, timestamp&#x3D;1499150787917, value&#x3D;age15                                                                                           </span><br><span class="line"> row15                                           column&#x3D;f2:name, timestamp&#x3D;1499150787917, value&#x3D;name15                                                                                         </span><br><span class="line">8 row(s) in 0.2250 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-TimeStampsFilter"><a href="#10-TimeStampsFilter" class="headerlink" title="10. TimeStampsFilter"></a>10. TimeStampsFilter</h3><p>返回指定时间戳的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):016:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;TimestampsFilter(1499150787875,1499150787913)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row14                                           column&#x3D;f2:age, timestamp&#x3D;1499150787913, value&#x3D;age14                                                                                           </span><br><span class="line"> row14                                           column&#x3D;f2:name, timestamp&#x3D;1499150787913, value&#x3D;name14                                                                                         </span><br><span class="line">2 row(s) in 0.0340 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-RowFilter"><a href="#11-RowFilter" class="headerlink" title="11.RowFilter"></a>11.RowFilter</h3><p>根据rowkey的值过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):018:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;RowFilter(&gt;&#x3D;,&#39;binary:row6&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row6                                            column&#x3D;f:age, timestamp&#x3D;1499150787890, value&#x3D;age6                                                                                             </span><br><span class="line"> row6                                            column&#x3D;f:name, timestamp&#x3D;1499150787890, value&#x3D;name6                                                                                           </span><br><span class="line"> row7                                            column&#x3D;f:age, timestamp&#x3D;1499150787893, value&#x3D;age7                                                                                             </span><br><span class="line"> row7                                            column&#x3D;f:name, timestamp&#x3D;1499150787893, value&#x3D;name7                                                                                           </span><br><span class="line"> row8                                            column&#x3D;f:age, timestamp&#x3D;1499150787896, value&#x3D;age8                                                                                             </span><br><span class="line"> row8                                            column&#x3D;f:name, timestamp&#x3D;1499150787896, value&#x3D;name8                                                                                           </span><br><span class="line"> row9                                            column&#x3D;f:age, timestamp&#x3D;1499150787898, value&#x3D;age9                                                                                             </span><br><span class="line"> row9                                            column&#x3D;f:name, timestamp&#x3D;1499150787898, value&#x3D;name9                                                                                           </span><br><span class="line">4 row(s) in 0.2340 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="12-FamilyFilter"><a href="#12-FamilyFilter" class="headerlink" title="12. FamilyFilter"></a>12. FamilyFilter</h3><p>根据列族过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):020:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;FamilyFilter(&#x3D;,&#39;substring:f&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:age, timestamp&#x3D;1499150787863, value&#x3D;age0                                                                                             </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:age, timestamp&#x3D;1499150787875, value&#x3D;age1                                                                                             </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:age, timestamp&#x3D;1499150787901, value&#x3D;age10                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:age, timestamp&#x3D;1499150787905, value&#x3D;age11                                                                                           </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-QualifierFilter"><a href="#13-QualifierFilter" class="headerlink" title="13. QualifierFilter"></a>13. QualifierFilter</h3><p>根据列名过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):023:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;QualifierFilter(&#x3D;,&#39;regexstring:n.&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row0                                            column&#x3D;f:name, timestamp&#x3D;1499150787863, value&#x3D;name0                                                                                           </span><br><span class="line"> row1                                            column&#x3D;f:name, timestamp&#x3D;1499150787875, value&#x3D;name1                                                                                           </span><br><span class="line"> row10                                           column&#x3D;f2:name, timestamp&#x3D;1499150787901, value&#x3D;name10                                                                                         </span><br><span class="line"> row11                                           column&#x3D;f2:name, timestamp&#x3D;1499150787905, value&#x3D;name11                                                                                         </span><br><span class="line"> row12                                           column&#x3D;f2:name, timestamp&#x3D;1499150787908, value&#x3D;name12                                                                                         </span><br><span class="line"> row13                                           column&#x3D;f2:name, timestamp&#x3D;1499150787911, value&#x3D;name13</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-ValueFilter"><a href="#14-ValueFilter" class="headerlink" title="14. ValueFilter"></a>14. ValueFilter</h3><p>根据值过滤，只返回匹配的列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">hbase(main):024:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;ValueFilter(&#x3D;,&#39;binary:name3&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row3                                            column&#x3D;f:name, timestamp&#x3D;1499150787882, value&#x3D;name3                                                                                           </span><br><span class="line">1 row(s) in 0.0140 seconds</span><br></pre></td></tr></table></figure>
+
+<p>还有一种值过滤方式，以下返回的是：值包含88的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scan &#39;test1&#39;, FILTER&#x3D;&gt;&quot;ValueFilter(&#x3D;,&#39;substring:88&#39;)&quot;</span><br><span class="line"> </span><br><span class="line">ROW                          COLUMN+CELL                                                                       </span><br><span class="line"> user1|ts2                   column&#x3D;sf:c1, timestamp&#x3D;1409122354918, value&#x3D;sku188                               </span><br><span class="line"> user2|ts5                   column&#x3D;sf:c2, timestamp&#x3D;1409122355030, value&#x3D;sku288</span><br></pre></td></tr></table></figure>
+
+<h3 id="15-SingleColumnValueFilter"><a href="#15-SingleColumnValueFilter" class="headerlink" title="15. SingleColumnValueFilter"></a>15. SingleColumnValueFilter</h3><p>根据列值返回行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):035:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,COLUMN&#x3D;&gt;&#39;f&#39;,FILTER&#x3D;&gt;&quot;SingleColumnValueFilter(&#39;f&#39;,&#39;name&#39;,&gt;&#x3D;,&#39;binary:name3&#39;)&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row3                                            column&#x3D;f:age, timestamp&#x3D;1499150787882, value&#x3D;age3                                                                                             </span><br><span class="line"> row3                                            column&#x3D;f:name, timestamp&#x3D;1499150787882, value&#x3D;name3                                                                                           </span><br><span class="line"> row4                                            column&#x3D;f:age, timestamp&#x3D;1499150787885, value&#x3D;age4                                                                                             </span><br><span class="line"> row4                                            column&#x3D;f:name, timestamp&#x3D;1499150787885, value&#x3D;name4                                                                                           </span><br><span class="line"> row5                                            column&#x3D;f:age, timestamp&#x3D;1499150787888, value&#x3D;age5                                                                                             </span><br><span class="line"> row5                                            column&#x3D;f:name, timestamp&#x3D;1499150787888, value&#x3D;name5                                                                                           </span><br><span class="line"> row6                                            column&#x3D;f:age, timestamp&#x3D;1499150787890, value&#x3D;age6                                                                                             </span><br><span class="line"> row6                                            column&#x3D;f:name, timestamp&#x3D;1499150787890, value&#x3D;name6                                                                                           </span><br><span class="line"> row7                                            column&#x3D;f:age, timestamp&#x3D;1499150787893, value&#x3D;age7                                                                                             </span><br><span class="line"> row7                                            column&#x3D;f:name, timestamp&#x3D;1499150787893, value&#x3D;name7                                                                                           </span><br><span class="line"> row8                                            column&#x3D;f:age, timestamp&#x3D;1499150787896, value&#x3D;age8                                                                                             </span><br><span class="line"> row8                                            column&#x3D;f:name, timestamp&#x3D;1499150787896, value&#x3D;name8                                                                                           </span><br><span class="line"> row9                                            column&#x3D;f:age, timestamp&#x3D;1499150787898, value&#x3D;age9                                                                                             </span><br><span class="line"> row9                                            column&#x3D;f:name, timestamp&#x3D;1499150787898, value&#x3D;name9                                                                                           </span><br><span class="line">7 row(s) in 0.1520 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-使用AND"><a href="#16-使用AND" class="headerlink" title="16.使用AND"></a>16.使用AND</h3><p>相当于FilterList的FilterList.Operator.MUST_PASS_ALL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):042:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;(FamilyFilter(&#x3D;,&#39;substring:f&#39;)) AND (ValueFilter(&gt;,&#39;binary:name6&#39;))&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row7                                            column&#x3D;f:name, timestamp&#x3D;1499150787893, value&#x3D;name7                                                                                           </span><br><span class="line"> row8                                            column&#x3D;f:name, timestamp&#x3D;1499150787896, value&#x3D;name8                                                                                           </span><br><span class="line"> row9                                            column&#x3D;f:name, timestamp&#x3D;1499150787898, value&#x3D;name9                                                                                           </span><br><span class="line">3 row(s) in 0.0100 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-使用OR"><a href="#17-使用OR" class="headerlink" title="17.使用OR"></a>17.使用OR</h3><p>相当于FilterList的FilterList.Operator.MUST_PASS_ONE。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">hbase(main):044:0&gt; scan &#39;hbaseFilter&#39;,&#123;STARTROW&#x3D;&gt;&#39;row0&#39;,STOPROW&#x3D;&gt;&#39;row99&#39;,FILTER&#x3D;&gt;&quot;(FamilyFilter(&#x3D;,&#39;substring:f&#39;)) AND (ValueFilter(&gt;,&#39;binary:name6&#39;)) OR (FamilyFilter(&#x3D;,&#39;substring:f2&#39;)) AND (ValueFilter(&gt;,&#39;binary:name17&#39;))&quot;&#125;</span><br><span class="line"></span><br><span class="line">ROW                                              COLUMN+CELL                                                                                                                                   </span><br><span class="line"> row18                                           column&#x3D;f2:name, timestamp&#x3D;1499150787927, value&#x3D;name18                                                                                         </span><br><span class="line"> row19                                           column&#x3D;f2:name, timestamp&#x3D;1499150787930, value&#x3D;name19                                                                                         </span><br><span class="line"> row7                                            column&#x3D;f:name, timestamp&#x3D;1499150787893, value&#x3D;name7                                                                                           </span><br><span class="line"> row8                                            column&#x3D;f:name, timestamp&#x3D;1499150787896, value&#x3D;name8                                                                                           </span><br><span class="line"> row9                                            column&#x3D;f:name, timestamp&#x3D;1499150787898, value&#x3D;name9                                                                                           </span><br><span class="line">5 row(s) in 0.1450 seconds</span><br></pre></td></tr></table></figure>
+
+<h3 id="18、查询rowkey里面包含ts的"><a href="#18、查询rowkey里面包含ts的" class="headerlink" title="18、查询rowkey里面包含ts的"></a>18、查询rowkey里面包含ts的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.hadoop.hbase.filter.CompareFilter</span><br><span class="line">import org.apache.hadoop.hbase.filter.SubstringComparator</span><br><span class="line">import org.apache.hadoop.hbase.filter.RowFilter</span><br><span class="line">scan &#39;test1&#39;, &#123;FILTER &#x3D;&gt; RowFilter.new(CompareFilter::CompareOp.valueOf(&#39;EQUAL&#39;), SubstringComparator.new(&#39;ts&#39;))&#125;</span><br><span class="line"> </span><br><span class="line">ROW                          COLUMN+CELL                                                                       </span><br><span class="line"> user1|ts1                   column&#x3D;sf:c1, timestamp&#x3D;1409122354868, value&#x3D;sku1                                 </span><br><span class="line"> user1|ts2                   column&#x3D;sf:c1, timestamp&#x3D;1409122354918, value&#x3D;sku188                               </span><br><span class="line"> user1|ts3                   column&#x3D;sf:s1, timestamp&#x3D;1409122354954, value&#x3D;sku123                               </span><br><span class="line"> user2|ts4                   column&#x3D;sf:c1, timestamp&#x3D;1409122354998, value&#x3D;sku2                                 </span><br><span class="line"> user2|ts5                   column&#x3D;sf:c2, timestamp&#x3D;1409122355030, value&#x3D;sku288                               </span><br><span class="line"> user2|ts6                   column&#x3D;sf:s1, timestamp&#x3D;1409122355970, value&#x3D;sku222</span><br></pre></td></tr></table></figure>
+
+<p>此外，该语句还支持正则表达式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.hadoop.hbase.filter.RegexStringComparator</span><br><span class="line">import org.apache.hadoop.hbase.filter.CompareFilter</span><br><span class="line">import org.apache.hadoop.hbase.filter.SubstringComparator</span><br><span class="line">import org.apache.hadoop.hbase.filter.RowFilter</span><br><span class="line">scan &#39;test1&#39;, &#123;FILTER &#x3D;&gt; RowFilter.new(CompareFilter::CompareOp.valueOf(&#39;EQUAL&#39;),RegexStringComparator.new(&#39;^user\d+\|ts\d+$&#39;))&#125;</span><br><span class="line"> </span><br><span class="line">ROW                          COLUMN+CELL                                                                       </span><br><span class="line"> user1|ts1                   column&#x3D;sf:c1, timestamp&#x3D;1409122354868, value&#x3D;sku1                                 </span><br><span class="line"> user1|ts2                   column&#x3D;sf:c1, timestamp&#x3D;1409122354918, value&#x3D;sku188                               </span><br><span class="line"> user1|ts3                   column&#x3D;sf:s1, timestamp&#x3D;1409122354954, value&#x3D;sku123                               </span><br><span class="line"> user2|ts4                   column&#x3D;sf:c1, timestamp&#x3D;1409122354998, value&#x3D;sku2                                 </span><br><span class="line"> user2|ts5                   column&#x3D;sf:c2, timestamp&#x3D;1409122355030, value&#x3D;sku288                               </span><br><span class="line"> user2|ts6                   column&#x3D;sf:s1, timestamp&#x3D;1409122355970, value&#x3D;sku222</span><br></pre></td></tr></table></figure>
+
+<h3 id="番外、hbase-zkcli-的使用"><a href="#番外、hbase-zkcli-的使用" class="headerlink" title="番外、hbase zkcli 的使用"></a>番外、hbase zkcli 的使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">hbase zkcli</span><br><span class="line">ls &#x2F;</span><br><span class="line">[hbase, zookeeper]</span><br><span class="line"> </span><br><span class="line">[zk: hadoop000:2181(CONNECTED) 1] ls &#x2F;hbase</span><br><span class="line">[meta-region-server, backup-masters, table, draining, region-in-transition, running, table-lock, master, namespace, hbaseid, online-snapshot, replication, splitWAL, recovering-regions, rs]</span><br><span class="line"> </span><br><span class="line">[zk: hadoop000:2181(CONNECTED) 2] ls &#x2F;hbase&#x2F;table</span><br><span class="line">[member, test1, hbase:meta, hbase:namespace]</span><br><span class="line"> </span><br><span class="line">[zk: hadoop000:2181(CONNECTED) 3] ls &#x2F;hbase&#x2F;table&#x2F;test1</span><br><span class="line">[]</span><br><span class="line"> </span><br><span class="line">[zk: hadoop000:2181(CONNECTED) 4] get &#x2F;hbase&#x2F;table&#x2F;test1</span><br><span class="line">?master:60000&#125;l$??lPBUF</span><br><span class="line">cZxid &#x3D; 0x107</span><br><span class="line">ctime &#x3D; Wed Aug 27 14:52:21 HKT 2014</span><br><span class="line">mZxid &#x3D; 0x10b</span><br><span class="line">mtime &#x3D; Wed Aug 27 14:52:22 HKT 2014</span><br><span class="line">pZxid &#x3D; 0x107</span><br><span class="line">cversion &#x3D; 0</span><br><span class="line">dataVersion &#x3D; 2</span><br><span class="line">aclVersion &#x3D; 0</span><br><span class="line">ephemeralOwner &#x3D; 0x0</span><br><span class="line">dataLength &#x3D; 31</span><br><span class="line">numChildren &#x3D; 0</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-26T07:31:08.698Z" itemprop="dateUpdated">2019-12-26 15:31:08</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/HBase/" rel="tag">HBase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&title=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&title=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2019/12/27/hadoop-elasticsearch/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hadoop快速入门系列——篇二：ElasticSearch</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2019/12/25/hadoop-hbase/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hadoop快速入门系列——篇一：HBase入门</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&title=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&title=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HBase Shell 过滤器 —— HBase Shell Filter》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3awW4bMQwEUP//T7dATgVa2zOkFKfA21Ngr209HZbMUI9HfP36ul6/8uxTyWf/fOXZNye/OLzw8PDwRkt/diULfXZ/vsR8Dfn9eHh4eLd5r5fy5iuCcrL/leH24eHh4X2Ul7TLrxfdtumvCwMeHh7e/8VrW+38cZ9sJR4eHt5P4LVBQItMCkASN1zMWvDw8PBi3iZW+NTfF+d7eHh4eIupelsk2qXkjfhwtXh4eHgXeKfG/5tWOH+e51XgcfZ0Ax4eHt6TO/PjVsm7STjbbm57Jx4eHt4NXr4Hs4f7JqitH/1/34OHh4d3gZcPt9oDBHkznReefIvx8PDw7vFm/+rn7XUb424Ci2ElwcPDwyt5myNTs5FYXhJaUjQAw8PDw1vzZoFCvrgNICkhUdaCh4eHd5Q3uzXZjjyincUTbVyCh4eHd4rXftH+cMBsJJa3+29iXDw8PLxDvPwR31Lz0tJua1RI8PDw8C7w8ha5HVy18e4swogOE+Dh4eEd5eWP7HZB+ZUUoWGZwcPDw7vAm6W8OXUfAR+IRfDw8PC+hZcPrtr4oD0g28bBeHh4eLd5+7i2bZ3bA6yzxh0PDw/vNq8d4c9GXMOMuWzT/1EY8PDw8I7y8uFWe2e+cafa+sd+0Xh4eHgjXr6IIu0oP7svG2/YeHh4eAteO/KfDaXaoCEvA2/iDDw8PLzLvNmwqm2FZ2HuMFzGw8PDu8DbNLhtwcijhLZcFSEFHh4e3po3G3FtHtOzb86jYTw8PLzbvFklScLW/JUEM/tdPDw8vHu8vBi0R6ny8dXm2EF9UAAPDw/vEO9UMcgH/7Pgo7bg4eHhfZSXl4r23TwmbkNnPDw8vJ/A2yNn+PyYAh4eHt738NowYj/g3xShopDg4eHhXeDN/smfhQinDgcc3mI8PDy8lPcb/Z2mSxzjlY8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

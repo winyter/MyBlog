@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hadoop快速入门系列——篇一：HBase入门 | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="HBase,Hadoop">
+    <meta name="description" content="HBase概念介绍HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。HBase适合于存储大表数据（表的规模可以达到数十亿行以及数百万列），并且对大表数据的读、写访问可以达到实时级别。利用Hadoop HDFS（Hadoop Distributed File System）作为其文件存储系统，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。为Spark和Hadoop M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop快速入门系列——篇一：HBase入门">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="HBase概念介绍HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。HBase适合于存储大表数据（表的规模可以达到数十亿行以及数百万列），并且对大表数据的读、写访问可以达到实时级别。利用Hadoop HDFS（Hadoop Distributed File System）作为其文件存储系统，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。为Spark和Hadoop M">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image5.png">
+<meta property="article:published_time" content="2019-12-25T15:01:04.000Z">
+<meta property="article:modified_time" content="2019-12-27T09:05:49.575Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="HBase">
+<meta property="article:tag" content="Hadoop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇一：HBase入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hadoop快速入门系列——篇一：HBase入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-25T15:01:04.000Z" itemprop="datePublished" class="page-time">
+  2019-12-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HBase概念介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">HBase概念介绍</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#数据模型"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">数据模型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase架构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">HBase架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RegionServer数据存储结构"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">RegionServer数据存储结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hbase-Shell使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">Hbase Shell使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase客户端的使用"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">HBase客户端的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#HBase-Shell命令的使用"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">HBase Shell命令的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、查询表中数据：scan-amp-get"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">1、查询表中数据：scan &amp; get</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、统计数据条数："><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">2、统计数据条数：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、插入数据：put"><span class="post-toc-number">2.2.3.</span> <span class="post-toc-text">3、插入数据：put</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、删除数据：delete-amp-deleteall"><span class="post-toc-number">2.2.4.</span> <span class="post-toc-text">4、删除数据：delete &amp; deleteall</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、查看表描述：describe"><span class="post-toc-number">2.2.5.</span> <span class="post-toc-text">5、查看表描述：describe</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、获取所有表名：list"><span class="post-toc-number">2.2.6.</span> <span class="post-toc-text">6、获取所有表名：list</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7、创建表：create"><span class="post-toc-number">2.2.7.</span> <span class="post-toc-text">7、创建表：create</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#8、启动与停止表：enable-amp-disable"><span class="post-toc-number">2.2.8.</span> <span class="post-toc-text">8、启动与停止表：enable &amp; disable</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#9、删除表：drop"><span class="post-toc-number">2.2.9.</span> <span class="post-toc-text">9、删除表：drop</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#10、更改表结构：alter"><span class="post-toc-number">2.2.10.</span> <span class="post-toc-text">10、更改表结构：alter</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hadoop-hbase"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hadoop快速入门系列——篇一：HBase入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-25 23:01:04" datetime="2019-12-25T15:01:04.000Z"  itemprop="datePublished">2019-12-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="HBase概念介绍"><a href="#HBase概念介绍" class="headerlink" title="HBase概念介绍"></a>HBase概念介绍</h2><p>HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。HBase适合于存储大表数据（表的规模可以达到数十亿行以及数百万列），并且对大表数据的读、写访问可以达到实时级别。<br>利用Hadoop HDFS（Hadoop Distributed File System）作为其文件存储系统，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。<br>为Spark和Hadoop MapReduce提供海量数据实时处理能力。<br>利用ZooKeeper作为协同服务。</p>
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p><strong>Rowkey</strong>：行键，相当于关系数据库中的主键，行数据的唯一标识<br><strong>Column Family</strong>：CF，列族，一个表在水平方向上由一个或多个CF组成，一个CF由任意多个Column组成，Column为CF下的一个标签，所以CF支持动态扩展，而不需要预先定义Column，且不同行之间，列的个数和类型都可以不同<br><strong>Timestamp</strong>：每次数据操作是对应的时间戳，该列是实现Hbase一行多版本的关键，一行数据按时间戳区分版本，每个Cell的多版本按时间戳倒序存储<br><strong>Region</strong>：可以理解为表分区，随着数据量的增多，Hbase会根据设定好的配置阀值，自动分区<br><strong>Cell</strong>：HBase最小的存储单元，由Key和Value组成。Key由row、column family、column qualifier、timestamp、type、MVCC v ersion这6个字段组成。Value就是对应存储的二进制数据对象。</p>
+<p>为了便于理解，图1通过将HBase数据模型转化成传统数据库表的实时来表现，但真实的HBase数据模型在表现形式上，还是有所区别的，这一点会在图2有所体现。</p>
+<div align="center">
+<img src="/2019/12/25/hadoop-hbase/image1.png" class title="图1 HBase数据模型">
+</div>
+
+<p>图2为实际查询的HBase数据返回结果的截图：</p>
+<div align="center">
+<img src="/2019/12/25/hadoop-hbase/image2.png" class title="图2 HBase数据查询结果">
+</div>
+
+<p>HBase的索引依据是行键（Rowkey）、列键（ColumnFamily:Column）、时间戳（Timestamp）。<br>可以看到，同一条rowkey，按照HBase列存储的规则，每一列为一条记录，相同的rowkey代表一行数据，而HBase并没有按照传统数据库行存储的方式，把一条数据的所有内容全部放在一条记录里面，取而代之的，是使用Key-Value的形式，对数据进行列存储，同时，在COLUMN+CELL中，column的值的组织形式是&lt;列族名&gt;:&lt;列名&gt;，列族与列名的组合，共同构建起了key，与之对应的value则包含在cell中，从图中也可以看出来，cell由timestamp和value组成，timestamp是HBase实现数据版本控制的核心，对同一条数据的不同迭代，以不同的timestamp进行标记，而value就是真正的这条数据，指定的这个列（key）所对应的值（value）</p>
+<h3 id="HBase架构"><a href="#HBase架构" class="headerlink" title="HBase架构"></a>HBase架构</h3><p><strong>Master</strong>：HMaster，RegionServer的管理者，主要控制与Region相关的功能，包括但不限于：表的增删改查、RegionServer的负载均衡、Region分布调整、Region的分裂、RegionServer失效后Region的迁移。在HA模式下，会有主备Master，主Master故障，备用Master会替代。<br><strong>RegionServer</strong>：Hbase的数据处理和计算单元，提供表数据的读写等服务，RegionServer一般与HDFS的DataNode部署在一起，实现数据存储功能<br><strong>Zookeeper</strong>：为Hbase各进程提供分布式协作服务。各RegionServer将自己的信息注册到Zookeeper，主Master据此感知各个RegionServer的健康状态<br><strong>client</strong>：可以通俗的理解为客户端，client与Master进行管理类通信，与RegionServer进行数据操作类通信<br><strong>HDFS</strong>：为Hbase提供高可靠的文件存储服务，Hbase的数据全部存在HDFS中</p>
+<div align="center">
+<img src="/2019/12/25/hadoop-hbase/image3.png" class title="图3 HBase存储架构">
+</div>
+
+<pre><code>拓展：Region、Store、StoreFlie、ColumnFamily的关系：
+The HRegionServer opens the region and creates a corresponding HRegion object. When the HRegion is opened it sets up a Store instance for each HColumnFamily for every table as defined by the user beforehand. Each Store instance can, in turn, have one or more StoreFile instances, which are lightweight wrappers around the actual storage file called HFile. A Store also has a MemStore, and the HRegionServer a shared HLog in-stance。
+RegionServer打开一个region的时候，会创建一个相应的HRegion对象。当这个HRegion被打开，他会为每一个表中的每一个列簇创建一个Stroe实例，就想用户之前创建的那样。每一个Store实例相应地有一个或者多个StoreFile实例，StoreFile是对真正存储数据的文件(HFile)的轻量级封装。一个Store还会有一个Memstore。每一个HRegionServer中的所有东西会共享一个HLog实例。
+结合前面的图看就很清晰了。
+
+From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionServer数据存储结构"><a href="#RegionServer数据存储结构" class="headerlink" title="RegionServer数据存储结构"></a>RegionServer数据存储结构</h3><p><strong>Store</strong>：一个Region由一个或多个Store组成，每个Store对应一个Column Family。<br><strong>Memstore</strong>：一个Store包含一个MemStore，MemStore缓存客户端向Region插入的数据，当RegionServer中的MemStore大小达到配置的容量上限时，RegionServer会将MemStore中的数据“flush”到HDFS中。<br><strong>StoreFile</strong>：MemStore的数据flush到HDFS后成为StoreFile，随着数据的插入，一个Store会产生多个StoreFile，当StoreFile的个数达到配置的最大值时，RegionServer会将多个StoreFile合并为一个大的StoreFile。<br><strong>HFile</strong>：HFile定义了StoreFile在文件系统中的存储格式，它是当前HBase系统中StoreFile的具体实现。<br><strong>HLog</strong>：HLog日志保证了当RegionServer故障的情况下用户写入的数据不丢失，RegionServer的多个Region共享一个相同的HLog。<br><strong>元数据表</strong>：用来帮助client定位到具体的Region。元数据表中包括’hbase:meta’表，用来记录用户表的Region信息。 </p>
+<div align="center">
+<img src="/2019/12/25/hadoop-hbase/image4.png" class title="图4 HBase RegionServer存储结构">
+</div>
+
+<h2 id="Hbase-Shell使用"><a href="#Hbase-Shell使用" class="headerlink" title="Hbase Shell使用"></a>Hbase Shell使用</h2><h3 id="HBase客户端的使用"><a href="#HBase客户端的使用" class="headerlink" title="HBase客户端的使用"></a>HBase客户端的使用</h3><p>要访问HBase shell，必须导航进入到HBase的主文件夹。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;localhost&#x2F;</span><br><span class="line">cd Hbase</span><br></pre></td></tr></table></figure>
+<p>可以使用“hbase shell”命令来启动HBase的交互shell，如下图所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;bin&#x2F;hbase shell</span><br></pre></td></tr></table></figure>
+<p>如果已成功在系统中安装HBase，那么它会给出 HBase shell 提示符，如下图所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">HBase Shell; enter &#39;help&lt;RETURN&gt;&#39; for list of supported commands.</span><br><span class="line">Type &quot;exit&lt;RETURN&gt;&quot; to leave the HBase Shell</span><br><span class="line">Version 0.94.23, rf42302b28aceaab773b15f234aa8718fff7eea3c, Wed Aug 27</span><br><span class="line">00:54:09 UTC 2014</span><br><span class="line"></span><br><span class="line">hbase(main):001:0&gt;</span><br></pre></td></tr></table></figure>
+<p>要退出交互shell命令，在任何时候键入 <code>exit</code> 或使用 <code>&lt;Ctrl + C&gt;</code>。进一步处理检查shell功能之前，使用 <code>list</code> 命令用于列出所有可用命令。<code>list</code>是用来获取所有HBase 表的列表。首先，验证安装HBase在系统中使用如下所示。<code>hbase(main):001:0&gt; list</code> 当输入这个命令，它给出下面的输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):001:0&gt; list</span><br><span class="line">TABLE</span><br></pre></td></tr></table></figure>
+
+<h3 id="HBase-Shell命令的使用"><a href="#HBase-Shell命令的使用" class="headerlink" title="HBase Shell命令的使用"></a>HBase Shell命令的使用</h3><p>这里仅写出一些简单的HBase Shell命令的使用，HBase Shell Filter的使用可以参考我的另外一篇文章：<a href="https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" target="_blank" rel="noopener">HBase Shell 过滤器 —— HBase Shell Filter</a></p>
+<p>HBase Shell命令是操作HBase数据库的命令集合。 </p>
+<h4 id="1、查询表中数据：scan-amp-get"><a href="#1、查询表中数据：scan-amp-get" class="headerlink" title="1、查询表中数据：scan &amp; get"></a>1、查询表中数据：scan &amp; get</h4><p>scan用于查询整表数据，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan &#39;table_name&#39;</span><br></pre></td></tr></table></figure>
+<p>get则是根据指定的表、rowkey、列组合，获取行值或行的指定cell值，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get &#39;table_name&#39;,&#39;rowkey&#39;,&#39;cf_name:c_name&#39;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>HBase shell支持通过过滤器Filter对数据进行带条件的查询，由于复杂的过滤查询需要调用HBase Filter的Jave接口，所以这里简单介绍一些常用的不需要调用接口的Filter查询命令，如果想要深入了解，可以上网搜索。<br>1、查询表table1中，所有值为abcde的列的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan ‘table1’, FILTER &#x3D;&gt; “ValueFilter(&#x3D;,’binary:abcde’)”</span><br></pre></td></tr></table></figure>
+<p>2、查询表table1中，所有值包含abc的列的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan ‘table1’, FILTER &#x3D;&gt; “ValueFilter(&#x3D;,’subtring:abc’)”</span><br></pre></td></tr></table></figure>
+<p>3、查询表table1，列c1中，值包含abc的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan ‘table1’, FILTER &#x3D;&gt; “ColumnPrefixFilter(‘c1’) AND ValueFilter(&#x3D;,’substring:abc’)”</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="2、统计数据条数："><a href="#2、统计数据条数：" class="headerlink" title="2、统计数据条数："></a>2、统计数据条数：</h4><p>count<br>count ‘table_name’, {INTERVAL =&gt; 1000, CACHE =&gt; 10}<br>INTERVAL为统计的行数间隔，默认为1000，CACHE为统计的数据缓存,默认为10<br>HBase的count命令与SQL数据库的count统计方法不一样，HBase在统计时，会根据INTERVAL的值对数据进行截断，实际效果如图5所示：</p>
+<div align="center">
+<img src="/2019/12/25/hadoop-hbase/image5.png" class title="图5 HBase Shell count命令统计结果">
+</div>
+
+<h4 id="3、插入数据：put"><a href="#3、插入数据：put" class="headerlink" title="3、插入数据：put"></a>3、插入数据：put</h4><p>put插入数据仅支持cell为单位的数据插入，不支持rowkey为单位的整条数据插入<br>使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">put &#39;table_name&#39;,&#39;rowkey&#39;,&#39;cf_name:c_name&#39;,&#39;value&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、删除数据：delete-amp-deleteall"><a href="#4、删除数据：delete-amp-deleteall" class="headerlink" title="4、删除数据：delete &amp; deleteall"></a>4、删除数据：delete &amp; deleteall</h4><p>delete：删除指定的cell，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete &#39;table_name&#39;,&#39;rowkey&#39;,&#39;cf_name:c_name&#39;</span><br></pre></td></tr></table></figure>
+<p>deleteall：删除指定行的所有cell，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deleteall &#39;table_name&#39;,&#39;rowkey&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、查看表描述：describe"><a href="#5、查看表描述：describe" class="headerlink" title="5、查看表描述：describe"></a>5、查看表描述：describe</h4><p>describe可以获取表的描述信息，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">describe &#39;table_name&#39;</span><br></pre></td></tr></table></figure>
+<p>describe命令会返回指定表的状态(enable/disable)，列族信息，如图6所示：</p>
+<div align="center">
+
+</div>
+
+<h4 id="6、获取所有表名：list"><a href="#6、获取所有表名：list" class="headerlink" title="6、获取所有表名：list"></a>6、获取所有表名：list</h4><p>list命令能直接获取所有表名，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、创建表：create"><a href="#7、创建表：create" class="headerlink" title="7、创建表：create"></a>7、创建表：create</h4><p>使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create &#39;table_name&#39;,&#39;cf1&#39;,&#39;cf2&#39;,&#39;cf3&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、启动与停止表：enable-amp-disable"><a href="#8、启动与停止表：enable-amp-disable" class="headerlink" title="8、启动与停止表：enable &amp; disable"></a>8、启动与停止表：enable &amp; disable</h4><p>Hbase引入了表的启动与停止，顾名思义，即在不删除表和表数据的情况下，停用表，以及在不需要新建表和导入表数据的情况下，启用表，增加了数据仓库的灵活性和安全性<br>使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enable &#39;table_name&#39; &amp; disable &#39;table_name&#39;</span><br></pre></td></tr></table></figure>
+<p>但在现场环境，该组命令不常用</p>
+<h4 id="9、删除表：drop"><a href="#9、删除表：drop" class="headerlink" title="9、删除表：drop"></a>9、删除表：drop</h4><p>Hbase里，表在删除之前，必须保证该表已经停止，否则删除不成功，保障数据安全，使用方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop &#39;table_name&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="10、更改表结构：alter"><a href="#10、更改表结构：alter" class="headerlink" title="10、更改表结构：alter"></a>10、更改表结构：alter</h4><p>更改表结构。可以通过alter命令增加、修改、删除列族信息以及表相关的参数值，使用方法举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter &#39;test&#39;, &#123;NAME &#x3D;&gt; &#39;cf3&#39;, METHOD &#x3D;&gt; &#39;delete&#39;&#125;。</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-27T09:05:49.575Z" itemprop="dateUpdated">2019-12-27 17:05:49</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/HBase/" rel="tag">HBase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2019/12/25/hbase-shell-filter/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">HBase Shell 过滤器 —— HBase Shell Filter</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2019/12/23/webpage-recommend/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">网站推荐（持续更新哟）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aMZLDMAgF0Nz/0t5mizTWfiDZGUtPVQpZ9kvBAOL1itf1tpI97zvvnrrbuX7LaGFgYDyWcS3X+gXrPev9yVPJt2FgYJzDuItgye81O4H1gjUGBgbG5NPz0Jn/ZRgYGBg5o1pwJqVvnlxiYGCczJgHxLzoTRLEL9biGBgYD2TkXff///2V+w0MDIxHMa7iqj6bB+Le9/yeg4GBsTUjD3DVFC0fzpgUxhgYGOcwJkfn4xST4bNmsoiBgbERY/JwdU+1oVZIMTEwMLZmrKNWtRHWa+tP0kQMDIwTGJOxiRw8abpFIR4DA2NTxuSg3gDrJLksNNcwMDA2YlSD6eQyIC9fqwUwBgbGaYyk4fXZF1dP++Mvw8DA2JTRu7as9vOqbbjy2zEwMDZlVBv0vfQxHw5rjnRgYGAcxqiGzk81zpLs9XYPBgbG1oxeAjcZ4Bh93GfzUAwMjEcxegOjeROt2qpLSujbBBEDA+MARp7GVYvVXghuXl5iYGBszZgExLz11rvajJpuGBgYBzAmV5W9EY3q+RgYGCczqo3+fICsVwZXrxYwMDB2ZVzF1Xt9MuBVTR8xMDDOYUzuB5OQ2mvPVa8fMDAwTmBUg2y1NK0ObTTHOzAwMA5gzANf73PnTTcMDAyMPID2MtCkxI1Ow8DAwIhDZ97QT1psSYjHwMA4h9G7klx/UHVoIxk1w8DAOJMxKh3zgDhI+z52kYmBgfE8xg9gBcYEJIDQxQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

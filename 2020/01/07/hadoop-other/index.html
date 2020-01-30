@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Hadoop快速入门系列——篇六：其他组件简介 | Winyter | Garden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hadoop,Redis,Flink,Zookeeper,Yarn,Mapreduce">
+    <meta name="description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构    Flink整个系统包含三个部分：ClientFlink Cli">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop快速入门系列——篇六：其他组件简介">
+<meta property="og:url" content="176.122.163.119&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;">
+<meta property="og:site_name" content="Winyter">
+<meta property="og:description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构    Flink整个系统包含三个部分：ClientFlink Cli">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image1.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image2.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image3.png">
+<meta property="og:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image4.png">
+<meta property="article:published_time" content="2020-01-07T16:46:01.000Z">
+<meta property="article:modified_time" content="2020-01-08T08:50:01.703Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Hadoop">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="Flink">
+<meta property="article:tag" content="Zookeeper">
+<meta property="article:tag" content="Yarn">
+<meta property="article:tag" content="Mapreduce">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇六：其他组件简介</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hadoop快速入门系列——篇六：其他组件简介</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-07T16:46:01.000Z" itemprop="datePublished" class="page-time">
+  2020-01-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Flink"><span class="post-toc-number">1.</span> <span class="post-toc-text">Flink</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Flink架构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Flink架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Flink系统特性："><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Flink系统特性：</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Zookeeper"><span class="post-toc-number">2.</span> <span class="post-toc-text">Zookeeper</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zookeeper是什么"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Zookeeper是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Zookeeper结构"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Zookeeper结构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Yarn"><span class="post-toc-number">3.</span> <span class="post-toc-text">Yarn</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Redis逻辑架构"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Redis逻辑架构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Redis持久化"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Redis持久化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#MapReduce"><span class="post-toc-number">5.</span> <span class="post-toc-text">MapReduce</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#MapReduce的原理"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">MapReduce的原理</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-hadoop-other"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hadoop快速入门系列——篇六：其他组件简介</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-08 00:46:01" datetime="2020-01-07T16:46:01.000Z"  itemprop="datePublished">2020-01-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>Flink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。<br>Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。</p>
+<h3 id="Flink架构"><a href="#Flink架构" class="headerlink" title="Flink架构"></a>Flink架构</h3><div align="center">
+<img src="/2020/01/07/hadoop-other/image1.png" class title="图1 Flink架构">
+</div>
+
+<p>Flink整个系统包含三个部分：<br><strong>Client</strong><br>Flink Client主要给用户提供向Flink系统提交用户任务（流式作业）的能力。<br><strong>TaskManager</strong><br>Flink系统的业务执行节点，执行具体的用户任务。TaskManager可以有多个，各个TaskManager都平等。<br><strong>JobManager</strong><br>Flink系统的管理节点，管理所有的TaskManager，并决策用户任务在哪些Taskmanager执行。JobManager在HA模式下可以有多个，但只有一个主JobManager。</p>
+<h3 id="Flink系统特性："><a href="#Flink系统特性：" class="headerlink" title="Flink系统特性："></a>Flink系统特性：</h3><p><strong>低时延</strong><br>提供ms级时延的处理能力。<br><strong>Exactly Once</strong><br>提供异步快照机制，保证所有数据真正只处理一次。<br><strong>HA</strong><br>JobManager支持主备模式，保证无单点故障。<br><strong>水平扩展能力</strong><br>TaskManager支持手动水平扩展。</p>
+<h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>在分布式框架中，分布式应用面临的最大的问题就是数据一致性。那么Zookeeper就是一个比较好的解决方案。在分布式框架中起到协调作用。</p>
+<h3 id="Zookeeper是什么"><a href="#Zookeeper是什么" class="headerlink" title="Zookeeper是什么"></a>Zookeeper是什么</h3><p>zookeeper是高性能的分布式协作服务和分布式数据一致性解决方案，由雅虎创建，是Goole Chubby的开源实现。</p>
+<p>zookeeper可以保证分布式一致性特性，包括顺序一致性、原子性、单一视图（无论客户端连接哪一个ZK服务器看到的都是一样的数据模型）、可靠性、实时性（在一定时间内客户端可以读取到最新数据状态而不是提交后所有服务器马上就全部更新。）</p>
+<p>zookeeper的数据模型是一个树形节点，服务启动后，所有数据加载到内存中这样来提高服务器吞吐并减少延迟。</p>
+<h3 id="Zookeeper结构"><a href="#Zookeeper结构" class="headerlink" title="Zookeeper结构"></a>Zookeeper结构</h3><div align="center">
+<img src="/2020/01/07/hadoop-other/image2.png" class title="图2 Zookeeper结构">
+</div>
+
+<p>ZooKeeper集群中的节点分为三种角色：Leader、Follower和Observer，其结构和相互关系如图2-21所示。通常来说，需要在集群中配置奇数个（2N+1）ZooKeeper服务，至少（N+1）个投票才能成功的执行写操作。<br>Leader：ZK集群的核心角色，通过选举产生，为客户端提供读写服务，也就是处理事务请求<br>Follower：集群状态的跟随者，参加选举，没有被选上就是这个角色，提供读取服务，也就是处理非事务请求，对于收到的事务请求会转发给Leader服务器<br>Observer：观察者角色，不参加选举，但是提供数据读取服务，提供读取服务，也就是处理非事务请求，对于收到的事务请求会转发给Leader服务器。</p>
+<h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><p>YARN是Hadoop2.0中的资源管理系统，是一个通用的资源管理模块，可以为各类应用程序进行资源管理和调度。YARN起源于Hadoop1.0中的MRv1，起初这个模块仅用来作为MapReduce的资源管理工具，后来逐步发展，在Hadoop2.0中，该模块也成为了其他计算框架的同意资源调度工具。YARN主要包括ResourceManager、ApplicationMaster与NodeManager三个部分。</p>
+<div align="center">
+<img src="/2020/01/07/hadoop-other/image3.png" class title="图3 Yarn的基本架构">
+</div>
+
+<p>结构图说明：<br><strong>Client</strong><br>YARN Application客户端，用户可以通过客户端向ResourceManager提交任务，查询Application运行状态等。<br><strong>ResourceManager(RM)</strong><br>负责集群中所有资源的统一管理和分配。接收来自各个节点（NodeManager）的资源汇报信息，并根据收集的资源按照一定的策略分配给各个应用程序。</p>
+<p>RM是一个全局的资源管理器，负责整个系统的资源管理和分配。主要由两个组件构成：调度器（Scheduler）和应用程序管理器（Applications Manager）。</p>
+<ul>
+<li>调度器根据容量、队列等限制条件（如每个队列分配一定的资源，最多执行一定数量的作业等），将系统中的资源分配给各个正在运行的应用程序。调度器仅根据各个应用程序的资源需求进行资源分配，而资源分配单位用一个抽象概念Container表示。Container是一个动态资源分配单位，将内存、CPU、磁盘、网络等资源封装在一起，从而限定每个任务使用的资源量。此外，该调度器是一个可插拔的组件，用户可根据自己的需要设计新的调度器，YARN提供了多种直接可用的调度器，比如Fair Scheduler和Capacity Scheduler等。</li>
+<li>应用程序管理器负责管理整个系统中所有应用程序，包括应用程序提交、与调度器协商资源以启动ApplicationMaster、监控ApplicationMaster运行状态并在失败时重新启动等。</li>
+</ul>
+<p><strong>NodeManager(NM)</strong><br>NodeManager（NM）是YARN中每个节点上的代理，管理Hadoop集群中单个计算节点，包括与ResourceManger保持通信，监督Container的生命周期管理，监控每个Container的资源使用（内存、CPU等）情况，追踪节点健康状况，管理日志和不同应用程序用到的附属服务（auxiliary service）。</p>
+<p>NM是每个节点上的资源和任务管理器，一方面，会定时向RM汇报本节点上的资源使用情况和各个Container的运行状态；另一方面，接收并处理来自AM的Container启动/停止等请求。</p>
+<p><strong>ApplicationMaster(AM)</strong><br>即图中的App Mstr，负责一个Application生命周期内的所有工作。包括：与RM调度器协商以获取资源；将得到的资源进一步分配给内部任务（资源的二次分配）；与NM通信以启动/停止任务；监控所有任务运行状态，并在任务运行失败时重新为任务申请资源以重启任务。</p>
+<p>AM负责一个Application生命周期内的所有工作。包括：</p>
+<ul>
+<li>与RM调度器协商以获取资源。</li>
+<li>将得到的资源进一步分配给内部的任务(资源的二次分配)。</li>
+<li>与NM通信以启动/停止任务。</li>
+<li>监控所有任务运行状态，并在任务运行失败时重新为任务申请资源以重启任务。</li>
+</ul>
+<p><strong>Container</strong><br>Container是YARN中的资源抽象，封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等（目前仅封装内存和CPU），当AM向RM申请资源时，RM为AM返回的资源便是用Container表示。YARN会为每个任务分配一个Container，且该任务只能使用该Container中描述的资源。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>Redis，本质上上一个KEY-VALUE类型的内存数据库，整个数据库都加载在内存当中进行操作，定期通过异步操作把数据库数据flush到硬盘上进行保存。因此它是纯内存操作，Redis的性能非常出色，每秒可以处理超过10万次读写操作。虽然是内存数据库，但是其数据可以持久化，而且支持丰富的数据类型。</p>
+<p>Redis支持保存LIST列表和SET集合的数据结构，而且还支持对LIST进行各种操作，例如从LIST两端进行PUSH和POP数据，取LIST区间，排序等等。对SET支持各种集合的并集交集操作，单个value的最大限制是1GB。</p>
+<p>Redis主要的缺点是受到物理内存限制，不能用作海量数据的高性能读写，而且它没有原生的可扩展机制，不具有扩展能力，要依赖客户端来实现分布式读写，因此其适合的应用场景主要局限在较小数据量的高性能操作和运算上。</p>
+<p>键值类型的数据库主要使用哈希表，这个表中有一个特定的键和一个指针指向特定数据。KEY/VALUE模型对于IT系统来说的优势在于简单、容易部署。主要特点是具有极高的并发读写性能。</p>
+<h3 id="Redis逻辑架构"><a href="#Redis逻辑架构" class="headerlink" title="Redis逻辑架构"></a>Redis逻辑架构</h3><div align="center">
+<img src="/2020/01/07/hadoop-other/image4.png" class title="图4 Redis逻辑架构">
+</div>
+
+<p><strong>Redis Server</strong>：Redis组件的核心模块，负责Redis协议的数据读写、数据持久化、主从复制、集群功能。<br><strong>Redis-WS</strong>：Redis WebService管理模块，主要负责Redis集群的创建、扩容、减容、查询、删除等操作，集群管理信息存入DB数据库。</p>
+<h3 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h3><p>Redis的所有数据都保存在内存中，然后不定期的通过异步方式保存到磁盘上（这称为半持久化）；也可以把每一次数据变化都写入到磁盘（这称为全持久化）。所谓持久化就是将内存数据转换为硬盘数据，内存模型到存储模型的转换，或者说是瞬时状态与持久状态的相互转换。<br>Redis有两种持久化方式，默认是snapshot方式（RDB方式），实现方法是定时将内存的快照持久化到硬盘，这种方式的缺点是持久化之后如果出现crash则会丢失一段数据。另外一种是AOF方式，在写入内存数据的同时将操作命令保存到日志文件中。<br><strong>1、RDB方式：</strong><br>这种快照方式和虚拟机的快照一样，保存某一时刻的完整数据。Redis在使用这种方式做持久化的时候，定期（默认5分钟）会先写入到一个临时文件，写入完成后，会用这个文件去替换上次的旧的文件。这种方式的好处是，任何一次的快照文件都是完整可用的。但是缺点是，它每隔一段时间（默认最快1分钟，最慢15分钟）做一次，所以会存在一段时间的数据丢失。<br><strong>2、AOF方式：</strong><br>这种方式就是把对Redis内存数据的的写指令记录下来，这些指令会被记录在AOF文件的末尾，然后每秒做一次fsync操作（默认每秒一次），把指令在后台在执行一次执行过程其实就是修改磁盘上的数据库内容。所以如果出现故障也只丢失1秒的数据。</p>
+<p>上面这种方式就很类似于传统数据库服务器的事务日志。</p>
+<p>如果遇到在追加日志的时候遇到意外，可以使用redis-check-aof工具进行日志修复。</p>
+<p>因为采用了追加方式，所以AOF会越来越大（这一点又和传统数据库不一样，传统数据库事务日志文件都比较小），因此redis有另外一个机制就是AOF文件重写，当AOF文件达到一个设定的阈值后，会自动启动AOF文件压缩，只保留可以恢复数据的最小指令集。</p>
+<p>通过上面的对AOF的描述，可以看到AOF是一个面向过程的，而RDB是面向对象的。</p>
+<p>AOF方式的优点：</p>
+<ul>
+<li>丢失数据最小</li>
+</ul>
+<p>AOF方式的缺点：</p>
+<ul>
+<li>同等数据量，AOF文件比RDB文件体积大</li>
+<li>AOF恢复速度比RDB方式慢</li>
+</ul>
+<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><p>MapReduce是一种简化并行计算的编程模型，名字源于该模型中的两项核心操作：Map和Reduce。Map将一个作业分解成为多个任务，Reduce将分解后多个任务处理的结果汇总起来，得出最终的分析结果。MapReduce的推出给大数据并行处理带来了巨大的革命性影响，使其已经成为事实上的大数据处理的工业标准,是到目前为止最为成功、最广为接受和最易于使用的大数据并行处理技术（批处理技术）。当然，随着技术的进步，以MapReduce为代表的传统批处理计算框架也逐渐被流处理、批流合一的计算框架取代。</p>
+<h3 id="MapReduce的原理"><a href="#MapReduce的原理" class="headerlink" title="MapReduce的原理"></a>MapReduce的原理</h3><p>Hadoop MapReduce的思想来源于Google在03、04年发表的两篇关于GFS和MapReduce的论文，在那篇MapReduce的论文中，Google表示，MapReduce的灵感来源于函数式语言（比如Lisp）中的内置函数map和reduce。在函数式语言里，map表示对一个列表（List）中的每个元素做计算，reduce表示对一个列表中的每个元素做迭代计算。它们具体的计算是通过传入的函数来实现的，map和reduce提供的是计算的框架。不过从这样的解释到现实中的MapReduce还太远，仍然需要一个跳跃。再仔细看，reduce既然能做迭代计算，那就表示列表中的元素是相关的，比如我想对列表中的所有元素做相加求和，那么列表中至少都应该是数值吧。而map是对列表中每个元素做单独处理的，这表示列表中可以是杂乱无章的数据。这样看来，就有点联系了。在MapReduce里，Map处理的是原始数据，自然是杂乱无章的，每条数据之间互相没有关系；到了Reduce阶段，数据是以key后面跟着若干个value来组织的，这些value有相关性，至少它们都在一个key下面，于是就符合函数式语言里map和reduce的基本思想了。</p>
+<p>这样我们就可以把MapReduce理解为，把一堆杂乱无章的数据按照某种特征归纳起来，然后处理并得到最后的结果。Map面对的是杂乱无章的互不相关的数据，它解析每个数据，从中提取出key和value，也就是提取了数据的特征。经过MapReduce的Shuffle阶段之后，在Reduce阶段看到的都是已经归纳好的数据了，在此基础上我们可以做进一步的处理以便得到结果。这就回到了最初，终于知道MapReduce为何要这样设计。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-08T08:50:01.703Z" itemprop="dateUpdated">2020-01-08 16:50:01</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="176.122.163.119">
+            <img src="/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flink/" rel="tag">Flink</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mapreduce/" rel="tag">Mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yarn/" rel="tag">Yarn</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zookeeper/" rel="tag">Zookeeper</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/07/hadoop-other/&title=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/07/hadoop-other/&title=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/07/hadoop-other/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&url=176.122.163.119/2020/01/07/hadoop-other/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/07/hadoop-other/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2020/01/07/hadoop-kafka/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hadoop快速入门系列——篇五：Kafka</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2020/01/05/install-hexo-on-MacOS-EACCES/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MacOS 安装 Hexo 时提示 EACCES 时的解决方法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=176.122.163.119/2020/01/07/hadoop-other/&title=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&pic=176.122.163.119/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=176.122.163.119/2020/01/07/hadoop-other/&title=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=176.122.163.119/2020/01/07/hadoop-other/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇六：其他组件简介》 — Winyter&url=176.122.163.119/2020/01/07/hadoop-other/&via=176.122.163.119" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=176.122.163.119/2020/01/07/hadoop-other/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABx0lEQVR42u3aMW7DMAwF0Nz/0u7aoVY+RUl2gacpSBz52QNBUvx84nX9WtUrk28WL1xc3Db3Gq65a5Jvqvvj4uKe595FjOSa8Q3yRx0bcHFx38xNbjPOT6qvAxcX939x83CWFEi4uLhv41ZTkLXELbUaLi5ug7sqNel83tLfxcXFneJexdVhVdslf9wdFxf3CDcPKIXtgmPUzpEtLi7ueW5nVCIPZHlbJLoNLi7uUm4+SBG1MocNlHwg43YHXFzch7iTBUlQ5CS4VmcXFxd3ETfZLgleSR6SH8lMFj+4uLiLuNUjz2rLI98hemW4uLgHuZ0kJqEnPY3oMy4u7hHu3PhU0iTNO5yTJRAuLu42bmfMYu59dB4YFxf3DLczrFkYmJgKl2UoLi7uUm6nPVp97KSs+iLBxcV9lJunHXMDFjkdFxf3KW6VWJ2inMyw7gIZLi7uNm5nDKsQeopJT+uQFRcXt82dK12q1+RHsHlgxcXF3c3NR6lyVvVIJh/bwsXFPcntB5p8qKJQmeU/4+LivpLb/2+UeeHi4r6Ym/+rkx4tS3FwcXG39RnGxOS4JY9IC2o1XFzcBrd8KhunJskQRpWOi4u7mfsDF8IBLws183EAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
