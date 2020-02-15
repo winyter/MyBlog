@@ -6,7 +6,7 @@
   <link href="/MyBlog/atom.xml" rel="self"/>
   
   <link href="https://winyter.github.io/MyBlog/"/>
-  <updated>2020-01-08T08:53:03.607Z</updated>
+  <updated>2020-02-15T05:12:57.338Z</updated>
   <id>https://winyter.github.io/MyBlog/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="https://winyter.github.io/MyBlog/2020/02/15/test/"/>
+    <id>https://winyter.github.io/MyBlog/2020/02/15/test/</id>
+    <published>2020-02-15T05:09:36.000Z</published>
+    <updated>2020-02-15T05:12:57.338Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://q5q8j2iyn.bkt.clouddn.com/winyter-test.png" alt="1" title>                </div>                <div class="image-caption">1</div>            </figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;test&quot;&gt;&lt;a href=&quot;#test&quot; class=&quot;headerlink&quot; title=&quot;test&quot;&gt;&lt;/a&gt;test&lt;/h1&gt;&lt;figure class=&quot;image-bubble&quot;&gt;
+                &lt;div class=&quot;img-lig
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>华为FusionInsight大数据集群关系型数据库——Libra入门</title>
