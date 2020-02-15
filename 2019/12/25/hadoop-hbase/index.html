@@ -29,12 +29,13 @@
 <meta property="og:description" content="HBase概念介绍HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。HBase适合于存储大表数据（表的规模可以达到数十亿行以及数百万列），并且对大表数据的读、写访问可以达到实时级别。利用Hadoop HDFS（Hadoop Distributed File System）作为其文件存储系统，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。为Spark和Hadoop M">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image2.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image3.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image4.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image5.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-hbase_image6.png">
 <meta property="article:published_time" content="2019-12-25T15:01:04.000Z">
-<meta property="article:modified_time" content="2020-02-15T05:42:42.041Z">
+<meta property="article:modified_time" content="2020-02-15T06:04:24.773Z">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="HBase">
 <meta property="article:tag" content="Hadoop">
@@ -196,19 +197,26 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image1.png" alt="图1 HBase数据模型" title>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image1.png" alt="图1 HBase数据模型" title="">
                 </div>
                 <div class="image-caption">图1 HBase数据模型</div>
             </figure>
 
 <p>图2为实际查询的HBase数据返回结果的截图：</p>
-<p>![图2 HBase数据查询结果](<a href="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image2.png]" target="_blank" rel="noopener">http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image2.png]</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image2.png" alt="图2 HBase数据查询结果" title="">
+                </div>
+                <div class="image-caption">图2 HBase数据查询结果</div>
+            </figure>
+
 <p>HBase的索引依据是行键（Rowkey）、列键（ColumnFamily:Column）、时间戳（Timestamp）。<br>可以看到，同一条rowkey，按照HBase列存储的规则，每一列为一条记录，相同的rowkey代表一行数据，而HBase并没有按照传统数据库行存储的方式，把一条数据的所有内容全部放在一条记录里面，取而代之的，是使用Key-Value的形式，对数据进行列存储，同时，在COLUMN+CELL中，column的值的组织形式是&lt;列族名&gt;:&lt;列名&gt;，列族与列名的组合，共同构建起了key，与之对应的value则包含在cell中，从图中也可以看出来，cell由timestamp和value组成，timestamp是HBase实现数据版本控制的核心，对同一条数据的不同迭代，以不同的timestamp进行标记，而value就是真正的这条数据，指定的这个列（key）所对应的值（value）</p>
 <h3 id="HBase架构"><a href="#HBase架构" class="headerlink" title="HBase架构"></a>HBase架构</h3><p><strong>Master</strong>：HMaster，RegionServer的管理者，主要控制与Region相关的功能，包括但不限于：表的增删改查、RegionServer的负载均衡、Region分布调整、Region的分裂、RegionServer失效后Region的迁移。在HA模式下，会有主备Master，主Master故障，备用Master会替代。<br><strong>RegionServer</strong>：Hbase的数据处理和计算单元，提供表数据的读写等服务，RegionServer一般与HDFS的DataNode部署在一起，实现数据存储功能<br><strong>Zookeeper</strong>：为Hbase各进程提供分布式协作服务。各RegionServer将自己的信息注册到Zookeeper，主Master据此感知各个RegionServer的健康状态<br><strong>client</strong>：可以通俗的理解为客户端，client与Master进行管理类通信，与RegionServer进行数据操作类通信<br><strong>HDFS</strong>：为Hbase提供高可靠的文件存储服务，Hbase的数据全部存在HDFS中</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image3.png" alt="图3 HBase存储架构" title>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image3.png" alt="图3 HBase存储架构" title="">
                 </div>
                 <div class="image-caption">图3 HBase存储架构</div>
             </figure>
@@ -247,7 +255,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image5.png" alt="图5 HBase Shell count命令统计结果" title>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image5.png" alt="图5 HBase Shell count命令统计结果" title="">
                 </div>
                 <div class="image-caption">图5 HBase Shell count命令统计结果</div>
             </figure>
@@ -266,7 +274,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image6.png" alt="图6 HBaseShell describe命令查询结果" title>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-hbase_image6.png" alt="图6 HBaseShell describe命令查询结果" title="">
                 </div>
                 <div class="image-caption">图6 HBaseShell describe命令查询结果</div>
             </figure>
@@ -294,7 +302,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-15T05:42:42.041Z" itemprop="dateUpdated">2020-02-15 13:42:42</time>
+    最后更新时间：<time datetime="2020-02-15T06:04:24.773Z" itemprop="dateUpdated">2020-02-15 14:04:24</time>
 </span><br>
 
 
