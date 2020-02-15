@@ -28,16 +28,16 @@
 <meta property="og:site_name" content="Winyter">
 <meta property="og:description" content="HDFS简介Hadoop分布式文件系统（Hadoop Distributed File System）能提供高吞吐量的数据访问，适合大规模数据集方面的应用，为海量数据提供存储。 HDFS架构HDFS包含主、备NameNode和多个DataNode，如图1所示。 HDFS是一个Master&#x2F;Slave的架构，在Master上运行NameNode，而在每一个Slave上运行DataNode，ZKFC">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-HDFS_image1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-HDFS_image2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-HDFS_image3.png">
 <meta property="article:published_time" content="2020-01-05T16:17:10.000Z">
-<meta property="article:modified_time" content="2020-01-08T08:45:18.233Z">
+<meta property="article:modified_time" content="2020-02-15T05:45:06.702Z">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="Hadoop">
 <meta property="article:tag" content="HDFS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;05&#x2F;hadoop-HDFS&#x2F;image1.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-HDFS_image1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
     
@@ -192,25 +192,37 @@
 <h3 id="HDFS架构"><a href="#HDFS架构" class="headerlink" title="HDFS架构"></a>HDFS架构</h3><p>HDFS包含主、备NameNode和多个DataNode，如图1所示。</p>
 <p>HDFS是一个Master/Slave的架构，在Master上运行NameNode，而在每一个Slave上运行DataNode，ZKFC需要和NameNode一起运行。</p>
 <p>NameNode和DataNode之间的通信都是建立在TCP/IP的基础之上的。NameNode、DataNode、ZKFC和JournalNode能部署在运行Linux的服务器上。</p>
-<div align="center">
-<img src="/2020/01/05/hadoop-HDFS/image1.png" class title="图1 HDFS结构图">
-</div>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-HDFS_image1.png" alt="图1 HDFS结构图" title>
+                </div>
+                <div class="image-caption">图1 HDFS结构图</div>
+            </figure>
 
 <h4 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h4><p><strong>NameNode</strong><br>用于管理文件系统的命名空间、目录结构、元数据信息以及提供备份机制等，分为：</p>
 <p>Active NameNode：管理文件系统的命名空间、维护文件系统的目录结构树以及元数据信息；记录写入的每个“数据块”与其归属文件的对应关系。</p>
 <p>Standby NameNode：与Active NameNode中的数据保持同步；随时准备在Active NameNode出现异常时接管其服务。<br><strong>DataNode</strong><br>用于存储每个文件的“数据块”数据，并且会周期性地向NameNode报告该DataNode的数据存放情况。<br><strong>JournalNode</strong><br>HA集群下，用于同步主备NameNode之间的元数据信息。<br><strong>ZKFC</strong><br>ZKFC是需要和NameNode一一对应的服务，即每个NameNode都需要部署ZKFC。它负责监控NameNode的状态，并及时把状态写入Zookeeper。ZKFC也有选择谁作为Active NameNode的权利。<br><strong>ZK Cluster</strong><br>ZooKeeper是一个协调服务，帮助ZKFC执行主NameNode的选举。<br><strong>HttpFS gateway</strong><br>HttpFS是个单独无状态的gateway进程，对外提供webHDFS接口，对HDFS使用FileSystem接口对接。可用于不同Hadoop版本间的数据传输，及用于访问在防火墙后的HDFS(HttpFS用作gateway)。</p>
-<h3 id="HDFS原理"><a href="#HDFS原理" class="headerlink" title="HDFS原理"></a>HDFS原理</h3><div align="center">
-<img src="/2020/01/05/hadoop-HDFS/image2.png" class title="图2 HDFS运行原理">
-</div>
+<h3 id="HDFS原理"><a href="#HDFS原理" class="headerlink" title="HDFS原理"></a>HDFS原理</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-HDFS_image2.png" alt="图2 HDFS运行原理" title>
+                </div>
+                <div class="image-caption">图2 HDFS运行原理</div>
+            </figure>
 
 <p>在HDFS内部，一个文件分成一个或多个“数据块”，这些“数据块”存储在DataNode集合里，NameNode负责保存和管理所有的HDFS元数据。客户端连接到NameNode，执行文件系统的“命名空间”操作，例如打开、关闭、重命名文件和目录，同时决定“数据块”到具体DataNode节点的映射。DataNode在NameNode的指挥下进行“数据块”的创建、删除和复制。客户端连接到DataNode，执行读写数据块操作。</p>
 <h3 id="HDFS与其他组件之间的关系"><a href="#HDFS与其他组件之间的关系" class="headerlink" title="HDFS与其他组件之间的关系"></a>HDFS与其他组件之间的关系</h3><p>HDFS是整个Hadoop系统的底层存储实现，与其他很多组件都有着交互，了解HDFS与他们之间的交互将有助于理解Hadoop整套系统的交互运作方式。</p>
 <h4 id="HDFS和HBase的配合关系"><a href="#HDFS和HBase的配合关系" class="headerlink" title="HDFS和HBase的配合关系"></a>HDFS和HBase的配合关系</h4><p>HDFS是Apache的Hadoop项目的子项目，HBase利用Hadoop HDFS作为其文件存储系统。HBase位于结构化存储层，Hadoop HDFS为HBase提供了高可靠性的底层存储支持。除了HBase产生的一些日志文件，HBase中的所有数据文件都可以存储在Hadoop HDFS文件系统上。</p>
 <h4 id="MapReduce和HDFS的配合关系"><a href="#MapReduce和HDFS的配合关系" class="headerlink" title="MapReduce和HDFS的配合关系"></a>MapReduce和HDFS的配合关系</h4><p>HDFS是Hadoop分布式文件系统，具有高容错和高吞吐量的特性，可以部署在价格低廉的硬件上，存储应用程序的数据，适合有超大数据集的应用程序。<br>而MapReduce是一种编程模型，用于大数据集（大于1TB）的并行运算。在MapReduce程序中计算的数据可以来自多个数据源，如Local FileSystem、HDFS、数据库等。最常用的是HDFS，可以利用HDFS的高吞吐性能读取大规模的数据进行计算。同时在计算完成后，也可以将数据存储到HDFS。</p>
 <h4 id="Spark和HDFS的配合关系"><a href="#Spark和HDFS的配合关系" class="headerlink" title="Spark和HDFS的配合关系"></a>Spark和HDFS的配合关系</h4><p>通常，Spark中计算的数据可以来自多个数据源，如Local File、HDFS等。最常用的是HDFS，用户可以一次读取大规模的数据进行并行计算。在计算完成后，也可以将数据存储到HDFS。<br>分解来看，Spark分成控制端(Driver)和执行端（Executor）。控制端负责任务调度，执行端负责任务执行。</p>
-<h4 id="ZooKeeper和HDFS的配合关系"><a href="#ZooKeeper和HDFS的配合关系" class="headerlink" title="ZooKeeper和HDFS的配合关系"></a>ZooKeeper和HDFS的配合关系</h4><div align="center">
-<img src="/2020/01/05/hadoop-HDFS/image3.png" class title="图3 ZooKeeper与HDFS">
-</div>
+<h4 id="ZooKeeper和HDFS的配合关系"><a href="#ZooKeeper和HDFS的配合关系" class="headerlink" title="ZooKeeper和HDFS的配合关系"></a>ZooKeeper和HDFS的配合关系</h4><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-HDFS_image3.png" alt="图3 ZooKeeper与HDFS" title>
+                </div>
+                <div class="image-caption">图3 ZooKeeper与HDFS</div>
+            </figure>
 
 <p>ZKFC（ZKFailoverController）作为一个ZooKeeper集群的客 户端，用来监控NameNode的状态信息。ZKFC进程仅在部署了NameNode的节点中存在。HDFS NameNode的Active和Standby节点均部署有zkfc进程。<br>1、HDFS NameNode的ZKFC连接到ZooKeeper，把主机名等信息保存到ZooKeeper中，即“/hadoop-ha”下的znode目录里。先创建znode目录的NameNode节点为主节点，另一个为备节点。HDFS NameNode Standby通过ZooKeeper定时读取NameNode信息。<br>2、当主节点进程异常结束时，HDFS NameNode Standby通过ZooKeeper感知“/hadoop-ha”目录下发生了变化，NameNode会进行主备切换。</p>
 <h2 id="HDFS操作指南"><a href="#HDFS操作指南" class="headerlink" title="HDFS操作指南"></a>HDFS操作指南</h2><p>HDFS命令需要在安装了HDFS命令环境的操作系统上才能使用，由于各家大数据集群产品客户端使用方法不尽相同，因此，这里不再介绍环境加载的方法，仅提供HDFS操作命令。</p>
@@ -364,7 +376,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-01-08T08:45:18.233Z" itemprop="dateUpdated">2020-01-08 16:45:18</time>
+    最后更新时间：<time datetime="2020-02-15T05:45:06.702Z" itemprop="dateUpdated">2020-02-15 13:45:06</time>
 </span><br>
 
 

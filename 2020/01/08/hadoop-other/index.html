@@ -21,19 +21,19 @@
     
     
     <meta name="keywords" content="Hadoop,Redis,Flink,Zookeeper,Yarn,Mapreduce">
-    <meta name="description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构    Flink整个系统包含三个部分：ClientFlink Cli">
+    <meta name="description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop快速入门系列——篇六：其他组件简介">
 <meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;01&#x2F;08&#x2F;hadoop-other&#x2F;">
 <meta property="og:site_name" content="Winyter">
-<meta property="og:description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构    Flink整个系统包含三个部分：ClientFlink Cli">
+<meta property="og:description" content="FlinkFlink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。 Flink架构">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image3.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image4.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-other_image1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-other_image2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-other_image3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-other_image4.png">
 <meta property="article:published_time" content="2020-01-07T16:46:01.000Z">
-<meta property="article:modified_time" content="2020-01-08T08:50:01.703Z">
+<meta property="article:modified_time" content="2020-02-15T05:51:50.652Z">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="Hadoop">
 <meta property="article:tag" content="Redis">
@@ -42,7 +42,7 @@
 <meta property="article:tag" content="Yarn">
 <meta property="article:tag" content="Mapreduce">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;hadoop-other&#x2F;image1.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;hadoop-other_image1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
     
@@ -194,9 +194,13 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <hr>
 <h2 id="Flink"><a href="#Flink" class="headerlink" title="Flink"></a>Flink</h2><p>Flink是一个批处理和流处理结合的统一计算框架，其核心是一个提供了数据分发以及并行化计算的流数据处理引擎。它的最大亮点是流处理，是业界最顶级的开源流处理引擎。<br>Flink最适合的应用场景是低时延的数据处理（Data Processing）场景：高并发pipeline处理数据，时延毫秒级，且兼具可靠性。</p>
-<h3 id="Flink架构"><a href="#Flink架构" class="headerlink" title="Flink架构"></a>Flink架构</h3><div align="center">
-<img src="/2020/01/07/hadoop-other/image1.png" class title="图1 Flink架构">
-</div>
+<h3 id="Flink架构"><a href="#Flink架构" class="headerlink" title="Flink架构"></a>Flink架构</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-other_image1.png" alt="图1 Flink架构" title>
+                </div>
+                <div class="image-caption">图1 Flink架构</div>
+            </figure>
 
 <p>Flink整个系统包含三个部分：<br><strong>Client</strong><br>Flink Client主要给用户提供向Flink系统提交用户任务（流式作业）的能力。<br><strong>TaskManager</strong><br>Flink系统的业务执行节点，执行具体的用户任务。TaskManager可以有多个，各个TaskManager都平等。<br><strong>JobManager</strong><br>Flink系统的管理节点，管理所有的TaskManager，并决策用户任务在哪些Taskmanager执行。JobManager在HA模式下可以有多个，但只有一个主JobManager。</p>
 <h3 id="Flink系统特性："><a href="#Flink系统特性：" class="headerlink" title="Flink系统特性："></a>Flink系统特性：</h3><p><strong>低时延</strong><br>提供ms级时延的处理能力。<br><strong>Exactly Once</strong><br>提供异步快照机制，保证所有数据真正只处理一次。<br><strong>HA</strong><br>JobManager支持主备模式，保证无单点故障。<br><strong>水平扩展能力</strong><br>TaskManager支持手动水平扩展。</p>
@@ -204,15 +208,23 @@
 <h3 id="Zookeeper是什么"><a href="#Zookeeper是什么" class="headerlink" title="Zookeeper是什么"></a>Zookeeper是什么</h3><p>zookeeper是高性能的分布式协作服务和分布式数据一致性解决方案，由雅虎创建，是Goole Chubby的开源实现。</p>
 <p>zookeeper可以保证分布式一致性特性，包括顺序一致性、原子性、单一视图（无论客户端连接哪一个ZK服务器看到的都是一样的数据模型）、可靠性、实时性（在一定时间内客户端可以读取到最新数据状态而不是提交后所有服务器马上就全部更新。）</p>
 <p>zookeeper的数据模型是一个树形节点，服务启动后，所有数据加载到内存中这样来提高服务器吞吐并减少延迟。</p>
-<h3 id="Zookeeper结构"><a href="#Zookeeper结构" class="headerlink" title="Zookeeper结构"></a>Zookeeper结构</h3><div align="center">
-<img src="/2020/01/07/hadoop-other/image2.png" class title="图2 Zookeeper结构">
-</div>
+<h3 id="Zookeeper结构"><a href="#Zookeeper结构" class="headerlink" title="Zookeeper结构"></a>Zookeeper结构</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-other_image2.png" alt="图2 Zookeeper结构" title>
+                </div>
+                <div class="image-caption">图2 Zookeeper结构</div>
+            </figure>
 
 <p>ZooKeeper集群中的节点分为三种角色：Leader、Follower和Observer，其结构和相互关系如图2-21所示。通常来说，需要在集群中配置奇数个（2N+1）ZooKeeper服务，至少（N+1）个投票才能成功的执行写操作。<br>Leader：ZK集群的核心角色，通过选举产生，为客户端提供读写服务，也就是处理事务请求<br>Follower：集群状态的跟随者，参加选举，没有被选上就是这个角色，提供读取服务，也就是处理非事务请求，对于收到的事务请求会转发给Leader服务器<br>Observer：观察者角色，不参加选举，但是提供数据读取服务，提供读取服务，也就是处理非事务请求，对于收到的事务请求会转发给Leader服务器。</p>
 <h2 id="Yarn"><a href="#Yarn" class="headerlink" title="Yarn"></a>Yarn</h2><p>YARN是Hadoop2.0中的资源管理系统，是一个通用的资源管理模块，可以为各类应用程序进行资源管理和调度。YARN起源于Hadoop1.0中的MRv1，起初这个模块仅用来作为MapReduce的资源管理工具，后来逐步发展，在Hadoop2.0中，该模块也成为了其他计算框架的同意资源调度工具。YARN主要包括ResourceManager、ApplicationMaster与NodeManager三个部分。</p>
-<div align="center">
-<img src="/2020/01/07/hadoop-other/image3.png" class title="图3 Yarn的基本架构">
-</div>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-other_image3.png" alt="图3 Yarn的基本架构" title>
+                </div>
+                <div class="image-caption">图3 Yarn的基本架构</div>
+            </figure>
 
 <p>结构图说明：<br><strong>Client</strong><br>YARN Application客户端，用户可以通过客户端向ResourceManager提交任务，查询Application运行状态等。<br><strong>ResourceManager(RM)</strong><br>负责集群中所有资源的统一管理和分配。接收来自各个节点（NodeManager）的资源汇报信息，并根据收集的资源按照一定的策略分配给各个应用程序。</p>
 <p>RM是一个全局的资源管理器，负责整个系统的资源管理和分配。主要由两个组件构成：调度器（Scheduler）和应用程序管理器（Applications Manager）。</p>
@@ -235,9 +247,13 @@
 <p>Redis支持保存LIST列表和SET集合的数据结构，而且还支持对LIST进行各种操作，例如从LIST两端进行PUSH和POP数据，取LIST区间，排序等等。对SET支持各种集合的并集交集操作，单个value的最大限制是1GB。</p>
 <p>Redis主要的缺点是受到物理内存限制，不能用作海量数据的高性能读写，而且它没有原生的可扩展机制，不具有扩展能力，要依赖客户端来实现分布式读写，因此其适合的应用场景主要局限在较小数据量的高性能操作和运算上。</p>
 <p>键值类型的数据库主要使用哈希表，这个表中有一个特定的键和一个指针指向特定数据。KEY/VALUE模型对于IT系统来说的优势在于简单、容易部署。主要特点是具有极高的并发读写性能。</p>
-<h3 id="Redis逻辑架构"><a href="#Redis逻辑架构" class="headerlink" title="Redis逻辑架构"></a>Redis逻辑架构</h3><div align="center">
-<img src="/2020/01/07/hadoop-other/image4.png" class title="图4 Redis逻辑架构">
-</div>
+<h3 id="Redis逻辑架构"><a href="#Redis逻辑架构" class="headerlink" title="Redis逻辑架构"></a>Redis逻辑架构</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/hadoop-other_image4.png" alt="图4 Redis逻辑架构" title>
+                </div>
+                <div class="image-caption">图4 Redis逻辑架构</div>
+            </figure>
 
 <p><strong>Redis Server</strong>：Redis组件的核心模块，负责Redis协议的数据读写、数据持久化、主从复制、集群功能。<br><strong>Redis-WS</strong>：Redis WebService管理模块，主要负责Redis集群的创建、扩容、减容、查询、删除等操作，集群管理信息存入DB数据库。</p>
 <h3 id="Redis持久化"><a href="#Redis持久化" class="headerlink" title="Redis持久化"></a>Redis持久化</h3><p>Redis的所有数据都保存在内存中，然后不定期的通过异步方式保存到磁盘上（这称为半持久化）；也可以把每一次数据变化都写入到磁盘（这称为全持久化）。所谓持久化就是将内存数据转换为硬盘数据，内存模型到存储模型的转换，或者说是瞬时状态与持久状态的相互转换。<br>Redis有两种持久化方式，默认是snapshot方式（RDB方式），实现方法是定时将内存的快照持久化到硬盘，这种方式的缺点是持久化之后如果出现crash则会丢失一段数据。另外一种是AOF方式，在写入内存数据的同时将操作命令保存到日志文件中。<br><strong>1、RDB方式：</strong><br>这种快照方式和虚拟机的快照一样，保存某一时刻的完整数据。Redis在使用这种方式做持久化的时候，定期（默认5分钟）会先写入到一个临时文件，写入完成后，会用这个文件去替换上次的旧的文件。这种方式的好处是，任何一次的快照文件都是完整可用的。但是缺点是，它每隔一段时间（默认最快1分钟，最慢15分钟）做一次，所以会存在一段时间的数据丢失。<br><strong>2、AOF方式：</strong><br>这种方式就是把对Redis内存数据的的写指令记录下来，这些指令会被记录在AOF文件的末尾，然后每秒做一次fsync操作（默认每秒一次），把指令在后台在执行一次执行过程其实就是修改磁盘上的数据库内容。所以如果出现故障也只丢失1秒的数据。</p>
@@ -265,7 +281,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-01-08T08:50:01.703Z" itemprop="dateUpdated">2020-01-08 16:50:01</time>
+    最后更新时间：<time datetime="2020-02-15T05:51:50.652Z" itemprop="dateUpdated">2020-02-15 13:51:50</time>
 </span><br>
 
 
