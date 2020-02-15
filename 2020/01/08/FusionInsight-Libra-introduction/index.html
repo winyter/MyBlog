@@ -21,18 +21,18 @@
     
     
     <meta name="keywords" content="Libra,FusionInsight,PostgreSQL,MPP,BigData">
-    <meta name="description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示      模块说明MP">
+    <meta name="description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示">
 <meta property="og:type" content="article">
 <meta property="og:title" content="华为FusionInsight大数据集群关系型数据库——Libra入门">
 <meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;01&#x2F;08&#x2F;FusionInsight-Libra-introduction&#x2F;">
 <meta property="og:site_name" content="Winyter">
-<meta property="og:description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示      模块说明MP">
+<meta property="og:description" content="Libra简介LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。 Libra架构LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;FusionInsight-Libra-introduction_image1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;FusionInsight-Libra-introduction_image2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;FusionInsight-Libra-introduction_image3.png">
 <meta property="article:published_time" content="2020-01-07T16:46:51.000Z">
-<meta property="article:modified_time" content="2020-01-08T08:53:03.607Z">
+<meta property="article:modified_time" content="2020-02-15T05:28:18.477Z">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="Libra">
 <meta property="article:tag" content="FusionInsight">
@@ -40,7 +40,7 @@
 <meta property="article:tag" content="MPP">
 <meta property="article:tag" content="BigData">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;FusionInsight-Libra-introduction&#x2F;image1.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;q5q8j2iyn.bkt.clouddn.com&#x2F;FusionInsight-Libra-introduction_image1.png">
     
         <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
     
@@ -193,10 +193,13 @@
             <hr>
 <h2 id="Libra简介"><a href="#Libra简介" class="headerlink" title="Libra简介"></a>Libra简介</h2><p>LibrA是一个基于开源数据库Postgres-XC开发的分布式并行关系型数据库系统。由于是关系型数据库，它拥有所有关系型数据库的特性及模型，在使用上，我们甚至可以简单的把它看成是一个和Oracle、MySQL一样的数据库。当然，在实际的架构上和业务方式上还是有所区别的。</p>
 <h3 id="Libra架构"><a href="#Libra架构" class="headerlink" title="Libra架构"></a>Libra架构</h3><p>LibrA由多个MPPDBServer组成，LibrA结构具体如图1所示</p>
-<div align="center">
-<img src="/2020/01/07/FusionInsight-Libra-introduction/image1.png" class title="图1 Libra架构图">
-</div>
-
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/FusionInsight-Libra-introduction_image1.png" alt="图1 Libra架构图" title>
+                </div>
+                <div class="image-caption">图1 Libra架构图</div>
+            </figure>
 
 <h4 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h4><p><strong>MPPDBServer(CM)</strong><br>LibrA集群管理模块CM（Cluster Manager），即含CMServer进程的特殊MPPDBServer，负责管理和监控分布式系统中各个功能单元和物理资源的运行情况，确保整个系统的稳定运行。CM分为主CM和备CM。正常情况下，只由主CM提供LibrA集群管理服务。当主CM发生故障的情况下，备CM会主动升为主CM提供LibrA集群管理服务。</p>
 <p>CM通过CM服务完成对各个MPPDBServer管理。CM服务由CMServer、CMAgent、Monitor组成。</p>
@@ -211,10 +214,13 @@
 <p>主、备实例间可以正常同步数据时，主实例不会同步数据到从备实例。<br>主、备实例间无法正常同步数据时，主实例会将数据同步到从备实例。<br>主、备实例间数据同步恢复正常后，主实例会将异常期间的数据同步到备实例上，并在完成后知会从备实例清空之前同步的这部分数据。备实例同步主实例数据期间，如果主实例发生故障不可用，备实例将升为主实例，并在升为主实例成功后从备实例上同步之前异常期间的数据。</p>
 <p><strong>Storage</strong><br>服务器的本地存储资源，持久化存储数据（支持行存、列存、混合存储）。</p>
 <h3 id="Libra数据查询流程"><a href="#Libra数据查询流程" class="headerlink" title="Libra数据查询流程"></a>Libra数据查询流程</h3><p>作为关系型数据库系统，LibrA主要业务为数据的查询与存储。LibrA进行数据查询的流程如图2所示。</p>
-<div align="center">
-<img src="/2020/01/07/FusionInsight-Libra-introduction/image2.png" class title="图2 数据查询流程">
-</div>
-
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/FusionInsight-Libra-introduction_image2.png" alt="图2 数据查询流程" title>
+                </div>
+                <div class="image-caption">图2 数据查询流程</div>
+            </figure>
 
 <p><strong>具体查询流程如下：</strong><br>1、用户通过应用程序发出查询本地数据的SQL请求到Coordinator。<br>2、Coordinator接收用户的SQL请求，分配服务进程，向GTM请求分配全局事务信息。<br>3、GTM接收到Coordinator的请求，返回全局事务信息给Coordinator。<br>4、Coordinator根据数据分布信息以及系统元信息，解析SQL为查询计划树，从查询计划树中提取可以发送到Datanode的执行步骤，封装成SQL语句或者子执行计划树，发送到Datanode执行。<br>5、Datanode接收到读取任务后，查询具体Storage上的本地数据块。<br>6、Datanode任务执行后，将执行结果返回给Coordinator。<br>7、Coordinator将查询结果通过应用程序返回给用户。<br>LibrA数据存储流程与数据查询流程相近，请参考数据查询流程，此处不再介绍。</p>
 <h2 id="Libra客户端的使用"><a href="#Libra客户端的使用" class="headerlink" title="Libra客户端的使用"></a>Libra客户端的使用</h2><h3 id="命令行客户端的使用操作步骤："><a href="#命令行客户端的使用操作步骤：" class="headerlink" title="命令行客户端的使用操作步骤："></a>命令行客户端的使用操作步骤：</h3><p>1、登录安装了客户端的节点及用户<br>2、执行环境变量语句</p>
@@ -233,9 +239,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Informational</span><br><span class="line">  (options: S &#x3D; show system objects, + &#x3D; additional detail)</span><br><span class="line">  \d[S+]                 list tables, views, and sequences</span><br><span class="line">  \d[S+]  NAME           describe table, view, sequence, or index</span><br><span class="line">  \da[S]  [PATTERN]      list aggregates</span><br><span class="line">  \db[+]  [PATTERN]      list tablespaces</span><br><span class="line">  \dc[S+] [PATTERN]      list conversions</span><br><span class="line">  \dC[+]  [PATTERN]      list casts</span><br><span class="line">  \dd[S]  [PATTERN]      show object descriptions not displayed elsewhere</span><br><span class="line">  \ddp    [PATTERN]      list default privileges</span><br><span class="line">  \dD[S+] [PATTERN]      list domains</span><br><span class="line">  \ded[+] [PATTERN]      list data sources</span><br><span class="line">  \det[+] [PATTERN]      list foreign tables</span><br><span class="line">  \des[+] [PATTERN]      list foreign servers</span><br><span class="line">  \deu[+] [PATTERN]      list user mappings</span><br><span class="line">  \dew[+] [PATTERN]      list foreign-data wrappers</span><br><span class="line">  \df[antw][S+] [PATRN]  list [only agg&#x2F;normal&#x2F;trigger&#x2F;window] functions</span><br><span class="line">  \dF[+]  [PATTERN]      list text search configurations</span><br><span class="line">  \dFd[+] [PATTERN]      list text search dictionaries</span><br><span class="line">  \dFp[+] [PATTERN]      list text search parsers</span><br><span class="line">  \dFt[+] [PATTERN]      list text search templates</span><br><span class="line">  \dg[+]  [PATTERN]      list roles</span><br><span class="line">  \di[S+] [PATTERN]      list indexes</span><br><span class="line">  \dl                    list large objects, same as \lo_list</span><br><span class="line">  \dL[S+] [PATTERN]      list procedural languages</span><br><span class="line">  \dn[S+] [PATTERN]      list schemas</span><br><span class="line">  \do[S]  [PATTERN]      list operators</span><br><span class="line">  \dO[S+] [PATTERN]      list collations</span><br><span class="line">  \dp     [PATTERN]      list table, view, and sequence access privileges</span><br><span class="line">  \drds [PATRN1 [PATRN2]] list per-database role settings</span><br><span class="line">  \ds[S+] [PATTERN]      list sequences</span><br><span class="line">  \dt[S+] [PATTERN]      list tables</span><br><span class="line">  \dT[S+] [PATTERN]      list data types</span><br><span class="line">  \du[+]  [PATTERN]      list roles</span><br><span class="line">  \dv[S+] [PATTERN]      list views</span><br><span class="line">  \dE[S+] [PATTERN]      list foreign tables</span><br><span class="line">  \dx[+]  [PATTERN]      list extensions</span><br><span class="line">  \l[+]                  list all databases</span><br><span class="line">  \sf[+] FUNCNAME        show a function&#39;s definition</span><br><span class="line">  \z      [PATTERN]      same as \dp</span><br></pre></td></tr></table></figure>
 
 <h3 id="图形化客户端的使用"><a href="#图形化客户端的使用" class="headerlink" title="图形化客户端的使用"></a>图形化客户端的使用</h3><p>由于Libra是基于Postgres进行开发的，所以所有支持Postgres的图形化客户端均能对Libra进行操作(例如：Navicat)，这里推荐一个客户端——Data Studio，供参考使用下面简单讲一讲该软件的使用方法：</p>
-<div align="center">
-<img src="/2020/01/07/FusionInsight-Libra-introduction/image3.png" class title="图3 Data Studio界面">
-</div>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://q5q8j2iyn.bkt.clouddn.com/FusionInsight-Libra-introduction_image3.png" alt="图3 Data Studio界面" title>
+                </div>
+                <div class="image-caption">图3 Data Studio界面</div>
+            </figure>
 
 <p>①此处为连接按钮，点击后，会有新建连接信息的弹窗，按照要求，填写相关连接信息即可登录；<br>②Data Studio支持对表做一些操作，右击相应的表，即可根据菜单，对表做操作；<br>③此处为SQL命令输入框；<br>④此处为结果反馈显示区域；<br>⑤该按钮是执行语句的按钮，Data Studio对语句执行的操作与PL/SQL对语句的操作基本一样：对于鼠标选中的预警进行执行，如果没有选中，则执行整个命令框内的所有命令；<br>⑥Data Studio支持表修改操作自动提交，该功能默认为开启，如果想关闭，可以点击⑥处的按钮进行关闭，在对生产环境进行操作时，为了保证数据的安全，建议将该功能关闭，手动对表修改进行提交。</p>
 
@@ -246,7 +256,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-01-08T08:53:03.607Z" itemprop="dateUpdated">2020-01-08 16:53:03</time>
+    最后更新时间：<time datetime="2020-02-15T05:28:18.477Z" itemprop="dateUpdated">2020-02-15 13:28:18</time>
 </span><br>
 
 
@@ -323,14 +333,7 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/02/15/test/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">test</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
