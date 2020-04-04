@@ -3,11 +3,11 @@
   <title>Winyter</title>
   
   <subtitle>Garden</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/MyBlog/atom.xml" rel="self"/>
   
-  <link href="101.200.81.233/"/>
+  <link href="https://winyter.github.io/MyBlog/"/>
   <updated>2020-04-04T14:22:07.303Z</updated>
-  <id>101.200.81.233/</id>
+  <id>https://winyter.github.io/MyBlog/</id>
   
   <author>
     <name>winyter</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>华为FusionInsight大数据集群关系型数据库——Libra入门</title>
-    <link href="101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/"/>
-    <id>101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/</id>
     <published>2020-01-07T16:46:51.000Z</published>
     <updated>2020-04-04T14:22:07.303Z</updated>
     
@@ -37,22 +37,22 @@
     
     
     
-      <category term="Libra" scheme="101.200.81.233/tags/Libra/"/>
+      <category term="Libra" scheme="https://winyter.github.io/MyBlog/tags/Libra/"/>
     
-      <category term="FusionInsight" scheme="101.200.81.233/tags/FusionInsight/"/>
+      <category term="FusionInsight" scheme="https://winyter.github.io/MyBlog/tags/FusionInsight/"/>
     
-      <category term="PostgreSQL" scheme="101.200.81.233/tags/PostgreSQL/"/>
+      <category term="PostgreSQL" scheme="https://winyter.github.io/MyBlog/tags/PostgreSQL/"/>
     
-      <category term="MPP" scheme="101.200.81.233/tags/MPP/"/>
+      <category term="MPP" scheme="https://winyter.github.io/MyBlog/tags/MPP/"/>
     
-      <category term="BigData" scheme="101.200.81.233/tags/BigData/"/>
+      <category term="BigData" scheme="https://winyter.github.io/MyBlog/tags/BigData/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇五：Kafka</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-kafka/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-kafka/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/</id>
     <published>2020-01-07T16:46:17.000Z</published>
     <updated>2020-04-04T14:40:33.698Z</updated>
     
@@ -70,16 +70,16 @@
     
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Kafka" scheme="101.200.81.233/tags/Kafka/"/>
+      <category term="Kafka" scheme="https://winyter.github.io/MyBlog/tags/Kafka/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇六：其他组件简介</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-other/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-other/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/</id>
     <published>2020-01-07T16:46:01.000Z</published>
     <updated>2020-04-04T14:39:52.945Z</updated>
     
@@ -97,24 +97,24 @@
     
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Redis" scheme="101.200.81.233/tags/Redis/"/>
+      <category term="Redis" scheme="https://winyter.github.io/MyBlog/tags/Redis/"/>
     
-      <category term="Flink" scheme="101.200.81.233/tags/Flink/"/>
+      <category term="Flink" scheme="https://winyter.github.io/MyBlog/tags/Flink/"/>
     
-      <category term="Zookeeper" scheme="101.200.81.233/tags/Zookeeper/"/>
+      <category term="Zookeeper" scheme="https://winyter.github.io/MyBlog/tags/Zookeeper/"/>
     
-      <category term="Yarn" scheme="101.200.81.233/tags/Yarn/"/>
+      <category term="Yarn" scheme="https://winyter.github.io/MyBlog/tags/Yarn/"/>
     
-      <category term="Mapreduce" scheme="101.200.81.233/tags/Mapreduce/"/>
+      <category term="Mapreduce" scheme="https://winyter.github.io/MyBlog/tags/Mapreduce/"/>
     
   </entry>
   
   <entry>
     <title>MacOS 安装 Hexo 时提示 EACCES 时的解决方法</title>
-    <link href="101.200.81.233/2020/01/06/install-hexo-on-MacOS-EACCES/"/>
-    <id>101.200.81.233/2020/01/06/install-hexo-on-MacOS-EACCES/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/install-hexo-on-MacOS-EACCES/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/install-hexo-on-MacOS-EACCES/</id>
     <published>2020-01-05T16:19:44.000Z</published>
     <updated>2020-01-06T08:20:51.493Z</updated>
     
@@ -131,20 +131,20 @@
     
     
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Tool" scheme="101.200.81.233/tags/Tool/"/>
+      <category term="Tool" scheme="https://winyter.github.io/MyBlog/tags/Tool/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
-      <category term="ERROR" scheme="101.200.81.233/tags/ERROR/"/>
+      <category term="ERROR" scheme="https://winyter.github.io/MyBlog/tags/ERROR/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇四：HDFS</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-HDFS/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-HDFS/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/</id>
     <published>2020-01-05T16:17:10.000Z</published>
     <updated>2020-04-04T14:23:35.265Z</updated>
     
@@ -162,16 +162,16 @@
     
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="HDFS" scheme="101.200.81.233/tags/HDFS/"/>
+      <category term="HDFS" scheme="https://winyter.github.io/MyBlog/tags/HDFS/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇三：Hive</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-hive/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-hive/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/</id>
     <published>2020-01-05T16:14:47.000Z</published>
     <updated>2020-04-04T14:30:30.691Z</updated>
     
@@ -189,16 +189,16 @@
     
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Hive" scheme="101.200.81.233/tags/Hive/"/>
+      <category term="Hive" scheme="https://winyter.github.io/MyBlog/tags/Hive/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇二：ElasticSearch</title>
-    <link href="101.200.81.233/2019/12/27/hadoop-elasticsearch/"/>
-    <id>101.200.81.233/2019/12/27/hadoop-elasticsearch/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/</id>
     <published>2019-12-26T16:35:11.000Z</published>
     <updated>2020-04-04T14:25:37.301Z</updated>
     
@@ -215,16 +215,16 @@
     
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="ElasticSearch" scheme="101.200.81.233/tags/ElasticSearch/"/>
+      <category term="ElasticSearch" scheme="https://winyter.github.io/MyBlog/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>HBase Shell 过滤器 —— HBase Shell Filter</title>
-    <link href="101.200.81.233/2019/12/25/hbase-shell-filter/"/>
-    <id>101.200.81.233/2019/12/25/hbase-shell-filter/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/</id>
     <published>2019-12-25T15:29:33.000Z</published>
     <updated>2019-12-26T07:31:08.698Z</updated>
     
@@ -242,16 +242,16 @@
     
     
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇一：HBase入门</title>
-    <link href="101.200.81.233/2019/12/25/hadoop-hbase/"/>
-    <id>101.200.81.233/2019/12/25/hadoop-hbase/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/</id>
     <published>2019-12-25T15:01:04.000Z</published>
     <updated>2020-04-04T14:28:05.569Z</updated>
     
@@ -269,16 +269,16 @@
     
     
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>网站推荐（持续更新哟）</title>
-    <link href="101.200.81.233/2019/12/23/webpage-recommend/"/>
-    <id>101.200.81.233/2019/12/23/webpage-recommend/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/</id>
     <published>2019-12-22T16:14:43.000Z</published>
     <updated>2019-12-23T08:15:52.216Z</updated>
     
@@ -299,8 +299,8 @@
   
   <entry>
     <title>PostgreSQL表间复制数据</title>
-    <link href="101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
-    <id>101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
     <published>2019-12-22T16:08:01.000Z</published>
     <updated>2019-12-23T08:09:37.189Z</updated>
     
@@ -318,18 +318,18 @@
     
     
     
-      <category term="Postgre" scheme="101.200.81.233/tags/Postgre/"/>
+      <category term="Postgre" scheme="https://winyter.github.io/MyBlog/tags/Postgre/"/>
     
-      <category term="SQL" scheme="101.200.81.233/tags/SQL/"/>
+      <category term="SQL" scheme="https://winyter.github.io/MyBlog/tags/SQL/"/>
     
-      <category term="Database" scheme="101.200.81.233/tags/Database/"/>
+      <category term="Database" scheme="https://winyter.github.io/MyBlog/tags/Database/"/>
     
   </entry>
   
   <entry>
     <title>Shell脚本实现FTP文件增量传输</title>
-    <link href="101.200.81.233/2019/12/19/ftp-increment-download-with-shell/"/>
-    <id>101.200.81.233/2019/12/19/ftp-increment-download-with-shell/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/</id>
     <published>2019-12-19T11:29:51.000Z</published>
     <updated>2019-12-20T03:30:57.260Z</updated>
     
@@ -348,18 +348,18 @@
     
     
     
-      <category term="Shell" scheme="101.200.81.233/tags/Shell/"/>
+      <category term="Shell" scheme="https://winyter.github.io/MyBlog/tags/Shell/"/>
     
-      <category term="FTP" scheme="101.200.81.233/tags/FTP/"/>
+      <category term="FTP" scheme="https://winyter.github.io/MyBlog/tags/FTP/"/>
     
-      <category term="code" scheme="101.200.81.233/tags/code/"/>
+      <category term="code" scheme="https://winyter.github.io/MyBlog/tags/code/"/>
     
   </entry>
   
   <entry>
     <title>Nginx快速部署指南</title>
-    <link href="101.200.81.233/2019/12/18/Nginx-install-guide/"/>
-    <id>101.200.81.233/2019/12/18/Nginx-install-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/</id>
     <published>2019-12-18T10:04:44.000Z</published>
     <updated>2019-12-19T02:07:16.671Z</updated>
     
@@ -376,16 +376,16 @@
     
     
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
-      <category term="Nginx" scheme="101.200.81.233/tags/Nginx/"/>
+      <category term="Nginx" scheme="https://winyter.github.io/MyBlog/tags/Nginx/"/>
     
   </entry>
   
   <entry>
     <title>Hexo部署指南</title>
-    <link href="101.200.81.233/2019/12/16/Hexo_install_guide/"/>
-    <id>101.200.81.233/2019/12/16/Hexo_install_guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/</id>
     <published>2019-12-16T11:25:37.000Z</published>
     <updated>2019-12-20T03:38:46.451Z</updated>
     
@@ -403,16 +403,16 @@
     
     
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="101.200.81.233/2019/12/12/hello-world/"/>
-    <id>101.200.81.233/2019/12/12/hello-world/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/12/hello-world/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/12/hello-world/</id>
     <published>2019-12-11T19:09:49.000Z</published>
     <updated>2020-01-30T05:20:16.808Z</updated>
     
