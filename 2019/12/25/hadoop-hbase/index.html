@@ -14,7 +14,7 @@
     
     
     
-    <title>Hadoop快速入门系列——篇一：HBase入门 | Winyter | Garden</title>
+    <title>Hadoop快速入门系列——篇一：HBase入门 | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -25,7 +25,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop快速入门系列——篇一：HBase入门">
 <meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;25&#x2F;hadoop-hbase&#x2F;">
-<meta property="og:site_name" content="Winyter">
+<meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="HBase概念介绍HBase是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统。HBase适合于存储大表数据（表的规模可以达到数十亿行以及数百万列），并且对大表数据的读、写访问可以达到实时级别。利用Hadoop HDFS（Hadoop Distributed File System）作为其文件存储系统，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。为Spark和Hadoop M">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hbase_image1.png">
@@ -35,14 +35,14 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hbase_image5.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hbase_image6.png">
 <meta property="article:published_time" content="2019-12-25T15:01:04.000Z">
-<meta property="article:modified_time" content="2020-04-04T14:28:05.569Z">
+<meta property="article:modified_time" content="2020-04-18T14:02:53.546Z">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="HBase">
 <meta property="article:tag" content="Hadoop">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hbase_image1.png">
     
-        <link rel="alternate" type="application/atom+xml" title="Winyter" href="/MyBlog/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
     
     <link rel="shortcut icon" href="/MyBlog/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -223,7 +223,7 @@
 
 <pre><code>拓展：Region、Store、StoreFlie、ColumnFamily的关系：
 The HRegionServer opens the region and creates a corresponding HRegion object. When the HRegion is opened it sets up a Store instance for each HColumnFamily for every table as defined by the user beforehand. Each Store instance can, in turn, have one or more StoreFile instances, which are lightweight wrappers around the actual storage file called HFile. A Store also has a MemStore, and the HRegionServer a shared HLog in-stance。
-RegionServer打开一个region的时候，会创建一个相应的HRegion对象。当这个HRegion被打开，他会为每一个表中的每一个列簇创建一个Stroe实例，就想用户之前创建的那样。每一个Store实例相应地有一个或者多个StoreFile实例，StoreFile是对真正存储数据的文件(HFile)的轻量级封装。一个Store还会有一个Memstore。每一个HRegionServer中的所有东西会共享一个HLog实例。
+RegionServer打开一个region的时候，会创建一个相应的HRegion对象。当这个HRegion被打开，他会为每一个表中的每一个列簇创建一个Stroe实例，就向用户之前创建的那样。每一个Store实例相应地有一个或者多个StoreFile实例，StoreFile是对真正存储数据的文件(HFile)的轻量级封装。一个Store还会有一个Memstore。每一个HRegionServer中的所有东西会共享一个HLog实例。
 结合前面的图看就很清晰了。
 
 From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionServer数据存储结构"><a href="#RegionServer数据存储结构" class="headerlink" title="RegionServer数据存储结构"></a>RegionServer数据存储结构</h3><p><strong>Store</strong>：一个Region由一个或多个Store组成，每个Store对应一个Column Family。<br><strong>Memstore</strong>：一个Store包含一个MemStore，MemStore缓存客户端向Region插入的数据，当RegionServer中的MemStore大小达到配置的容量上限时，RegionServer会将MemStore中的数据“flush”到HDFS中。<br><strong>StoreFile</strong>：MemStore的数据flush到HDFS后成为StoreFile，随着数据的插入，一个Store会产生多个StoreFile，当StoreFile的个数达到配置的最大值时，RegionServer会将多个StoreFile合并为一个大的StoreFile。<br><strong>HFile</strong>：HFile定义了StoreFile在文件系统中的存储格式，它是当前HBase系统中StoreFile的具体实现。<br><strong>HLog</strong>：HLog日志保证了当RegionServer故障的情况下用户写入的数据不丢失，RegionServer的多个Region共享一个相同的HLog。<br><strong>元数据表</strong>：用来帮助client定位到具体的Region。元数据表中包括’hbase:meta’表，用来记录用户表的Region信息。 </p>
@@ -237,7 +237,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
 <p>要退出交互shell命令，在任何时候键入 <code>exit</code> 或使用 <code>&lt;Ctrl + C&gt;</code>。进一步处理检查shell功能之前，使用 <code>list</code> 命令用于列出所有可用命令。<code>list</code>是用来获取所有HBase 表的列表。首先，验证安装HBase在系统中使用如下所示。<code>hbase(main):001:0&gt; list</code> 当输入这个命令，它给出下面的输出。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hbase(main):001:0&gt; list</span><br><span class="line">TABLE</span><br></pre></td></tr></table></figure>
 
-<h3 id="HBase-Shell命令的使用"><a href="#HBase-Shell命令的使用" class="headerlink" title="HBase Shell命令的使用"></a>HBase Shell命令的使用</h3><p>这里仅写出一些简单的HBase Shell命令的使用，HBase Shell Filter的使用可以参考我的另外一篇文章：<a href="https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/" target="_blank" rel="noopener">HBase Shell 过滤器 —— HBase Shell Filter</a></p>
+<h3 id="HBase-Shell命令的使用"><a href="#HBase-Shell命令的使用" class="headerlink" title="HBase Shell命令的使用"></a>HBase Shell命令的使用</h3><p>这里仅写出一些简单的HBase Shell命令的使用，HBase Shell Filter的使用可以参考我的另外一篇文章：<a href="http://winyter.cn/2019/12/25/hbase-shell-filter/" target="_blank" rel="noopener">HBase Shell 过滤器 —— HBase Shell Filter</a></p>
 <p>HBase Shell命令是操作HBase数据库的命令集合。 </p>
 <h4 id="1、查询表中数据：scan-amp-get"><a href="#1、查询表中数据：scan-amp-get" class="headerlink" title="1、查询表中数据：scan &amp; get"></a>1、查询表中数据：scan &amp; get</h4><p>scan用于查询整表数据，使用方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan &#39;table_name&#39;</span><br></pre></td></tr></table></figure>
@@ -302,7 +302,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-04-04T14:28:05.569Z" itemprop="dateUpdated">2020-04-04 22:28:05</time>
+    最后更新时间：<time datetime="2020-04-18T14:02:53.546Z" itemprop="dateUpdated">2020-04-18 22:02:53</time>
 </span><br>
 
 
@@ -334,7 +334,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -344,7 +344,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -354,7 +354,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -467,7 +467,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -477,7 +477,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&title=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -487,7 +487,7 @@ From:https://www.cnblogs.com/mrxiaohe/p/5271578.html</code></pre><h3 id="RegionS
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — Winyter&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇一：HBase入门》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
