@@ -3,11 +3,11 @@
   <title>花不醉的小花园</title>
   
   <subtitle>携一生所爱，看遍世间美好</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/MyBlog/atom.xml" rel="self"/>
   
-  <link href="101.200.81.233/"/>
-  <updated>2020-04-19T07:44:14.686Z</updated>
-  <id>101.200.81.233/</id>
+  <link href="https://winyter.github.io/MyBlog/"/>
+  <updated>2020-05-21T11:43:49.916Z</updated>
+  <id>https://winyter.github.io/MyBlog/</id>
   
   <author>
     <name>winyter</name>
@@ -17,9 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</title>
+    <link href="https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/</id>
+    <published>2020-05-21T11:37:12.000Z</published>
+    <updated>2020-05-21T11:43:49.916Z</updated>
+    
+    <content type="html"><![CDATA[<hr><h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><hr><h3 id="1-1-Ambari-版本包解析"><a href="#1-1-Ambari-版本包解析" class="headerlink" title="1.1 Ambari 版本包解析"></a>1.1 Ambari 版本包解析</h3><p>Ambari版本包较多，下面会对所有版本包进行简单的说明，本文档以 Ambari 2.7.3 版本为例：</p><ol><li><p>Ambari 安装包<br>即 Ambari 自身的安装包</p><blockquote><p>ambari-2.7.3.0-centos7.tar.gz</p></blockquote></li><li><p>HDP 集群安装包<br>即大数据平台的安装包，包含了各类组件</p><blockquote><p>HDP-2.6.3.0-centos7-rpm.tar.gz<br>HDP-UTILS-1.1.0.21-centos7.tar.gz</p></blockquote></li><li><p>组件包<br>Ambari 支持针对单个组件进行不同的组件版本定制，并非只能使用 HDP 版本包中的组件版本，你只需要上传你想要的组件版本包，并进行一些简单的操作，即可自使用自己定制的版本进行安装，本文档后面会指导如何定制组件版本进行安装，下面列出几个包名称，作为示例：</p><blockquote><p>elasticsearch-6.8.1.tar.gz<br>kafka-1.1.0.tar.gz</p></blockquote></li><li><p>组件服务包<br>在定制组件版本时，我们不仅需要上传组件版本包，部分组件还需要上传组件服务包，用来帮助 Ambari 指定针对该版本的一些配置，本文档后面会指导这些服务包如何使用，下面列出几个服务包名称，作为示例：</p><blockquote><p>ELASTICSEARCH_6.8.1.tar.gz<br>HBASE_1.4.9.tar.gz</p></blockquote></li></ol><hr><h3 id="1-2-准备工作【在-Ambari-Server-节点的-root-用户下执行】"><a href="#1-2-准备工作【在-Ambari-Server-节点的-root-用户下执行】" class="headerlink" title="1.2 准备工作【在 Ambari Server 节点的 root 用户下执行】"></a>1.2 准备工作【在 Ambari Server 节点的 root 用户下执行】</h3><p>将上一节所说的所有安装包上传到 <code>/home/package/ambari</code> 目录下，并建议根据不同种类的安装包分文件夹存放</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|_ &#x2F;home&#x2F;package&#x2F;ambari</span><br><span class="line">   |_ versionPackage     # 存放 Ambari 和 HDP 版本包，共 3 个包</span><br><span class="line">   |_ dependentPackage   # 存放独立组件版本包，按需上传即可</span><br><span class="line">   |_ servicePackage     # 存放组件服务包，按需上传即可</span><br></pre></td></tr></table></figure><hr><h3 id="1-3-配置-Ambari-Server-本地源【在-Ambari-Server-节点的-root-用户下操作】"><a href="#1-3-配置-Ambari-Server-本地源【在-Ambari-Server-节点的-root-用户下操作】" class="headerlink" title="1.3 配置 Ambari Server 本地源【在 Ambari Server 节点的 root 用户下操作】"></a>1.3 配置 Ambari Server 本地源【在 Ambari Server 节点的 root 用户下操作】</h3><p>创建本地目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari</span><br></pre></td></tr></table></figure><p>拷贝 <code>ambari-2.7.3.0-centos7.tar.gz</code> 到 <code>/var/www/html/ambari</code> 目录下，并解压。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cp &#x2F;home&#x2F;package&#x2F;ambari&#x2F;versionPackage&#x2F;ambari-2.7.3.0-centos7.tar.gz &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari</span><br><span class="line">[root@node1 ~]# cd &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari</span><br><span class="line">[root@node1 ~]# tar -zxvf ambari-2.7.3.0-centos7.tar.gz</span><br></pre></td></tr></table></figure><p>修改ambari.repo文件，将该文件拷贝到 /etc/yum.repos.d目录下。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cp &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;ambari&#x2F;centos7&#x2F;2.7.3.0-139&#x2F;ambari.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br></pre></td></tr></table></figure><p>编辑ambari.repo</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">[root@node1 ~]# vim ambari.repo</span><br></pre></td></tr></table></figure><p>参照以下内容修改：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># VERSION_NUMBER&#x3D;2.6.0.0-267</span><br><span class="line">[ambari-2.7.3.0]</span><br><span class="line">name&#x3D;ambari Version - ambari-2.7.3.0</span><br><span class="line">baseurl&#x3D;http:&#x2F;&#x2F;172.168.1.1&#x2F;ambari&#x2F;ambari&#x2F;centos7&#x2F;2.7.3.0-139</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;http:&#x2F;&#x2F;172.168.1.1&#x2F;ambari&#x2F;ambari&#x2F;centos7&#x2F;2.7.3.0-139&#x2F;RPM-GPG-KEY&#x2F;RPM-GPG-KEY-Jenkins</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">priority&#x3D;1</span><br></pre></td></tr></table></figure><blockquote><p>ambari.repo 中的 baseurl 与 gpgkey 都需根据实际的路径填写。<br>正常情况下只需修改IP地址即可。</p></blockquote><hr><h3 id="1-4-准备-HDP-集群本地源文件【在-Ambari-Server-节点的-root-用户下操作】"><a href="#1-4-准备-HDP-集群本地源文件【在-Ambari-Server-节点的-root-用户下操作】" class="headerlink" title="1.4 准备 HDP 集群本地源文件【在 Ambari Server 节点的 root 用户下操作】"></a>1.4 准备 HDP 集群本地源文件【在 Ambari Server 节点的 root 用户下操作】</h3><p>创建目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;hdp</span><br></pre></td></tr></table></figure><p>拷贝 <code>HDP-2.6.3.0-centos7-rpm.tar.gz</code>、<code>HDP-UTILS-1.1.0.21-centos7.tar.gz</code> 到 <code>/var/www/html/ambari/hdp</code> 目录下，并解压。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cp &#x2F;home&#x2F;package&#x2F;ambari&#x2F;versionPackage&#x2F;HDP* &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;hdp</span><br><span class="line">[root@node1 ~]# cd &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;hdp</span><br><span class="line">[root@node1 ~]# tar -zxvf HDP-2.6.3.0-centos7-rpm.tar.gz</span><br><span class="line">[root@node1 ~]# tar -zxvf HDP-UTILS-1.1.0.21-centos7.tar.gz</span><br></pre></td></tr></table></figure><hr><h3 id="1-5-准备组件本地源文件【在-Ambari-Server-节点的-root-用户下操作】"><a href="#1-5-准备组件本地源文件【在-Ambari-Server-节点的-root-用户下操作】" class="headerlink" title="1.5 准备组件本地源文件【在 Ambari Server 节点的 root 用户下操作】"></a>1.5 准备组件本地源文件【在 Ambari Server 节点的 root 用户下操作】</h3><p>创建目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend</span><br></pre></td></tr></table></figure><p>根据组件版本清单，拷贝相应版本包，下面举两个例子，作为示例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cp &#x2F;home&#x2F;package&#x2F;ambari&#x2F;dependentPackage&#x2F;elasticsearch-6.3.0.tar.gz &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend</span><br><span class="line">[root@node1 ~]# cp &#x2F;home&#x2F;package&#x2F;ambari&#x2F;dependentPackage&#x2F;kafka-1.1.0.tar.gz &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend</span><br></pre></td></tr></table></figure><blockquote><p>一般情况下，不建议单个组件上传多个版本，这通常会导致版本冲突，可能会使你想要的那个组件版本不会在 Ambari 中出现，导致无法安装</p></blockquote><hr><h2 id="2、安装-amp-配置-Ambari-Server"><a href="#2、安装-amp-配置-Ambari-Server" class="headerlink" title="2、安装&amp;配置 Ambari Server"></a>2、安装&amp;配置 Ambari Server</h2><hr><h3 id="2-1-安装-Ambari-Server【在-Ambari-Server-节点的-root-用户下执行】"><a href="#2-1-安装-Ambari-Server【在-Ambari-Server-节点的-root-用户下执行】" class="headerlink" title="2.1 安装 Ambari Server【在 Ambari Server 节点的 root 用户下执行】"></a>2.1 安装 Ambari Server【在 Ambari Server 节点的 root 用户下执行】</h3><p>输入以下命令安装Ambari Server</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# yum install ambari-server</span><br></pre></td></tr></table></figure><p>每次出现以下交互信息时，输入y继续</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# Is this ok [y&#x2F;d&#x2F;N]: y</span><br></pre></td></tr></table></figure><hr><h3 id="2-2-在-MySQL-中新建-Ambari-用户【在-MySQL-主节点的-rhino-用户下执行】"><a href="#2-2-在-MySQL-中新建-Ambari-用户【在-MySQL-主节点的-rhino-用户下执行】" class="headerlink" title="2.2 在 MySQL 中新建 Ambari 用户【在 MySQL 主节点的 rhino 用户下执行】"></a>2.2 在 MySQL 中新建 Ambari 用户【在 MySQL 主节点的 rhino 用户下执行】</h3><blockquote><p>Ambari 默认安装 PostgreSQL 数据库，使用的数据库为 ambari，默认使用的用户名和密码为 ambari/bigdata。<br>本次安装使用之前安装的 MySQL 数据库，数据库所在的节点为 172.168.1.1，端口号 3306。若不想使用默认的 PostgreSQL 数据库，需要在安装 Ambari Server 前安装数据库，并为 Ambari 创建用户和数据库。下面在 rhino 用户的 MySQL 中为 Ambari 创建使用的用户及数据库，Ambari 使用 MySQL 的用户名为 ambari，密码为 xxxxxxxx，数据库名称为 ambari：</p></blockquote><p>登录 MySQL</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64</span><br><span class="line">[rhino@node1 ~]$ bin&#x2F;mysql -h0 -urhino -pxxxxxxxx</span><br></pre></td></tr></table></figure><p>执行如下语句：<br>172.168.1.1 表示 Ambari Server 所在节点的 IP，按照实际情况修改</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &#39;ambari&#39;@&#39;%&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;</span><br><span class="line">GRANT ALL PRIVILEGES ON . TO &#39;ambari&#39;@&#39;%&#39;;</span><br><span class="line">CREATE USER &#39;ambari&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;</span><br><span class="line">GRANT ALL PRIVILEGES ON . TO &#39;ambari&#39;@&#39;localhost&#39;;</span><br><span class="line">CREATE USER &#39;ambari&#39;@&#39;172.168.1.1&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;</span><br><span class="line">GRANT ALL PRIVILEGES ON . TO &#39;ambari&#39;@&#39;172.168.1.1&#39;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure><hr><h3 id="2-3-拷贝建库脚本到-MySQL-所在节点【在-Ambari-Server-节点的-root-用户下执行】"><a href="#2-3-拷贝建库脚本到-MySQL-所在节点【在-Ambari-Server-节点的-root-用户下执行】" class="headerlink" title="2.3 拷贝建库脚本到 MySQL 所在节点【在 Ambari Server 节点的 root 用户下执行】"></a>2.3 拷贝建库脚本到 MySQL 所在节点【在 Ambari Server 节点的 root 用户下执行】</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# cd &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources</span><br><span class="line">[root@node1]# scp Ambari-DDL-MySQL-CREATE.sql rhino@192.168.50.213:~</span><br></pre></td></tr></table></figure><hr><h3 id="2-4-新建-Ambari-数据库【在-MySQL-主节点的-rhino-用户下执行】"><a href="#2-4-新建-Ambari-数据库【在-MySQL-主节点的-rhino-用户下执行】" class="headerlink" title="2.4 新建 Ambari 数据库【在 MySQL 主节点的 rhino 用户下执行】"></a>2.4 新建 Ambari 数据库【在 MySQL 主节点的 rhino 用户下执行】</h3><p>修改刚才拷贝的文件的用户属组（<strong>在 MySQL 主节点的 root 用户下执行</strong>）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# cd &#x2F;home&#x2F;rhino</span><br><span class="line">[root@node1]# chown -R rhino:root Ambari-DDL-MySQL-CREATE.sql</span><br></pre></td></tr></table></figure><p>使用 ambari 用户登录 MySQL</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64</span><br><span class="line">[rhino@node1 mysql-5.6.25-linux-x86_64]$ bin&#x2F;mysql -h0 -uambari -pxxxxxxxx</span><br></pre></td></tr></table></figure><p>执行以下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE DATABASE ambari;</span><br><span class="line">mysql&gt; USE ambari;</span><br><span class="line">mysql&gt; source &#x2F;home&#x2F;rhino&#x2F;Ambari-DDL-MySQL-CREATE.sql;</span><br></pre></td></tr></table></figure><p>安装完成后可以在metainfo表中查看版本号（版本号2.7.3）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from metainfo;</span><br><span class="line">+--------------------+-----------------------+</span><br><span class="line">|    metainfo_key    |    metainfo_value     |</span><br><span class="line">+--------------------+-----------------------+</span><br><span class="line">|      version       |        2.7.3          |</span><br><span class="line">+--------------------+-----------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">mysql&gt; exit;</span><br></pre></td></tr></table></figure><hr><h3 id="2-5-拷贝-MySQL-JDBC-驱动包【在-MySQL-主节点的-root-用户下执行】"><a href="#2-5-拷贝-MySQL-JDBC-驱动包【在-MySQL-主节点的-root-用户下执行】" class="headerlink" title="2.5 拷贝 MySQL JDBC 驱动包【在 MySQL 主节点的 root 用户下执行】"></a>2.5 拷贝 MySQL JDBC 驱动包【在 MySQL 主节点的 root 用户下执行】</h3><p>将连接mySQL的JDBC驱动jar包拷贝到/usr/share/java目录下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;home&#x2F;rhino&#x2F;version&#x2F;dependentPackage</span><br><span class="line">[root@node1 ~]# cp mysql-connector-java-5.1.40-bin.jar &#x2F;usr&#x2F;share&#x2F;java</span><br></pre></td></tr></table></figure><hr><h3 id="2-6-配置-Ambari-Server【在-Ambari-Server-节点的-root-用户下执行】"><a href="#2-6-配置-Ambari-Server【在-Ambari-Server-节点的-root-用户下执行】" class="headerlink" title="2.6 配置 Ambari Server【在 Ambari Server 节点的 root 用户下执行】"></a>2.6 配置 Ambari Server【在 Ambari Server 节点的 root 用户下执行】</h3><p>使用以下命令配置Ambari Server</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ambari-server setup</span><br><span class="line"></span><br><span class="line">Using python &#x2F;usr&#x2F;bin&#x2F;python</span><br><span class="line">Setup ambari-server</span><br><span class="line">Checking SELinux…​</span><br><span class="line">SELinux status is &#39;enabled&#39;</span><br><span class="line">SELinux mode is &#39;permissive&#39;</span><br><span class="line">WARNING: SELinux is set to &#39;permissive&#39; mode and temporarily disabled.</span><br><span class="line">OK to continue [y&#x2F;n] (y)?y</span><br></pre></td></tr></table></figure><p>配置过程中，会出现各种提示，最后()中给出的值为默认配置，如果所有配置都按默认配置，只需要按提示进行即可，如果要指定配置，需要按提示给出相应的配置信息。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Customize user account for ambari-server daemon [y&#x2F;n] (n)? n</span><br></pre></td></tr></table></figure><p>是否使用默认的用户root，选择n使用root用户。  </p><p>继续，提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Checking JDK…​</span><br><span class="line">[1] Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8</span><br><span class="line">[2] Custom JDK</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Enter choice (1): 2</span><br></pre></td></tr></table></figure><p>默认选择为1，如果选择2，则需要手动安装JDK（包括Hadoop集群中所有机器）。这里选择2，出现提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">WARNING:JDK must be installed on all hosts and JAVA_HOME must be valid on all hosts.</span><br><span class="line">WARNING: JCE Policy files are required for configuring Kerberos security. If you plan to use Kerberos,please make sure JCE Unlimited Strength Jurisdiction Policy Files are valid on all hosts.</span><br><span class="line">Path to JA home: &#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181</span><br><span class="line"></span><br><span class="line">Validating JDK on Ambari Server…​done.</span><br><span class="line">Check JDK version for Ambari Server…​</span><br><span class="line">JDK version found: 8</span><br><span class="line">Minimum JDK version is 8 for Ambari. Skipping to setup different JDK for Ambari Server.</span><br><span class="line">Checking GPL software agreement…​</span><br><span class="line">GPL License for LZO: https:&#x2F;&#x2F;www.gnu.org&#x2F;licenses&#x2F;old-licenses&#x2F;gpl-2.0.en.html</span><br><span class="line">Enable Ambari Server to download and install GPL Licensed LZO packages [y&#x2F;n] (n)?n</span><br></pre></td></tr></table></figure><p>输入有效的 Java Home 路径 /home/rhino/jdk1.8.0_181。继续，出现提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter advanced database configuration [y&#x2F;n] (n)?y</span><br></pre></td></tr></table></figure><p>选择y，出现提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Choose one of the following options:</span><br><span class="line">[1] - PostgreSQL (Embedded)</span><br><span class="line">[2] - Oracle</span><br><span class="line">[3] - MySQL &#x2F; MariaDB</span><br><span class="line">[4] - PostgreSQL</span><br><span class="line">[5] - Microsoft SQL Server (Tech Preview)</span><br><span class="line">[6] - SQL Anywhere</span><br><span class="line">[7] - BDB</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">Enter choice (1): 3</span><br></pre></td></tr></table></figure><p>选择3，依次输入mysql所在的节点名称，IP地址，ip是mysql安装机器真实的ip，不要配置虚拟ip、mysql端口号、数据库名称、用户名、用户密码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hostname (localhost): 172.168.1.1</span><br><span class="line">Port (3306): 3306</span><br><span class="line">Database name (ambari): ambari</span><br><span class="line">Username (ambari): ambari</span><br><span class="line">Enter Database Password (bigdata): xxxxxxxx</span><br><span class="line">Enter full path to custom jdbc driver: &#x2F;usr&#x2F;share&#x2F;java&#x2F;mysql-connector-java-5.1.40-bin.jar</span><br></pre></td></tr></table></figure><p>继续，提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING:Before starting Ambari Server, you must run the following DDL against the database to create the schema: &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;Ambari-DDL-MySQL-CREATE.sql Proceed with configuring remote database connection properties [y&#x2F;n] (y)? y</span><br></pre></td></tr></table></figure><p>按提示输入y执行，继续，最后出现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ambari Server &#39;setup&#39; completed successfully.</span><br></pre></td></tr></table></figure><p>表示配置成功。<br>| |<br>|—|<br>| 如果在配置的过程中被中断，可以再输入ambari-server setup命令重新配置，此时已经完成的配置会以默认值出现，如： |<br>| Configuring database…============================================================= <br>Choose one of the following options: <br>[1] - PostgreSQL (Embedded) <br>[2] - Oracle <br>[3] - MySQL / MariaDB <br>[4] - PostgreSQL <br>[5] - Microsoft SQL Server (Tech Preview) <br>[6] - SQL Anywhere <br>[7] - BDB <br>============================================================= <br>Enter choice (3): 3 Hostname (172.168.1.1):  |<br>|这里配置数据库的hostname，默认值显示的是上一次配置的172.168.1.1。|</p><p>使用以下命令启动Ambari Server</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# ambari-server start</span><br></pre></td></tr></table></figure><p>最后出现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ambari Server &#39;start&#39; completed successfully.</span><br></pre></td></tr></table></figure><p>说明启动成功。</p><p>查看Ambari Server的运行状态：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# ambari-server status</span><br><span class="line"></span><br><span class="line">Using python &#x2F;usr&#x2F;bin&#x2F;python</span><br><span class="line">Ambari-server status</span><br><span class="line">Ambari Server running</span><br><span class="line">Found Ambari Server PID: 26512 at: &#x2F;var&#x2F;run&#x2F;ambari-server&#x2F;ambari-server.pid</span><br></pre></td></tr></table></figure><hr><h2 id="3、部署-HDP-集群"><a href="#3、部署-HDP-集群" class="headerlink" title="3、部署 HDP 集群"></a>3、部署 HDP 集群</h2><hr><h3 id="3-1-登录Ambari界面"><a href="#3-1-登录Ambari界面" class="headerlink" title="3.1 登录Ambari界面"></a>3.1 登录Ambari界面</h3><p>输入<code>172.168.1.1:8080</code>登录 ambari 界面，默认用户/密码为：<code>admin/admin</code>。<br>点击<code>Launch Install Wizard</code>按钮，进入安装界面<br><img src="http://cdn.winyter.cn/ambari-install-guide_image9.png" alt="image-9.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image10.png" alt="image-10.png"></p><hr><h3 id="3-2-集群命名"><a href="#3-2-集群命名" class="headerlink" title="3.2 集群命名"></a>3.2 集群命名</h3><p>第一步为要创建的集群设置名称，每个集群的名称应该是唯一的。这里设置为 $rhino$，点击下一步。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image11.png" alt="image-11.png"></p><h3 id="3-3-版本与安装方式"><a href="#3-3-版本与安装方式" class="headerlink" title="3.3 版本与安装方式"></a>3.3 版本与安装方式</h3><p>在联网的情况下，Ambari会列出可使用的版本信息，如果有版本定义文件（Version Definition File），也可以点击Add Version添加自定义版本信息。</p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image12.png" alt="image-12.png"><br>选择Add Version添加自定义版本信息。</p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image13.png" alt="image-13.png"><br>输入<code>http://172.168.1.1/ambari/hdp/HDP/centos7/2.6.3.0-235/HDP-2.6.3.0-235.xml</code></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image14.png" alt="image-14.png"><br>点击ok，选择stack为2.6版本。</p><p>根据实际使用的操作系统填写URL信息。如果可以联网，可以选择公共源安装，如果不能联网选择本地源安装，需要手动配置本地源的URL。不需要的操作系统信息可以点击Remove删除。点击下一步时会检测填写的URL是否有效。<br>本次安装选择本地源<br>通过浏览器填写hdp的URL，结果如下：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image15.png" alt="image-15.png"></p><p>其中，hdp.repo 的 URL 为 <code>http://172.168.1.1/ambari/hdp/HDP/centos7/2.6.3.0-235/</code>，<br>hdp-util.repo 的 URL 为 <code>http://172.168.1.1/ambari/hdp/HDP-UTILS-1.1.0.21/repos/centos7/</code>。  </p><p>URL 中 172.168.1.1 为安装 ambari-server 的机器 IP，版本号和操作系统可能会有所不同，请根据实际情况填写。</p><hr><h3 id="3-4-安装节点设置"><a href="#3-4-安装节点设置" class="headerlink" title="3.4 安装节点设置"></a>3.4 安装节点设置</h3><p>填写集群的所有节点，提示要输入的是各节点的完全限定域名，没有设置的话填写主机名称：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image16.png" alt="image-16.png"></p><p>填写 ambari server 机器私钥  </p><p>确保 ambari-server 能自动安装 ambari-agent 到各目标机器上，将 ambari-server 机器上生成的私钥在 <code>/root/.ssh/id_rsa</code> 文件中，将 id_rsa 文件的内容全部复制。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cat &#x2F;root&#x2F;.ssh&#x2F;id_rsa</span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIIEpQIBAAKCAQEApAuiPxOkng83NO2d16feoP21XT8HsGhD+KuS050sDE1OqLlM</span><br><span class="line">Dnst8jxv+Ptm+olxasBlowU6TBoPwAoA+EFaLuva53Tvg1C8emrUSlNZgIsLmC+m</span><br><span class="line">33H2g1z9JkznYRQ6i9ib3RhNj30EHap7nAhNnJT3tFp73ePILGHVbpqMzAka5tFU</span><br><span class="line">xsYzr&#x2F;IJjWEh+0kha+6D9bjqIIzlE3qWMo8Xwshe1CF5Yq0yRzp1gZOjN8XOc27h</span><br><span class="line">P5NJMbaTPUdW+pn5WlnpPZhStQ7aE+zFR6exqZOPGWEBr4YfXaj1dgghFJOB1GYj</span><br><span class="line">mIQAaVbWFksCZuu0FB6d1ulwuR3EdtwVGhuxGQIDAQABAoIBAFjAlpIrzXdaYhL3</span><br><span class="line">r9saTn+pY&#x2F;NEA6P0dTnXkcN9mHQ7ayAryDNZf308J5R8Z7WKoNsRpqtxS54ax4St</span><br><span class="line">pOKrcOBL6I4rHN5d0uskWyCvQZAjKi23MkBXxvhBWhDbsJ88M4Svt3wCBwxnpc9r</span><br><span class="line">Ch9b+qmJiw5&#x2F;md5tu0IP2EpTwXMtZ+lf91g&#x2F;XuDrB6nlvv8a&#x2F;x&#x2F;eC3xj+LWBd3MO</span><br><span class="line">DaMsXOwQhsCzepH81oO4a1djzqP5oHe36syCKS2DTxQcQJb+3WMR4QlGD99dF2jl</span><br><span class="line">SsWMPY8Z+8RRo4mLtR5nkk9TZsbNPyArXYzlfKhQJ8P8oaS3yWdHJkDy61RoT0FL</span><br><span class="line">LjrkK7UCgYEA1wHxGXGPWuYar3xXkVnqx+47mRwk7yeeaeyG9n5SqtRodvo0gUzj</span><br><span class="line">OXuaYLMtVc47xzXw3QRGvZgmEvCvGfnIaCuEqEi6Z9f+pewqHcUUDlptzp5So&#x2F;84</span><br><span class="line">r+KpLAGKgZlXAuG4t4B1KnHvbXbyVk0lz6&#x2F;5caoAOE8g2LjDzggMNXcCgYEAw1JW</span><br><span class="line">4zJWH33wGQsr+BZEkLQULPXetsh76DE3AqyiI+8JH1e34Ny4Ed+rJiv4TE1Mvdp+</span><br><span class="line">8bWQIHxxUEwqk1&#x2F;aNOs66Scf6h3mNrnJi2zlGb5pQowKuI0cQVJ2BiAkMfWk7TsM</span><br><span class="line">G4YiTd7hABcO&#x2F;MvWS463tpx7CnwzDxg4F6nWMe8CgYEArCsK5GPx9kjyL3mzKVpG</span><br><span class="line">Teiv4rANx1ADYzCa9kE7cz35lORQLQXjokEe4rY35FDrv16rTGBDQUjXnC0NGhDR</span><br><span class="line">cNEAPj1WvxbP&#x2F;A97vjD1GXVCHsTayiXyP62R6AIn5hVi&#x2F;pS&#x2F;dHmx2NY5cn9gGMlY</span><br><span class="line">MNHqPiFyYaTDWafCa3Y4SIsCgYEAjpKl9cWic+5bugwblkW62t139LGsVkPVnlF+</span><br><span class="line">VCdrW0t6nzRKdormmbVomr5xylCKefLpwsnDYNM1a2WNlnHbN9GU+OekNiKJDt1i</span><br><span class="line">rrFYMgh5kSfkE359Z3knyaTghs9GChyV4+lvVOQh3Qz31bN8wz5z&#x2F;4oNjkPGiXgm</span><br><span class="line">Sa+hOGUCgYEAykaL1zW3BmbbkNtFx1+rtoq67FKXzNLYo5NBWwDI14zpZnzNXwhi</span><br><span class="line">B7IPJOvV&#x2F;LvlmpVRdjTUv4VJiYjhqjNVUPeQxt50A4GgEKYgHKHYIf5QdhbwA4VE</span><br><span class="line">QWwuUhvLptJ7yW81piz8V6CUCxNzg&#x2F;M1YEqJWgU&#x2F;rV2LCD50btwK82s&#x3D;</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure><p><img src="http://cdn.winyter.cn/ambari-install-guide_image17.png" alt="image-17.png"></p><p>点击继续后，由于填写的不是 FQDN，所以出现以下提示，点击 CONTINUE 继续下一步<br><img src="http://cdn.winyter.cn/ambari-install-guide_image18.png" alt="image-18.png"></p><hr><h3 id="3-5-ambari-agent-注册"><a href="#3-5-ambari-agent-注册" class="headerlink" title="3.5 ambari-agent 注册"></a>3.5 ambari-agent 注册</h3><p>根据上一步填写的信息安装 ambari-agent，之后 ambari-agent 向 ambari-server 注册，界面显示每个节点的执行结果，当执行失败时点击 Failed 可以查看详细日志。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image19.png" alt="image-19.png"></p><p><strong>报错处理</strong></p><p>按照日志修改后，点击retry  failed按钮重试。所有机器注册成功后，会检测warning；当检测到warning时，点击查看warning，并需要按照提示手动解决。</p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image20.png" alt="image-20.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image21.png" alt="image-21.png"></p><ul><li>这个warning提示<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The following processes should not be running，&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_65&#x2F;bin&#x2F;java -D…</span><br></pre></td></tr></table></figure></li><li>解决方法<br>可以通过 <code>pgrep java</code> 查看进程占用情况，并通过 <code>kill -9</code>  进程号（注意不要删了 <code>ambari-server</code> 的 8080 进程）其他的进程都杀掉。</li></ul><hr><h3 id="3-6-查看ambari进程状态【在所有-Ambari-Agent-节点的-root-用户下执行】"><a href="#3-6-查看ambari进程状态【在所有-Ambari-Agent-节点的-root-用户下执行】" class="headerlink" title="3.6 查看ambari进程状态【在所有 Ambari Agent 节点的 root 用户下执行】"></a>3.6 查看ambari进程状态【在所有 Ambari Agent 节点的 root 用户下执行】</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@node2 ~]# ambari-agent status</span><br><span class="line"></span><br><span class="line">Found ambari-agent PID: 8935</span><br><span class="line">ambari-agent running.</span><br><span class="line">Agent PID at: &#x2F;run&#x2F;ambari-agent&#x2F;ambari-agent.pid</span><br><span class="line">Agent out at: &#x2F;var&#x2F;log&#x2F;ambari-agent&#x2F;ambari-agent.out</span><br><span class="line">Agent log at: &#x2F;var&#x2F;log&#x2F;ambari-agent&#x2F;ambari-agent.log</span><br><span class="line"></span><br><span class="line">ambari-server status</span><br><span class="line">Using python &#x2F;usr&#x2F;bin&#x2F;python</span><br><span class="line">Ambari-server status</span><br><span class="line">Ambari Server running</span><br><span class="line">Found Ambari Server PID: 32729 at: &#x2F;var&#x2F;run&#x2F;ambari-server&#x2F;ambari-server.pid</span><br></pre></td></tr></table></figure><hr><h3 id="3-7-安装zookeeper、Ambari-Metrics服务"><a href="#3-7-安装zookeeper、Ambari-Metrics服务" class="headerlink" title="3.7 安装zookeeper、Ambari Metrics服务"></a>3.7 安装zookeeper、Ambari Metrics服务</h3><p>安装 zookeeper，Ambari Metrics。SmartSense 是默认安装的，所以必选。<br>在 Ambari 页面选择 <code>Add Service</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image22.png" alt="image-22.png"></p><p>选择 zookeeper，Ambari Metrics<br><img src="http://cdn.winyter.cn/ambari-install-guide_image23.png" alt="image-23.png"></p><p>点击下一步，会提示没有安装一些必要的服务——Ambari Metrics 和 SmartSence，点击 <code>PROCEED ANYWAY</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image24.png" alt="image-24.png"></p><hr><h3 id="3-8-zookeeper服务"><a href="#3-8-zookeeper服务" class="headerlink" title="3.8 zookeeper服务"></a>3.8 zookeeper服务</h3><p>选择需要安装zookeeper服务的主机，其中Metrics Collector所在服务器需要测试一下到所有服务器（包括自己）的无密码访问是否可以，由于存在部分服务器进行首次无密码访问时需要手动输入yes，才能进去，不验证的话，后续Metrics Collector服务会有问题。  </p><p>1.选择需要安装Zookeeper Server的主机。这里选择了三台机器。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image25.png" alt="image-25.png"></p><p>2.选择没有安装zookeeper的服务器安装client。</p><blockquote><p>这里需要注意，由于部分组件需要使用 zookeeper 客户端来进行业务调度，已经部署了 zookeeper 的节点自带 zookeeper 客户端，所以可以不部署 zookeeper 客户端，但其他节点必须都安装上 zookeeper 客户端。</p></blockquote><p><img src="http://cdn.winyter.cn/ambari-install-guide_image26.png" alt="image-26.png"></p><p>3.点击下一步，此处配置默认不修改。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image28.png" alt="image-28.png"></p><hr><h3 id="3-9-输入Grafana密码"><a href="#3-9-输入Grafana密码" class="headerlink" title="3.9 输入Grafana密码"></a>3.9 输入Grafana密码</h3><p>用户名和密码都输入admin<br><img src="http://cdn.winyter.cn/ambari-install-guide_image27.png" alt="image-27.png"></p><p>默认即可，一路NEXT</p><hr><h3 id="3-10-确认安装"><a href="#3-10-确认安装" class="headerlink" title="3.10 确认安装"></a>3.10 确认安装</h3><p>确认安装信息，安装的信息可以直接打印出来：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image29.png" alt="image-29.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image30.png" alt="image-30.png"></p><p>如果进程启动失败或测试没有通过，则显示 WARNING。</p><blockquote><p>注意：安装完成之后是不能返回到之前的步骤检查配置的。</p></blockquote><p>完成 Hadoop 安装<br><img src="http://cdn.winyter.cn/ambari-install-guide_image31.png" alt="image-31.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image32.png" alt="image-32.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image33.png" alt="image-33.png"></p><hr><h3 id="3-11-删除SmartSense服务"><a href="#3-11-删除SmartSense服务" class="headerlink" title="3.11 删除SmartSense服务"></a>3.11 删除SmartSense服务</h3><blockquote><p>SmartSense 为 HortonWorks 提供的一个增值服务，用于收集集群诊断数据，协助支持案例故障排除，除非确实有必有，否则建议卸载该服务。</p></blockquote><p>由于 SmartSense 为默认安装的服务，所以，需要我们手动删除该服务</p><p>首先停止服务<br><img src="http://cdn.winyter.cn/ambari-install-guide_image34.png" alt="image-34.png"></p><p>删除此服务<br><img src="http://cdn.winyter.cn/ambari-install-guide_image35.png" alt="image-35.png"></p><p><img src="http://cdn.winyter.cn/ambari-install-guide_image36.png" alt="image-36.png"></p><hr>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;hr&gt;
+&lt;h2 id=&quot;1、准备工作&quot;&gt;&lt;a href=&quot;#1、准备工作&quot; class=&quot;headerlink&quot; title=&quot;1、准备工作&quot;&gt;&lt;/a&gt;1、准备工作&lt;/h2&gt;&lt;hr&gt;
+&lt;h3 id=&quot;1-1-Ambari-版本包解析&quot;&gt;&lt;a href=&quot;#1-1-Ambari-
+      
+    
+    </summary>
+    
+    
+      <category term="CS Software" scheme="https://winyter.github.io/MyBlog/categories/CS-Software/"/>
+    
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Software/Server/"/>
+    
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Software/Server/Ambari/"/>
+    
+    
+      <category term="Bigdataa" scheme="https://winyter.github.io/MyBlog/tags/Bigdataa/"/>
+    
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux命令集锦【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/UNIX-commands-collection/"/>
-    <id>101.200.81.233/2020/04/19/UNIX-commands-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/UNIX-commands-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/UNIX-commands-collection/</id>
     <published>2020-04-19T06:49:43.000Z</published>
     <updated>2020-04-19T07:44:14.686Z</updated>
     
@@ -36,27 +70,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
     
-      <category term="Collection" scheme="101.200.81.233/tags/Collection/"/>
+      <category term="Collection" scheme="https://winyter.github.io/MyBlog/tags/Collection/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/tags/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/tags/UNIX/"/>
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
-      <category term="Commands" scheme="101.200.81.233/tags/Commands/"/>
+      <category term="Commands" scheme="https://winyter.github.io/MyBlog/tags/Commands/"/>
     
   </entry>
   
   <entry>
     <title>MacOS 快捷键记录【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/MacOS-hotkey-collection/"/>
-    <id>101.200.81.233/2020/04/19/MacOS-hotkey-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/MacOS-hotkey-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/MacOS-hotkey-collection/</id>
     <published>2020-04-19T06:45:04.000Z</published>
     <updated>2020-04-19T07:43:06.195Z</updated>
     
@@ -77,27 +111,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/MacOS/"/>
     
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
-      <category term="Hotkey" scheme="101.200.81.233/tags/Hotkey/"/>
+      <category term="Hotkey" scheme="https://winyter.github.io/MyBlog/tags/Hotkey/"/>
     
-      <category term="Collection" scheme="101.200.81.233/tags/Collection/"/>
+      <category term="Collection" scheme="https://winyter.github.io/MyBlog/tags/Collection/"/>
     
   </entry>
   
   <entry>
     <title>网站配置 DNS 时，各类符号的含义</title>
-    <link href="101.200.81.233/2020/04/19/dns-config-parameters-introduction/"/>
-    <id>101.200.81.233/2020/04/19/dns-config-parameters-introduction/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/dns-config-parameters-introduction/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/dns-config-parameters-introduction/</id>
     <published>2020-04-19T05:47:41.000Z</published>
     <updated>2020-04-19T07:45:51.404Z</updated>
     
@@ -116,23 +150,23 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Basic" scheme="101.200.81.233/categories/CS-Concept/Basic/"/>
+      <category term="Basic" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Basic/"/>
     
-      <category term="Network" scheme="101.200.81.233/categories/CS-Concept/Basic/Network/"/>
+      <category term="Network" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Basic/Network/"/>
     
     
-      <category term="Website" scheme="101.200.81.233/tags/Website/"/>
+      <category term="Website" scheme="https://winyter.github.io/MyBlog/tags/Website/"/>
     
-      <category term="DNS" scheme="101.200.81.233/tags/DNS/"/>
+      <category term="DNS" scheme="https://winyter.github.io/MyBlog/tags/DNS/"/>
     
   </entry>
   
   <entry>
     <title>靠谱的数据来源和数据统计平台</title>
-    <link href="101.200.81.233/2020/04/19/data-resource-platform/"/>
-    <id>101.200.81.233/2020/04/19/data-resource-platform/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/data-resource-platform/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/data-resource-platform/</id>
     <published>2020-04-19T05:43:59.000Z</published>
     <updated>2020-04-19T07:45:02.744Z</updated>
     
@@ -150,17 +184,17 @@
     </summary>
     
     
-      <category term="Source" scheme="101.200.81.233/categories/Source/"/>
+      <category term="Source" scheme="https://winyter.github.io/MyBlog/categories/Source/"/>
     
     
-      <category term="Data_Resource" scheme="101.200.81.233/tags/Data-Resource/"/>
+      <category term="Data_Resource" scheme="https://winyter.github.io/MyBlog/tags/Data-Resource/"/>
     
   </entry>
   
   <entry>
     <title>ES新建索引分片失败&quot;shards_acknowledged&quot;：false的解决</title>
-    <link href="101.200.81.233/2020/04/19/ERRORS-ES-shards-acknowledged-false/"/>
-    <id>101.200.81.233/2020/04/19/ERRORS-ES-shards-acknowledged-false/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/</id>
     <published>2020-04-19T05:41:56.000Z</published>
     <updated>2020-04-19T07:40:28.575Z</updated>
     
@@ -176,21 +210,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Big Data" scheme="101.200.81.233/categories/CS-Concept/Big-Data/"/>
+      <category term="Big Data" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Big-Data/"/>
     
     
-      <category term="ERROR" scheme="101.200.81.233/tags/ERROR/"/>
+      <category term="ERROR" scheme="https://winyter.github.io/MyBlog/tags/ERROR/"/>
     
-      <category term="ES" scheme="101.200.81.233/tags/ES/"/>
+      <category term="ES" scheme="https://winyter.github.io/MyBlog/tags/ES/"/>
     
   </entry>
   
   <entry>
     <title>Linux NFS挂载共享文件</title>
-    <link href="101.200.81.233/2020/04/19/linux-NFS-mount-guide/"/>
-    <id>101.200.81.233/2020/04/19/linux-NFS-mount-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/linux-NFS-mount-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/linux-NFS-mount-guide/</id>
     <published>2020-04-19T05:35:35.000Z</published>
     <updated>2020-04-19T07:49:25.285Z</updated>
     
@@ -208,25 +242,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
-      <category term="Linux" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/Linux/"/>
     
     
-      <category term="Tool" scheme="101.200.81.233/tags/Tool/"/>
+      <category term="Tool" scheme="https://winyter.github.io/MyBlog/tags/Tool/"/>
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>VIM 编辑器用法大全【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/vim-editor-guide/"/>
-    <id>101.200.81.233/2020/04/19/vim-editor-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/vim-editor-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/vim-editor-guide/</id>
     <published>2020-04-19T05:34:14.000Z</published>
     <updated>2020-04-19T07:51:26.487Z</updated>
     
@@ -244,23 +278,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
-      <category term="VIM" scheme="101.200.81.233/tags/VIM/"/>
+      <category term="VIM" scheme="https://winyter.github.io/MyBlog/tags/VIM/"/>
     
   </entry>
   
   <entry>
     <title>Hive操作集锦【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/hive-commands-collection/"/>
-    <id>101.200.81.233/2020/04/19/hive-commands-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/hive-commands-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/hive-commands-collection/</id>
     <published>2020-04-19T05:30:29.000Z</published>
     <updated>2020-04-19T07:48:38.611Z</updated>
     
@@ -277,21 +311,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Hive" scheme="101.200.81.233/tags/Hive/"/>
+      <category term="Hive" scheme="https://winyter.github.io/MyBlog/tags/Hive/"/>
     
   </entry>
   
   <entry>
     <title>华为FusionInsight大数据集群关系型数据库——Libra入门</title>
-    <link href="101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/"/>
-    <id>101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/</id>
     <published>2020-01-07T16:46:51.000Z</published>
     <updated>2020-04-19T07:42:05.319Z</updated>
     
@@ -308,29 +342,29 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="HW-FusionInsight" scheme="101.200.81.233/categories/CS-Soft/Server/HW-FusionInsight/"/>
+      <category term="HW-FusionInsight" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/HW-FusionInsight/"/>
     
     
-      <category term="Libra" scheme="101.200.81.233/tags/Libra/"/>
+      <category term="Libra" scheme="https://winyter.github.io/MyBlog/tags/Libra/"/>
     
-      <category term="FusionInsight" scheme="101.200.81.233/tags/FusionInsight/"/>
+      <category term="FusionInsight" scheme="https://winyter.github.io/MyBlog/tags/FusionInsight/"/>
     
-      <category term="PostgreSQL" scheme="101.200.81.233/tags/PostgreSQL/"/>
+      <category term="PostgreSQL" scheme="https://winyter.github.io/MyBlog/tags/PostgreSQL/"/>
     
-      <category term="MPP" scheme="101.200.81.233/tags/MPP/"/>
+      <category term="MPP" scheme="https://winyter.github.io/MyBlog/tags/MPP/"/>
     
-      <category term="BigData" scheme="101.200.81.233/tags/BigData/"/>
+      <category term="BigData" scheme="https://winyter.github.io/MyBlog/tags/BigData/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇五：Kafka</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-kafka/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-kafka/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/</id>
     <published>2020-01-07T16:46:17.000Z</published>
     <updated>2020-04-19T07:48:00.225Z</updated>
     
@@ -347,21 +381,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Kafka" scheme="101.200.81.233/tags/Kafka/"/>
+      <category term="Kafka" scheme="https://winyter.github.io/MyBlog/tags/Kafka/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇六：其他组件简介</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-other/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-other/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/</id>
     <published>2020-01-07T16:46:01.000Z</published>
     <updated>2020-04-19T07:48:14.777Z</updated>
     
@@ -378,29 +412,29 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Redis" scheme="101.200.81.233/tags/Redis/"/>
+      <category term="Redis" scheme="https://winyter.github.io/MyBlog/tags/Redis/"/>
     
-      <category term="Flink" scheme="101.200.81.233/tags/Flink/"/>
+      <category term="Flink" scheme="https://winyter.github.io/MyBlog/tags/Flink/"/>
     
-      <category term="Zookeeper" scheme="101.200.81.233/tags/Zookeeper/"/>
+      <category term="Zookeeper" scheme="https://winyter.github.io/MyBlog/tags/Zookeeper/"/>
     
-      <category term="Yarn" scheme="101.200.81.233/tags/Yarn/"/>
+      <category term="Yarn" scheme="https://winyter.github.io/MyBlog/tags/Yarn/"/>
     
-      <category term="Mapreduce" scheme="101.200.81.233/tags/Mapreduce/"/>
+      <category term="Mapreduce" scheme="https://winyter.github.io/MyBlog/tags/Mapreduce/"/>
     
   </entry>
   
   <entry>
     <title>MacOS 安装 Hexo 时提示 EACCES 时的解决方法</title>
-    <link href="101.200.81.233/2020/01/06/ERRORS-hexo-MacOS-EACCES/"/>
-    <id>101.200.81.233/2020/01/06/ERRORS-hexo-MacOS-EACCES/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/ERRORS-hexo-MacOS-EACCES/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/ERRORS-hexo-MacOS-EACCES/</id>
     <published>2020-01-05T16:19:44.000Z</published>
     <updated>2020-04-19T07:41:01.410Z</updated>
     
@@ -416,27 +450,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Client" scheme="101.200.81.233/categories/CS-Soft/Client/"/>
+      <category term="Client" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/"/>
     
-      <category term="Hexo" scheme="101.200.81.233/categories/CS-Soft/Client/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/Hexo/"/>
     
     
-      <category term="ERROR" scheme="101.200.81.233/tags/ERROR/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Tool" scheme="https://winyter.github.io/MyBlog/tags/Tool/"/>
     
-      <category term="Tool" scheme="101.200.81.233/tags/Tool/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="ERROR" scheme="https://winyter.github.io/MyBlog/tags/ERROR/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇四：HDFS</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-HDFS/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-HDFS/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/</id>
     <published>2020-01-05T16:17:10.000Z</published>
     <updated>2020-04-19T07:47:07.804Z</updated>
     
@@ -453,21 +487,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="HDFS" scheme="101.200.81.233/tags/HDFS/"/>
+      <category term="HDFS" scheme="https://winyter.github.io/MyBlog/tags/HDFS/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇三：Hive</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-hive/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-hive/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/</id>
     <published>2020-01-05T16:14:47.000Z</published>
     <updated>2020-04-19T07:47:49.693Z</updated>
     
@@ -484,21 +518,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Hive" scheme="101.200.81.233/tags/Hive/"/>
+      <category term="Hive" scheme="https://winyter.github.io/MyBlog/tags/Hive/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇二：ElasticSearch</title>
-    <link href="101.200.81.233/2019/12/27/hadoop-elasticsearch/"/>
-    <id>101.200.81.233/2019/12/27/hadoop-elasticsearch/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/</id>
     <published>2019-12-26T16:35:11.000Z</published>
     <updated>2020-04-19T07:47:31.426Z</updated>
     
@@ -514,21 +548,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="ElasticSearch" scheme="101.200.81.233/tags/ElasticSearch/"/>
+      <category term="ElasticSearch" scheme="https://winyter.github.io/MyBlog/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>HBase Shell 过滤器 —— HBase Shell Filter</title>
-    <link href="101.200.81.233/2019/12/25/hbase-shell-filter/"/>
-    <id>101.200.81.233/2019/12/25/hbase-shell-filter/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/</id>
     <published>2019-12-25T15:29:33.000Z</published>
     <updated>2020-04-19T07:48:24.745Z</updated>
     
@@ -545,21 +579,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇一：HBase入门</title>
-    <link href="101.200.81.233/2019/12/25/hadoop-hbase/"/>
-    <id>101.200.81.233/2019/12/25/hadoop-hbase/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/</id>
     <published>2019-12-25T15:01:04.000Z</published>
     <updated>2020-04-19T07:47:40.034Z</updated>
     
@@ -576,21 +610,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>网站推荐（持续更新哟）</title>
-    <link href="101.200.81.233/2019/12/23/webpage-recommend/"/>
-    <id>101.200.81.233/2019/12/23/webpage-recommend/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/</id>
     <published>2019-12-22T16:14:43.000Z</published>
     <updated>2020-04-19T07:51:58.930Z</updated>
     
@@ -606,15 +640,15 @@
     </summary>
     
     
-      <category term="Source" scheme="101.200.81.233/categories/Source/"/>
+      <category term="Source" scheme="https://winyter.github.io/MyBlog/categories/Source/"/>
     
     
   </entry>
   
   <entry>
     <title>PostgreSQL表间复制数据</title>
-    <link href="101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
-    <id>101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
     <published>2019-12-22T16:08:01.000Z</published>
     <updated>2020-04-19T07:50:34.144Z</updated>
     
@@ -631,25 +665,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Postgre" scheme="101.200.81.233/categories/CS-Soft/Server/Postgre/"/>
+      <category term="Postgre" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/"/>
     
     
-      <category term="Postgre" scheme="101.200.81.233/tags/Postgre/"/>
+      <category term="Postgre" scheme="https://winyter.github.io/MyBlog/tags/Postgre/"/>
     
-      <category term="SQL" scheme="101.200.81.233/tags/SQL/"/>
+      <category term="SQL" scheme="https://winyter.github.io/MyBlog/tags/SQL/"/>
     
-      <category term="Database" scheme="101.200.81.233/tags/Database/"/>
+      <category term="Database" scheme="https://winyter.github.io/MyBlog/tags/Database/"/>
     
   </entry>
   
   <entry>
     <title>Shell脚本实现FTP文件增量传输</title>
-    <link href="101.200.81.233/2019/12/19/ftp-increment-download-with-shell/"/>
-    <id>101.200.81.233/2019/12/19/ftp-increment-download-with-shell/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/</id>
     <published>2019-12-19T11:29:51.000Z</published>
     <updated>2020-04-19T07:46:35.366Z</updated>
     
@@ -667,25 +701,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Language" scheme="101.200.81.233/categories/CS-Soft/Language/"/>
+      <category term="Language" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Language/"/>
     
-      <category term="Shell" scheme="101.200.81.233/categories/CS-Soft/Language/Shell/"/>
+      <category term="Shell" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Language/Shell/"/>
     
     
-      <category term="Shell" scheme="101.200.81.233/tags/Shell/"/>
+      <category term="Shell" scheme="https://winyter.github.io/MyBlog/tags/Shell/"/>
     
-      <category term="FTP" scheme="101.200.81.233/tags/FTP/"/>
+      <category term="FTP" scheme="https://winyter.github.io/MyBlog/tags/FTP/"/>
     
-      <category term="Code" scheme="101.200.81.233/tags/Code/"/>
+      <category term="Code" scheme="https://winyter.github.io/MyBlog/tags/Code/"/>
     
   </entry>
   
   <entry>
     <title>Nginx快速部署指南</title>
-    <link href="101.200.81.233/2019/12/18/Nginx-install-guide/"/>
-    <id>101.200.81.233/2019/12/18/Nginx-install-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/</id>
     <published>2019-12-18T10:04:44.000Z</published>
     <updated>2020-04-19T07:43:46.092Z</updated>
     
@@ -701,23 +735,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Nginx" scheme="101.200.81.233/categories/CS-Soft/Server/Nginx/"/>
+      <category term="Nginx" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Nginx/"/>
     
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
-      <category term="Nginx" scheme="101.200.81.233/tags/Nginx/"/>
+      <category term="Nginx" scheme="https://winyter.github.io/MyBlog/tags/Nginx/"/>
     
   </entry>
   
   <entry>
     <title>Hexo部署指南</title>
-    <link href="101.200.81.233/2019/12/16/Hexo_install_guide/"/>
-    <id>101.200.81.233/2019/12/16/Hexo_install_guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/</id>
     <published>2019-12-16T11:25:37.000Z</published>
     <updated>2020-04-19T07:42:33.634Z</updated>
     
@@ -734,23 +768,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Client" scheme="101.200.81.233/categories/CS-Soft/Client/"/>
+      <category term="Client" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/"/>
     
-      <category term="Hexo" scheme="101.200.81.233/categories/CS-Soft/Client/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/Hexo/"/>
     
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="101.200.81.233/2019/12/12/hello-world/"/>
-    <id>101.200.81.233/2019/12/12/hello-world/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/12/hello-world/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/12/hello-world/</id>
     <published>2019-12-11T19:09:49.000Z</published>
     <updated>2020-04-19T07:37:21.965Z</updated>
     
