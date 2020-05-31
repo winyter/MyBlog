@@ -152,62 +152,11 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
-            <article id="post-yarn-fair-scheduler-guide"
+            <article id="post-ambari-install-guides-16-ambari-manage-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-05-23 09:59:14" datetime="2020-05-23T01:59:14.000Z"  itemprop="datePublished">2020-05-23</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Hadoop/">Hadoop</a></li></ul></li></ul></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/05/23/yarn-fair-scheduler-guide/">YARN fair-scheduler 资源调度介绍及配置</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-本文部分内容来源网络：CSDN用户@冰上浮云另附官方文档中这部分内容的解析：点击这里
-
-
-简介公平调度器（FairScheduler）它是hadoop的一个可插拔的调度器，目的是让应用程序在YARN上能够公平的共享巨大的集群资源。公平调度是一种将资源分配给应用程序的方法，这样所有应用程序平均都能在一段时间内获得相同的资源份额。Hadoop NextGen能够调度多个资源类型。默认情况下，F...
-    
-
-        <a href="/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Yarn/" rel="tag">Yarn</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-ambari-install-guides-4-install-hdfs"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-05-21 20:00:17" datetime="2020-05-21T12:00:17.000Z"  itemprop="datePublished">2020-05-21</time>
+        <time class="post-time" title="2020-05-31 17:57:46" datetime="2020-05-31T09:57:46.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
@@ -221,7 +170,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/">基于 Ambari 的大数据集群安装指导——篇四：Ambari 安装 HDFS</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-16-ambari-manage-md/">基于 Ambari 的大数据集群安装指导——篇十六：Ambari 管理</a>
     </h3>
   
 
@@ -232,15 +181,15 @@
 
     
         
-1、安装部署 HDFS点击services菜单栏右侧的 ... 符号，弹出services拓展选项框。
-点击Add Service选项，出现下述服务选择菜单，选择 HDFS。点击 NEXT
-根据部署规划，分别选择 NameNode 节点和 SNameNode 节点，点击 NEXT
-根据部署规划，选择 datanode 节点和 client 节点，点击 NEXT
+1、Ambari 用户管理使用默认用户 admin/admin 登录 Ambari 页面，点击用户下的 Manage Ambari 按钮，进入 Ambari 管理界面。
 
-1.1 修改 HDFS 配...
+Manage Users / Groups 模块可以创建 ambari 用户和用户组，并为用户赋予权限：
+
+2、View 管理用于扩展 Ambari Web UI 中的框架。点击 Views 进入页面：
+创建的views...
     
 
-        <a href="/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-16-ambari-manage-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
@@ -256,11 +205,11 @@
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-ambari-install-guides-3-install-ambari-and-base-components"
+            <article id="post-ambari-install-guides-15-install-kafka-manager-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-05-21 19:37:12" datetime="2020-05-21T11:37:12.000Z"  itemprop="datePublished">2020-05-21</time>
+        <time class="post-time" title="2020-05-31 17:55:31" datetime="2020-05-31T09:55:31.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
@@ -274,7 +223,111 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/">基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/">基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+1、简介Kafka Manager 可用于监控和管理 kafka 集群。
+主要作用有：
+
+便捷的监控集群状态（topics，consumers，offsets，brokers，副本分布，分区分布）；
+根据自定义配置创建 topic；
+删除 topic，但是前提是配置 kafka 的 delete.topic.enable=true；
+增加已存在 topic 的分区；
+更新已存在 topic...
+    
+
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-ambari-install-guides-14-install-spark-md"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-05-31 17:54:08" datetime="2020-05-31T09:54:08.000Z"  itemprop="datePublished">2020-05-31</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-14-install-spark-md/">基于 Ambari 的大数据集群安装指导——篇十四：手动安装Spark</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+1、Spark 简介Apache Spark 是一个分布式计算框架，旨在简化运行于计算机集群上的并行程序的编写。该框架对资源调度，任务的提交、执行和跟踪，节点间的通信以及数据并行处理的内在底层操作都进行了抽象。它提供了一个更高级别的 API 用于处理分布式数据。从这方面说，它与 Apache Hadoop 等分布式处理框架类似。但在底层架构上，Spark 与它们有所不同。
+运行模式上，Sp...
+    
+
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-14-install-spark-md/" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-ambari-install-guides-13-install-impala-md"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-05-31 17:53:13" datetime="2020-05-31T09:53:13.000Z"  itemprop="datePublished">2020-05-31</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-13-install-impala-md/">基于 Ambari 的大数据集群安装指导——篇十三：Ambari 安装 Impala</a>
     </h3>
   
 
@@ -286,26 +339,19 @@
     
         
 1、准备工作
-1.1 Ambari 版本包解析Ambari版本包较多，下面会对所有版本包进行简单的说明，本文档以 Ambari 2.7.3 版本为例：
-
-Ambari 安装包即 Ambari 自身的安装包
-
-ambari-2.7.3.0-centos7.tar.gz
-
-
-HDP 集群安装包即大数据平台的安装包，包含了各类组件
-
-HDP-2.6.3.0-centos7-rpm.tar.gzH...
+确认 GreenPlum 版本，以及 GreenPlum 部署规划
+确认 GreenPlum 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 GreenPlum 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stack...
     
 
-        <a href="/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-13-install-impala-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdataa/" rel="tag">Bigdataa</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -314,14 +360,14 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-UNIX-commands-collection"
+            <article id="post-ambari-install-guides-12-install-neo4j-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 14:49:43" datetime="2020-04-19T06:49:43.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:52:10" datetime="2020-05-31T09:52:10.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/">OS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/">UNIX</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -332,7 +378,7 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/UNIX-commands-collection/">Linux命令集锦【持续更新】</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/">基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</a>
     </h3>
   
 
@@ -342,20 +388,21 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        查看CPU信息查看CPU型号：
-1cat &#x2F;proc&#x2F;cpuinfo | grep name | cut -f2 -d: | uniq -c
-查看CPU颗数及CPU物理核心数(个数)：
-12cat &#x2F;proc&#x2F;cpuinfo查看最后一个CPU的physical id(从0开始，数出的个数即为CPU颗数),cpu cores显示的即为单颗核心数，总个数为...
+        
+1、准备工作
+确认 Neo4j 版本，以及 Neo4j 部署规划
+确认 Neo4j 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 Neo4j 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stacks/HDP/2.6/servic...
     
 
-        <a href="/MyBlog/2020/04/19/UNIX-commands-collection/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Collection/" rel="tag">Collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Commands/" rel="tag">Commands</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/UNIX/" rel="tag">UNIX</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -364,14 +411,14 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-MacOS-hotkey-collection"
+            <article id="post-ambari-install-guides-11-install-kafka-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 14:45:04" datetime="2020-04-19T06:45:04.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:51:14" datetime="2020-05-31T09:51:14.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/">OS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/">UNIX</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/MacOS/">MacOS</a></li></ul></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -382,7 +429,7 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/MacOS-hotkey-collection/">MacOS 快捷键记录【持续更新】</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</a>
     </h3>
   
 
@@ -393,24 +440,20 @@ HDP-2.6.3.0-centos7-rpm.tar.gzH...
 
     
         
-不同 App 窗口切换：command+tab
-App 内窗口切换：command+~
-App 内标签页切换：control+tab
-输入法快速切换：control+space
-快速显示桌面(之一)：F11
-打开关闭 Dock 的自动隐藏：option+command+D
-拷贝 &amp; 剪切：command+c &amp; command+v / command+option+v
-翻页...
+1、准备工作
+确认 Kafka 版本，以及 Kafka 部署规划
+确认 Kafka 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 Kafka 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stacks/HDP/2.6/servic...
     
 
-        <a href="/MyBlog/2020/04/19/MacOS-hotkey-collection/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Collection/" rel="tag">Collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hotkey/" rel="tag">Hotkey</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/MacOS/" rel="tag">MacOS</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -419,14 +462,14 @@ App 内标签页切换：control+tab
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-dns-config-parameters-introduction"
+            <article id="post-ambari-install-guides-ex1-recover-greenplum-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 13:47:41" datetime="2020-04-19T05:47:41.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:49:46" datetime="2020-05-31T09:49:46.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Basic/">Basic</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Basic/Network/">Network</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -437,7 +480,7 @@ App 内标签页切换：control+tab
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/dns-config-parameters-introduction/">网站配置 DNS 时，各类符号的含义</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/">基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作</a>
     </h3>
   
 
@@ -448,19 +491,21 @@ App 内标签页切换：control+tab
 
     
         
-from 阿里云
+当 Greenplum 的组件异常时，可进行恢复操作。Greenplum 恢复功能分为 2 大类：master 恢复和 primary(mirror) 恢复。
 
-主机记录就是域名前缀，常见用法有：www：解析后的域名为www.aliyun.com。@：直接解析主域名 aliyun.com。*：泛解析，匹配其他所有域名 *.aliyun.com。mail：将域名解析为mail.aliyun.com，通常用于解析邮箱服务器。二级域名：如：abc.aliyun.com，填写abc。手机网站：如：m.aliyun.com，填写m。显性U...
+
+1、master 恢复当 master 主机出现故障时（monitor 依赖 master，如果 master 出故障，monitor 也出故障），如图：
+点击 ACTIONS 中的 Activestandby 按钮，通过 st...
     
 
-        <a href="/MyBlog/2020/04/19/dns-config-parameters-introduction/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/DNS/" rel="tag">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Website/" rel="tag">Website</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -469,14 +514,14 @@ from 阿里云
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-data-resource-platform"
+            <article id="post-ambari-install-guides-10-install-greenplum-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 13:43:59" datetime="2020-04-19T05:43:59.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:47:55" datetime="2020-05-31T09:47:55.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/Source/">Source</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -487,7 +532,7 @@ from 阿里云
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/data-resource-platform/">靠谱的数据来源和数据统计平台</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-10-install-greenplum-md/">基于 Ambari 的大数据集群安装指导——篇十：Ambari 安装 GreenPlum</a>
     </h3>
   
 
@@ -498,35 +543,20 @@ from 阿里云
 
     
         
-via:【知乎问题：有哪些好的数据来源或者大数据平台？】
-
-
-国内官方数据
-国家统计局：宏观经济、国计民生
-中国互联网信息中心
-中国信通院
-
-指数
-百度指数：搜索关键词风向
-艾瑞指数：反映中国互联网整体和移动互联网市场客观情况
-阿里指数：淘宝平台风向标
-艺恩：院线电影数据统计
-易车指数：国内汽车销售市场
-高德交通指数：城市实时交通详情
-房天下房地产指数：房地产交易
-
-研究报告
-数据分析网：...
+1、准备工作
+确认 GreenPlum 版本，以及 GreenPlum 部署规划
+确认 GreenPlum 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 GreenPlum 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stack...
     
 
-        <a href="/MyBlog/2020/04/19/data-resource-platform/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-10-install-greenplum-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Data-Resource/" rel="tag">Data_Resource</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -535,14 +565,14 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-ERRORS-ES-shards-acknowledged-false"
+            <article id="post-ambari-install-guides-9-install-redis-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 13:41:56" datetime="2020-04-19T05:41:56.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:46:56" datetime="2020-05-31T09:46:56.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Big-Data/">Big Data</a></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -553,7 +583,7 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/">ES新建索引分片失败&#34;shards_acknowledged&#34;：false的解决</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-9-install-redis-md/">基于 Ambari 的大数据集群安装指导——篇九：Ambari 安装 Redis</a>
     </h3>
   
 
@@ -563,17 +593,21 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        起初在新建索引模板时，始终会报”shards_acknowledged” : false，分片失败。查询分片状态全部是Unassigned。使用curl  11.11.11.11:9200/_cat/nodes查询节点状态只显示一条数据（现场为单机三实例的部署规划），一开始我以为因为是单机版的，所以节点只有一个，于是也没有认为这有异常。包括Head插件的页面也只显示一个节点，一开始我都没觉得...
+        
+1、准备工作
+确认 Redis 版本，以及 Redis 部署规划
+确认 Redis 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 Redis 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stacks/HDP/2.6/servic...
     
 
-        <a href="/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-9-install-redis-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/ERROR/" rel="tag">ERROR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/ES/" rel="tag">ES</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -582,14 +616,14 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
         </li>
     
         <li class="post-list-item fade">
-            <article id="post-linux-NFS-mount-guide"
+            <article id="post-ambari-install-guides-8-install-hive-md"
   class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2020-04-19 13:35:35" datetime="2020-04-19T05:35:35.000Z"  itemprop="datePublished">2020-04-19</time>
+        <time class="post-time" title="2020-05-31 17:44:35" datetime="2020-05-31T09:44:35.000Z"  itemprop="datePublished">2020-05-31</time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/">OS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/">UNIX</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/Linux/">Linux</a></li></ul></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -600,60 +634,7 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/linux-NFS-mount-guide/">Linux NFS挂载共享文件</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        环境介绍：现有两台服务器：均为CentOS7.5环境，挂载端称为主机，被挂载端称为从机
-
-1、安装NFS服务所需的软件包【主从机均需执行】(如果已经安装nfs服务，可以不执行此步骤)
-1yum install -y nfs-utils
-
-2、编辑exports文件，添加从机【主机执行】为挂载目录添加777权限：
-1chmod -R 777 &#x2F;home&#x2F;xxx&#x2F;x...
-    
-
-        <a href="/MyBlog/2020/04/19/linux-NFS-mount-guide/" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Tool/" rel="tag">Tool</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-vim-editor-guide"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-04-19 13:34:14" datetime="2020-04-19T05:34:14.000Z"  itemprop="datePublished">2020-04-19</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/">OS</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/OS/UNIX/">UNIX</a></li></ul></li></ul></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2020/04/19/vim-editor-guide/">VIM 编辑器用法大全【持续更新】</a>
+      <a class="post-title-link" href="/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/">基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive</a>
     </h3>
   
 
@@ -664,27 +645,20 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
 
     
         
-设置鼠标模式
-1set mouse&#x3D;a
-
-替换文本将 foo 替换为 bar，全局替换：
-1:%s&#x2F;foo&#x2F;bar&#x2F;g
-当前行替换 foo 为 bar：
-1:s&#x2F;foo&#x2F;bar&#x2F;g
-替换每一个 foo 为 bar，但需要确认：
-1:%s&#x2F;foo&#x2F;bar&#x2F;gc
-单词匹配替换，需要确认：
-1:%...
+1、准备工作
+确认 Hive 版本，以及 Hive 部署规划
+确认 Hive 的安装包是否已经上传到 Ambari Server 节点的 /var/www/html/ambari/extend 路径下
+确认 Hive 服务包是否已经上传到 Ambari Server 节点的 /var/lib/ambari-server/resources/stacks/HDP/2.6/services 路...
     
 
-        <a href="/MyBlog/2020/04/19/vim-editor-guide/" class="post-more waves-effect waves-button">
+        <a href="/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/" class="post-more waves-effect waves-button">
             阅读全文…
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/VIM/" rel="tag">VIM</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
     </div>
     
@@ -697,7 +671,7 @@ via:【知乎问题：有哪些好的数据来源或者大数据平台？】
     
 <nav id="page-nav">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/MyBlog/page/2/">2</a><a class="page-number" href="/MyBlog/page/3/">3</a><a class="extend next" rel="next" href="/MyBlog/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/MyBlog/page/2/">2</a><a class="page-number" href="/MyBlog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/MyBlog/page/5/">5</a><a class="extend next" rel="next" href="/MyBlog/page/2/">下一页</a>
     </div>
 </nav>
 

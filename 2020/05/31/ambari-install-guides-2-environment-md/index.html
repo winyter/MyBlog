@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇二：环境准备 | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、基础环境准备 1.1 基础版本包的上传【在每个节点 root 用户下执行】基础版本包即一些基础的，支撑业务的服务包，本文档 ambari 安装包含了以下的必装服务，实际安装时，按照自己的实际需求做增删： 1234567apache-tomcat-8.0.35.zip       # tomcat 安装包jdk1.8.0_181.tar.gz            # jdk 安装包kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇二：环境准备">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-2-environment-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、基础环境准备 1.1 基础版本包的上传【在每个节点 root 用户下执行】基础版本包即一些基础的，支撑业务的服务包，本文档 ambari 安装包含了以下的必装服务，实际安装时，按照自己的实际需求做增删： 1234567apache-tomcat-8.0.35.zip       # tomcat 安装包jdk1.8.0_181.tar.gz            # jdk 安装包kafka">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;ydzffqqiw3kvorqt8k7wfk9n&#x2F;image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;2x6xwi4lytp2xkykyp39iihj&#x2F;image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;c5wag9wgptk6b7gnlb7r57u1&#x2F;image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;qex2g3kui8jx7f9qnw128ig0&#x2F;image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;vwbcgjs0yltlzumljju68ohi&#x2F;image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image6.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image7.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image8.png">
+<meta property="article:published_time" content="2020-05-31T09:19:20.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:39:50.065Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;static.zybuluo.com&#x2F;winyter&#x2F;ydzffqqiw3kvorqt8k7wfk9n&#x2F;image.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇二：环境准备</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇二：环境准备</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:19:20.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、基础环境准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、基础环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-基础版本包的上传【在每个节点-root-用户下执行】"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1.1 基础版本包的上传【在每个节点 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-操作系统安装及数据盘格式化挂载"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">1.2 操作系统安装及数据盘格式化挂载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-1-操作系统安装"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">1.2.1 操作系统安装</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-2-数据盘格式化挂载【每个节点root用户下执行】"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">1.2.2 数据盘格式化挂载【每个节点root用户下执行】</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-2-3-修改数据目录权限【每个节点-root-用户下执行】"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">1.2.3 修改数据目录权限【每个节点 root 用户下执行】</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-操作系统参数设置【每个节点root用户下执行】"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">1.3 操作系统参数设置【每个节点root用户下执行】</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-1-修改-etc-security-limits-conf文件"><span class="post-toc-number">1.3.1.</span> <span class="post-toc-text">1.3.1 修改&#x2F;etc&#x2F;security&#x2F;limits.conf文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-2-修改-etc-sysctl-conf文件"><span class="post-toc-number">1.3.2.</span> <span class="post-toc-text">1.3.2 修改&#x2F;etc&#x2F;sysctl.conf文件</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-3-关闭监控程序的服务端和客户端"><span class="post-toc-number">1.3.3.</span> <span class="post-toc-text">1.3.3 关闭监控程序的服务端和客户端</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-3-4系统自启动文件修改"><span class="post-toc-number">1.3.4.</span> <span class="post-toc-text">1.3.4系统自启动文件修改</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-禁用-SELinux-和-Firewall【每个节点-root-用户下执行】"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">1.4 禁用 SELinux 和 Firewall【每个节点 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-5-配置主机名及-hosts【每个节点-root-用户下执行】"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">1.5 配置主机名及 hosts【每个节点 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-6-修改ssh参数配置【每个节点-root-用户下执行】"><span class="post-toc-number">1.6.</span> <span class="post-toc-text">1.6 修改ssh参数配置【每个节点 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-7-重启操作系统【每个节点-root-用户下执行】"><span class="post-toc-number">1.7.</span> <span class="post-toc-text">1.7 重启操作系统【每个节点 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-8-配置本地源【在-Ambari-Server-所在节点的-root-用户下执行】"><span class="post-toc-number">1.8.</span> <span class="post-toc-text">1.8 配置本地源【在 Ambari Server 所在节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-9-安装-httpd-服务【在-Ambari-Server-所在节点的-root-用户下执行】"><span class="post-toc-number">1.9.</span> <span class="post-toc-text">1.9 安装 httpd 服务【在 Ambari Server 所在节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-10-安装-wget-服务【在所有部署-Ambari-Agent-节点的-root-用户下执行】"><span class="post-toc-number">1.10.</span> <span class="post-toc-text">1.10 安装 wget 服务【在所有部署 Ambari Agent 节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-11-统一服务器时区【所有节点的-root-用户下执行】"><span class="post-toc-number">1.11.</span> <span class="post-toc-text">1.11 统一服务器时区【所有节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-12-安装-NTP-服务端【在-ambari-server-节点的-root-用户下执行】"><span class="post-toc-number">1.12.</span> <span class="post-toc-text">1.12 安装 NTP 服务端【在 ambari server 节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-13-安装-NTP-客户端【在除-ambari-server-节点以外的其他所有节点的-root-用户下执行】"><span class="post-toc-number">1.13.</span> <span class="post-toc-text">1.13 安装 NTP 客户端【在除 ambari server 节点以外的其他所有节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-14-配置root用户无密码访问【所有节点-root-用户执行】"><span class="post-toc-number">1.14.</span> <span class="post-toc-text">1.14 配置root用户无密码访问【所有节点 root 用户执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-15-配置rhino用户无密码访问【所有节点-rhino-用户执行】"><span class="post-toc-number">1.15.</span> <span class="post-toc-text">1.15 配置rhino用户无密码访问【所有节点 rhino 用户执行】</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-2-安装-JDK"><span class="post-toc-number">2.</span> <span class="post-toc-text">1.2 安装 JDK</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-1-JDK安装及环境配置【选择任一节点的-root-用户下执行】"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">1.2.1 JDK安装及环境配置【选择任一节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-2-环境配置及修改权限【选择任一节点的-root-用户下执行】"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">1.2.2 环境配置及修改权限【选择任一节点的 root 用户下执行】</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-3-MySQL数据库安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">1.3 MySQL数据库安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-1-节点规划及端口检查"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">1.3.1 节点规划及端口检查</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-2-安装部署Mysql双主备【在规划安装-MySQL-的两台节点的-rhino-用户下操作】"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">1.3.2 安装部署Mysql双主备【在规划安装 MySQL 的两台节点的 rhino 用户下操作】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-3-初始化及启动Mysql数据库【两台-MySQL-节点的-rhino-用户下执行】"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">1.3.3 初始化及启动Mysql数据库【两台 MySQL 节点的 rhino 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-4-登录Mysql设置双主备模式【两台-MySQL-节点的-rhino-用户下执行】"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">1.3.4 登录Mysql设置双主备模式【两台 MySQL 节点的 rhino 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-5-验证Mysql双主备模式【两台节点-MySQL-上执行】"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">1.3.5 验证Mysql双主备模式【两台节点 MySQL 上执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-6-为Mysql添加rhino用户【主-MySQL-节点-rhino-用户下执行】"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">1.3.6 为Mysql添加rhino用户【主 MySQL 节点 rhino 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-7-创建hive-rhino数据库【主-MySQL-节点-rhino-用户下执行】"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">1.3.7 创建hive_rhino数据库【主 MySQL 节点 rhino 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-8-添加Mysql开机自启【在-MySQL-主节点-root-用户下执行】"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">1.3.8 添加Mysql开机自启【在 MySQL 主节点 root 用户下执行】</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-4-部署-Keepalived（MySQL双机切换）"><span class="post-toc-number">4.</span> <span class="post-toc-text">1.4 部署 Keepalived（MySQL双机切换）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-1-安装部署-MySQL-双机切换【在-MySQL-所在两个节点的-root-用户下执行】"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">1.4.1 安装部署 MySQL 双机切换【在 MySQL 所在两个节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-2-配置Mysql双机切换【在-MySQL-所在两个节点的-root-用户下执行】"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">1.4.2 配置Mysql双机切换【在 MySQL 所在两个节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-3-启停keepalived进程【在-MySQL-所在两个节点的-root-用户下执行】"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">1.4.3 启停keepalived进程【在 MySQL 所在两个节点的 root 用户下执行】</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-4-4-验证-MySQL-双机切换"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">1.4.4 验证 MySQL 双机切换</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-2-environment-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇二：环境准备</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:19:20" datetime="2020-05-31T09:19:20.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、基础环境准备"><a href="#1、基础环境准备" class="headerlink" title="1、基础环境准备"></a>1、基础环境准备</h2><hr>
+<h3 id="1-1-基础版本包的上传【在每个节点-root-用户下执行】"><a href="#1-1-基础版本包的上传【在每个节点-root-用户下执行】" class="headerlink" title="1.1 基础版本包的上传【在每个节点 root 用户下执行】"></a>1.1 基础版本包的上传【在每个节点 root 用户下执行】</h3><p>基础版本包即一些基础的，支撑业务的服务包，本文档 ambari 安装包含了以下的必装服务，实际安装时，按照自己的实际需求做增删：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">apache-tomcat-8.0.35.zip       # tomcat 安装包</span><br><span class="line">jdk1.8.0_181.tar.gz            # jdk 安装包</span><br><span class="line">kafka-manager-1.3.3.17.zip     # kafka manager 安装包</span><br><span class="line">keepalived-1.1.20.tar.gz       # mysql 的 keepalived 安装包</span><br><span class="line">mysql-connector-java-5.1.40-bin.jar     # mysql 的 JDBC 驱动 jar 包</span><br><span class="line">parted.sh                      # 自动挂载脚本</span><br><span class="line">mysql-5.6.25-linux-x86_64.tar.gz        # mysql 安装包</span><br></pre></td></tr></table></figure>
+<p>新建版本包存放目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# mkdir -p &#x2F;home&#x2F;package&#x2F;base</span><br></pre></td></tr></table></figure>
+<p>将这些安装包上传至 <code>/home/package/base</code></p>
+<blockquote>
+<p>注意：本文档后续安装中，如果使用到这些基础包，将不再赘述将包拷贝至相应目录，在自己实际操作时，记得到该目录下拷贝服务包。</p>
+</blockquote>
+<hr>
+<h3 id="1-2-操作系统安装及数据盘格式化挂载"><a href="#1-2-操作系统安装及数据盘格式化挂载" class="headerlink" title="1.2 操作系统安装及数据盘格式化挂载"></a>1.2 操作系统安装及数据盘格式化挂载</h3><blockquote>
+<p>本节内容主要面向物理机的部署，对于使用了云平台等 PAAS 服务来部署集群的情况，可以不需要进行本节的操作</p>
+</blockquote>
+<h4 id="1-2-1-操作系统安装"><a href="#1-2-1-操作系统安装" class="headerlink" title="1.2.1 操作系统安装"></a>1.2.1 操作系统安装</h4><blockquote>
+<p>链接</p>
+</blockquote>
+<h4 id="1-2-2-数据盘格式化挂载【每个节点root用户下执行】"><a href="#1-2-2-数据盘格式化挂载【每个节点root用户下执行】" class="headerlink" title="1.2.2 数据盘格式化挂载【每个节点root用户下执行】"></a>1.2.2 数据盘格式化挂载【每个节点root用户下执行】</h4><p>磁盘格式化可以使用脚本进行，下面提供的脚本是基于 xfs 文件格式的，通过 uuid 方式进行挂载的。<br>脚本解析详见文档：</p>
+<blockquote>
+<p>链接</p>
+</blockquote>
+<p>将脚本放入<code>/root</code>目录下，并赋予755权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# chmod 755 parted.sh</span><br></pre></td></tr></table></figure>
+<p>执行脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# sh parted.sh</span><br><span class="line"></span><br><span class="line">根据提示，执行安装：</span><br><span class="line">Step 1.No lock file, begin to create lock file and continue</span><br><span class="line">.&#x2F;parted.sh: line 201: -----------------------------------------------------MAIN---------------------------------------------: command not found</span><br><span class="line">Step 2.Begin to check free disk</span><br><span class="line">You have a free disk, Now will fdisk it and mount it</span><br><span class="line">You have a free disk, Now will fdisk it and mount it</span><br><span class="line">You have a free disk, Now will fdisk it and mount it</span><br><span class="line">You have a free disk, Now will fdisk it and mount it</span><br><span class="line">This system have free disk :</span><br><span class="line">&#x2F;dev&#x2F;sdb</span><br><span class="line">&#x2F;dev&#x2F;sdc</span><br><span class="line">&#x2F;dev&#x2F;sdd</span><br><span class="line">&#x2F;dev&#x2F;sde</span><br><span class="line">confirm free disk(yes&#x2F;no):yes</span><br><span class="line"></span><br><span class="line">Step 3.Begin to parted free disk &#x2F;dev&#x2F;sdb </span><br><span class="line">Step 3.Begin to parted free disk &#x2F;dev&#x2F;sdc </span><br><span class="line">Step 3.Begin to parted free disk &#x2F;dev&#x2F;sdd</span><br><span class="line">Step 3.Begin to parted free disk &#x2F;dev&#x2F;sde </span><br><span class="line"></span><br><span class="line">Step 4.Begin to mkfs on disk &#x2F;dev&#x2F;sdb </span><br><span class="line">meta-data&#x3D;&#x2F;dev&#x2F;sdb1              isize&#x3D;512    agcount&#x3D;160, agsize&#x3D;163837 blks</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   attr&#x3D;2, projid32bit&#x3D;1</span><br><span class="line">         &#x3D;                       crc&#x3D;1        finobt&#x3D;0, sparse&#x3D;0</span><br><span class="line">data     &#x3D;                       bsize&#x3D;4096   blocks&#x3D;26213888, imaxpct&#x3D;25</span><br><span class="line">         &#x3D;                       sunit&#x3D;0      swidth&#x3D;0 blks</span><br><span class="line">naming   &#x3D;version 2              bsize&#x3D;4096   ascii-ci&#x3D;0 ftype&#x3D;1</span><br><span class="line">log      &#x3D;internal log           bsize&#x3D;4096   blocks&#x3D;12799, version&#x3D;2</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   sunit&#x3D;0 blks, lazy-count&#x3D;1</span><br><span class="line">realtime &#x3D;none                   extsz&#x3D;4096   blocks&#x3D;0, rtextents&#x3D;0</span><br><span class="line"></span><br><span class="line">Step 4.Begin to mkfs on disk &#x2F;dev&#x2F;sdc </span><br><span class="line">meta-data&#x3D;&#x2F;dev&#x2F;sdc1              isize&#x3D;512    agcount&#x3D;160, agsize&#x3D;163837 blks</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   attr&#x3D;2, projid32bit&#x3D;1</span><br><span class="line">         &#x3D;                       crc&#x3D;1        finobt&#x3D;0, sparse&#x3D;0</span><br><span class="line">data     &#x3D;                       bsize&#x3D;4096   blocks&#x3D;26213888, imaxpct&#x3D;25</span><br><span class="line">         &#x3D;                       sunit&#x3D;0      swidth&#x3D;0 blks</span><br><span class="line">naming   &#x3D;version 2              bsize&#x3D;4096   ascii-ci&#x3D;0 ftype&#x3D;1</span><br><span class="line">log      &#x3D;internal log           bsize&#x3D;4096   blocks&#x3D;12799, version&#x3D;2</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   sunit&#x3D;0 blks, lazy-count&#x3D;1</span><br><span class="line">realtime &#x3D;none                   extsz&#x3D;4096   blocks&#x3D;0, rtextents&#x3D;0</span><br><span class="line"></span><br><span class="line">Step 4.Begin to mkfs on disk &#x2F;dev&#x2F;sdd </span><br><span class="line">meta-data&#x3D;&#x2F;dev&#x2F;sdd1              isize&#x3D;512    agcount&#x3D;160, agsize&#x3D;163837 blks</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   attr&#x3D;2, projid32bit&#x3D;1</span><br><span class="line">         &#x3D;                       crc&#x3D;1        finobt&#x3D;0, sparse&#x3D;0</span><br><span class="line">data     &#x3D;                       bsize&#x3D;4096   blocks&#x3D;26213888, imaxpct&#x3D;25</span><br><span class="line">         &#x3D;                       sunit&#x3D;0      swidth&#x3D;0 blks</span><br><span class="line">naming   &#x3D;version 2              bsize&#x3D;4096   ascii-ci&#x3D;0 ftype&#x3D;1</span><br><span class="line">log      &#x3D;internal log           bsize&#x3D;4096   blocks&#x3D;12799, version&#x3D;2</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   sunit&#x3D;0 blks, lazy-count&#x3D;1</span><br><span class="line">realtime &#x3D;none                   extsz&#x3D;4096   blocks&#x3D;0, rtextents&#x3D;0</span><br><span class="line"></span><br><span class="line">Step 4.Begin to mkfs on disk &#x2F;dev&#x2F;sde </span><br><span class="line">meta-data&#x3D;&#x2F;dev&#x2F;sde1              isize&#x3D;512    agcount&#x3D;160, agsize&#x3D;163837 blks</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   attr&#x3D;2, projid32bit&#x3D;1</span><br><span class="line">         &#x3D;                       crc&#x3D;1        finobt&#x3D;0, sparse&#x3D;0</span><br><span class="line">data     &#x3D;                       bsize&#x3D;4096   blocks&#x3D;26213888, imaxpct&#x3D;25</span><br><span class="line">         &#x3D;                       sunit&#x3D;0      swidth&#x3D;0 blks</span><br><span class="line">naming   &#x3D;version 2              bsize&#x3D;4096   ascii-ci&#x3D;0 ftype&#x3D;1</span><br><span class="line">log      &#x3D;internal log           bsize&#x3D;4096   blocks&#x3D;12799, version&#x3D;2</span><br><span class="line">         &#x3D;                       sectsz&#x3D;512   sunit&#x3D;0 blks, lazy-count&#x3D;1</span><br><span class="line">realtime &#x3D;none                   extsz&#x3D;4096   blocks&#x3D;0, rtextents&#x3D;0</span><br><span class="line"></span><br><span class="line">Step 5.Begin to mount disk &#x2F;dev&#x2F;sdb </span><br><span class="line">&#x2F;data01 not exist! make it                &#x2F;&#x2F;不需要自己创建&#x2F;data01,脚本自动创建</span><br><span class="line">Step 5.Begin to mount disk &#x2F;dev&#x2F;sdc </span><br><span class="line">&#x2F;data02 not exist! make it </span><br><span class="line">Step 5.Begin to mount disk &#x2F;dev&#x2F;sdd </span><br><span class="line">&#x2F;data03 not exist! make it </span><br><span class="line">Step 5.Begin to mount disk &#x2F;dev&#x2F;sde </span><br><span class="line">&#x2F;data04 not exist! make it</span><br></pre></td></tr></table></figure>
+<p>查看挂载情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# df -h</span><br></pre></td></tr></table></figure>
+
+<p>获取每块磁盘的uuid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# lsblk -f</span><br></pre></td></tr></table></figure>
+<p><img src="http://static.zybuluo.com/winyter/ydzffqqiw3kvorqt8k7wfk9n/image.png" alt="image.png-92.3kB"></p>
+<p>修改挂载脚本中的uuid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# vim &#x2F;root&#x2F;.mount.sh</span><br></pre></td></tr></table></figure>
+<p><img src="http://static.zybuluo.com/winyter/2x6xwi4lytp2xkykyp39iihj/image.png" alt="image.png-35.6kB"></p>
+<p>添加开机自动挂载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# chmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br><span class="line">[root@node1 ~]# echo sh &#x2F;root&#x2F;.mount.sh &gt;&gt; &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="1-2-3-修改数据目录权限【每个节点-root-用户下执行】"><a href="#1-2-3-修改数据目录权限【每个节点-root-用户下执行】" class="headerlink" title="1.2.3 修改数据目录权限【每个节点 root 用户下执行】"></a>1.2.3 修改数据目录权限【每个节点 root 用户下执行】</h4><p>需要给所有节点的数据盘目录赋 777 权限，否则在集群安装时，会出现错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 &#x2F;data01</span><br><span class="line">chmod -R 777 &#x2F;data02</span><br><span class="line">chmod -R 777 &#x2F;data03</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-操作系统参数设置【每个节点root用户下执行】"><a href="#1-3-操作系统参数设置【每个节点root用户下执行】" class="headerlink" title="1.3 操作系统参数设置【每个节点root用户下执行】"></a>1.3 操作系统参数设置【每个节点root用户下执行】</h3><h4 id="1-3-1-修改-etc-security-limits-conf文件"><a href="#1-3-1-修改-etc-security-limits-conf文件" class="headerlink" title="1.3.1 修改/etc/security/limits.conf文件"></a>1.3.1 修改<code>/etc/security/limits.conf</code>文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;security&#x2F;limits.conf</span><br><span class="line"></span><br><span class="line">在文件最下方添加如下内容：</span><br><span class="line"></span><br><span class="line">* soft nofile 200000</span><br><span class="line">* hard nofile 200000</span><br><span class="line">* soft nproc 131072</span><br><span class="line">* hard nproc 131072</span><br><span class="line">* soft core unlimited</span><br><span class="line">* - memlock unlimited</span><br><span class="line">* - as      unlimited</span><br><span class="line">* - data    unlimited</span><br><span class="line">* - fsize   unlimited</span><br><span class="line">* - rss     unlimited</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-2-修改-etc-sysctl-conf文件"><a href="#1-3-2-修改-etc-sysctl-conf文件" class="headerlink" title="1.3.2 修改/etc/sysctl.conf文件"></a>1.3.2 修改<code>/etc/sysctl.conf</code>文件</h4><p>修改以下配置参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count&#x3D;262144</span><br></pre></td></tr></table></figure>
+<p>该配置修改完需要重启操作系统，但目前不重启，后续基础配置完成后，文档会指导进行重启操作。</p>
+<blockquote>
+<p>可通过 <code>[root@node1]# sysctl -w vm.max_map_count=262144</code> 使得该配置临时生效。</p>
+</blockquote>
+<h4 id="1-3-3-关闭监控程序的服务端和客户端"><a href="#1-3-3-关闭监控程序的服务端和客户端" class="headerlink" title="1.3.3 关闭监控程序的服务端和客户端"></a>1.3.3 关闭监控程序的服务端和客户端</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# systemctl start tuned</span><br><span class="line">[root@node1]# tuned-adm off</span><br><span class="line">[root@node1]# tuned-adm list</span><br><span class="line">[root@node1]# systemctl stop tuned</span><br><span class="line">[root@node1]# systemctl disable tuned</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-4系统自启动文件修改"><a href="#1-3-4系统自启动文件修改" class="headerlink" title="1.3.4系统自启动文件修改"></a>1.3.4系统自启动文件修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# echo &quot;echo never &gt; &#x2F;sys&#x2F;kernel&#x2F;mm&#x2F;transparent_hugepage&#x2F;enabled&quot; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-4-禁用-SELinux-和-Firewall【每个节点-root-用户下执行】"><a href="#1-4-禁用-SELinux-和-Firewall【每个节点-root-用户下执行】" class="headerlink" title="1.4 禁用 SELinux 和 Firewall【每个节点 root 用户下执行】"></a>1.4 禁用 SELinux 和 Firewall【每个节点 root 用户下执行】</h3><p>查看 SELinux 状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getenforce</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果状态为<code>Disabled</code>，说明 selinux 已经被禁用；状态为<code>permissive</code>，说明 selinux 为临时关闭；状态为<code>enforcing</code>，说明 selinux 处于启动状态。</p>
+</blockquote>
+<p>永久修改 SELinux 状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line"></span><br><span class="line">修改如下配置：</span><br><span class="line">SELINUX&#x3D;disabled</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>本步骤需要重启操作系统才能生效，但此时不需要重启，等其他基础参数修改完，文档会指导进行重启操作。<br>可通过 <code>[root@node1]# setenforce 0</code> 使得该配置临时生效。</p>
+</blockquote>
+<p>禁用 Firewall 和网络管理工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# systemctl disable firewalld</span><br><span class="line">[root@node1]# systemctl stop firewalld</span><br><span class="line">[root@node1]# systemctl statue firewalld</span><br><span class="line">返回结果如下即表示执行成功：</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;firewalld.service; disabled; vendor preset: enabled)</span><br><span class="line">   Active: inactive (dead)</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"></span><br><span class="line">[root@node1]# systemctl disable NetworkManager.service</span><br><span class="line">[root@node1]# systemctl stop NetworkManager.service</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-5-配置主机名及-hosts【每个节点-root-用户下执行】"><a href="#1-5-配置主机名及-hosts【每个节点-root-用户下执行】" class="headerlink" title="1.5 配置主机名及 hosts【每个节点 root 用户下执行】"></a>1.5 配置主机名及 hosts【每个节点 root 用户下执行】</h3><p>配置主机名（以下命令只适用于 CentOS7 及以上版本）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# hostnamectl set-hostname node1</span><br></pre></td></tr></table></figure>
+<p>选择一台节点，修改 <code>/etc/hosts</code> 文件，先清空文件内容，然后添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">添加所有节点的IP和主机名对应关系</span><br><span class="line">示例：</span><br><span class="line">127.0.0.1 localhost</span><br><span class="line">172.168.1.1	node1</span><br><span class="line">172.168.1.2	node2</span><br><span class="line">172.168.1.3	node3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：127.0.0.1 localhost 必须放在第一行</p>
+</blockquote>
+<p>复制该文件到其他所有节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">[root@node1]# scp &#x2F;etc&#x2F;hosts root@172.168.1.2:&#x2F;etc</span><br><span class="line">[root@node1]# scp &#x2F;etc&#x2F;hosts root@172.168.1.3:&#x2F;etc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-6-修改ssh参数配置【每个节点-root-用户下执行】"><a href="#1-6-修改ssh参数配置【每个节点-root-用户下执行】" class="headerlink" title="1.6 修改ssh参数配置【每个节点 root 用户下执行】"></a>1.6 修改ssh参数配置【每个节点 root 用户下执行】</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;ssh&#x2F;ssh_config</span><br><span class="line">修改配置参数：</span><br><span class="line">StrickHostKeyChecking no</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-7-重启操作系统【每个节点-root-用户下执行】"><a href="#1-7-重启操作系统【每个节点-root-用户下执行】" class="headerlink" title="1.7 重启操作系统【每个节点 root 用户下执行】"></a>1.7 重启操作系统【每个节点 root 用户下执行】</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# reboot</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-8-配置本地源【在-Ambari-Server-所在节点的-root-用户下执行】"><a href="#1-8-配置本地源【在-Ambari-Server-所在节点的-root-用户下执行】" class="headerlink" title="1.8 配置本地源【在 Ambari Server 所在节点的 root 用户下执行】"></a>1.8 配置本地源【在 Ambari Server 所在节点的 root 用户下执行】</h3><p>检查操作系统版本，务必和即将挂载的镜像版本一致，否则会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# lsb_release -a</span><br><span class="line">Description:    CentOS Linux release 7.5.1804 (Core) </span><br><span class="line">Release:        7.5.1804</span><br><span class="line">Codename:       Core</span><br></pre></td></tr></table></figure>
+
+<p>检查 8080 端口是否被占用，Ambari需要使用 8080 端口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# netstat -an |grep 8080</span><br><span class="line">如果没有任何返回，即表示端口没有被占用</span><br></pre></td></tr></table></figure>
+
+<p>新建目录，用于存放系统镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# mkdir &#x2F;centos7.5</span><br></pre></td></tr></table></figure>
+<p>上传系统镜像至新建目录</p>
+<p>新建挂载目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# mkdir -p &#x2F;var&#x2F;www&#x2F;html&#x2F;mnt</span><br></pre></td></tr></table></figure>
+<p>挂载镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# mount -o loop &#x2F;centos7.5&#x2F;CentOS-7-x86_64-Everything-1804.iso &#x2F;var&#x2F;www&#x2F;html&#x2F;mnt</span><br></pre></td></tr></table></figure>
+<p>添加开机自动挂载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br><span class="line">添加如下内容，保存：</span><br><span class="line">mount -o loop &#x2F;7.5&#x2F;CentOS-7-x86_64-Everything-1804.iso &#x2F;var&#x2F;www&#x2F;html&#x2F;mnt</span><br><span class="line"></span><br><span class="line">[root@node1]# chmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+<p>保留cdrom.repo，删除其它源文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">[root@node1]# tar zcvf repo.tar.gz .&#x2F;*</span><br><span class="line">[root@node1]# rm -rf CentOS*</span><br></pre></td></tr></table></figure>
+<p>修改yum源（如果没有直接新建）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;yum.repos.d&#x2F;cdrom.repo</span><br><span class="line"></span><br><span class="line">添加&#x2F;修改如下内容：</span><br><span class="line">[cdrom]</span><br><span class="line">name&#x3D;cdrom</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;var&#x2F;www&#x2F;html&#x2F;mnt</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>清空原先的 yum 缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# yum clean all</span><br><span class="line">出现以下内容：</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Cleaning repos: cdrom</span><br><span class="line">Cleaning up everything</span><br><span class="line">Maybe you want: rm -rf &#x2F;var&#x2F;cache&#x2F;yum, to also free up space taken by orphaned data from disabled or removed repos</span><br><span class="line">Cleaning up list of fastest mirrors</span><br><span class="line"></span><br><span class="line">[root@node1]# yum repolist</span><br><span class="line">出现以下内容：</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Determining fastest mirrors</span><br><span class="line">cdrom                                                            | 3.6 kB  00:00:00     </span><br><span class="line">(1&#x2F;2): cdrom&#x2F;group_gz                                            | 166 kB  00:00:00     </span><br><span class="line">(2&#x2F;2): cdrom&#x2F;primary_db                                          | 5.9 MB  00:00:00     </span><br><span class="line">repo id                                   repo name                               status</span><br><span class="line">cdrom                                     cdrom                                   9,911</span><br><span class="line">repolist: 9,911</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-9-安装-httpd-服务【在-Ambari-Server-所在节点的-root-用户下执行】"><a href="#1-9-安装-httpd-服务【在-Ambari-Server-所在节点的-root-用户下执行】" class="headerlink" title="1.9 安装 httpd 服务【在 Ambari Server 所在节点的 root 用户下执行】"></a>1.9 安装 httpd 服务【在 Ambari Server 所在节点的 root 用户下执行】</h3><p>检查 httpd 是否已安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">yum info httpd</span><br><span class="line"></span><br><span class="line">显示以下内容：</span><br><span class="line">Installed Packages</span><br><span class="line">Name : httpd</span><br><span class="line">Arch : x86_64</span><br><span class="line">Version : 2.4.6</span><br><span class="line">Release : 31.el7.centos</span><br><span class="line">Size : 9.4 M</span><br><span class="line">Repo : installed</span><br><span class="line">From repo : anaconda</span><br><span class="line">Summary : Apache HTTP Server</span><br><span class="line">URL : http:&#x2F;&#x2F;httpd.apache.org&#x2F;</span><br><span class="line">License : ASL 2.0</span><br><span class="line">Description : The Apache HTTP Server is a powerful, efficient, and extensible</span><br><span class="line">: web server.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果显示：<code>No matching Packages to list</code> 等信息，则表示没有安装</p>
+</blockquote>
+<p>安装服务（如果已经安装，则跳过该步）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# yum install -y httpd</span><br></pre></td></tr></table></figure>
+<p>启动 httpd 服务，被设置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# systemctl start httpd</span><br><span class="line">[root@node1]# systemctl enable httpd</span><br><span class="line">[root@node1]# systemctl status httpd</span><br></pre></td></tr></table></figure>
+<p><img src="http://static.zybuluo.com/winyter/c5wag9wgptk6b7gnlb7r57u1/image.png" alt="image.png-55.1kB"></p>
+<hr>
+<h3 id="1-10-安装-wget-服务【在所有部署-Ambari-Agent-节点的-root-用户下执行】"><a href="#1-10-安装-wget-服务【在所有部署-Ambari-Agent-节点的-root-用户下执行】" class="headerlink" title="1.10 安装 wget 服务【在所有部署 Ambari Agent 节点的 root 用户下执行】"></a>1.10 安装 wget 服务【在所有部署 Ambari Agent 节点的 root 用户下执行】</h3><p>保留cdrom.repo，删除其它源文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">[root@node2]# tar zcvf repo.tar.gz .&#x2F;*</span><br><span class="line">[root@node2]# rm -rf CentOS*</span><br></pre></td></tr></table></figure>
+<p>修改 yum 源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# vim cdrom.repo</span><br><span class="line"></span><br><span class="line">[cdrom]</span><br><span class="line">name&#x3D;cdrom</span><br><span class="line">baseurl&#x3D;http:&#x2F;&#x2F;10.0.0.1&#x2F;mnt&#x2F;    &#x2F;&#x2F; 10.0.0.1 为 ambari server 节点的 IP</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;0</span><br></pre></td></tr></table></figure>
+<p>清空原先的yum缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# yum clean all</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Cleaning repos: cdrom</span><br><span class="line">Cleaning up everything</span><br><span class="line">Maybe you want: rm -rf &#x2F;var&#x2F;cache&#x2F;yum, to also free up space taken by orphaned data from disabled or removed repos</span><br><span class="line">Cleaning up list of fastest mirrors</span><br><span class="line"></span><br><span class="line">[root@node2]# yum repolist</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Determining fastest mirrors</span><br><span class="line">cdrom                                                            | 3.6 kB  00:00:00     </span><br><span class="line">(1&#x2F;2): cdrom&#x2F;group_gz                                            | 166 kB  00:00:00     </span><br><span class="line">(2&#x2F;2): cdrom&#x2F;primary_db                                          | 5.9 MB  00:00:00     </span><br><span class="line">repo id                                   repo name                               status</span><br><span class="line">cdrom                                     cdrom                                   9,911</span><br><span class="line">repolist: 9,911</span><br></pre></td></tr></table></figure>
+<p>在ambari agent的所有服务器上安装wget服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# yum install -y wget</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-11-统一服务器时区【所有节点的-root-用户下执行】"><a href="#1-11-统一服务器时区【所有节点的-root-用户下执行】" class="headerlink" title="1.11 统一服务器时区【所有节点的 root 用户下执行】"></a>1.11 统一服务器时区【所有节点的 root 用户下执行】</h3><p>注意点：此项为配置时间同步使用，确保每台机器在同一个时区，本手册统一时区在Asia/Shanghai，通过date命令查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@rhino141 ~]# date</span><br><span class="line">Fri Mar  1 09:03:55 CST 2019</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>出现”CST”字样说明时区是在“Asia/Shanghai”，不需要执行修改时区的操作。如果显示不是的话，则按下面步骤设置“Asia/Shanghai”时区。</p>
+</blockquote>
+<p>方法一：通过底层文件修改时区（推荐）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime</span><br></pre></td></tr></table></figure>
+
+<p>方法二：通过timedatectl修改时区（不推荐）<br>列出所有时区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl list-timezones</span><br></pre></td></tr></table></figure>
+<p>将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-local-rtc 1</span><br></pre></td></tr></table></figure>
+<p>设置系统时区为上海</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-timezone Asia&#x2F;Shanghai</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-12-安装-NTP-服务端【在-ambari-server-节点的-root-用户下执行】"><a href="#1-12-安装-NTP-服务端【在-ambari-server-节点的-root-用户下执行】" class="headerlink" title="1.12 安装 NTP 服务端【在 ambari server 节点的 root 用户下执行】"></a>1.12 安装 NTP 服务端【在 ambari server 节点的 root 用户下执行】</h3><p>检查 ntp 服务是否已经安装（一般是已经安装好的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# rpm -q ntp</span><br><span class="line">ntp-4.2.6p5-29.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
+<p>如果没有安装则执行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# yum install ntp ntpdate –y</span><br></pre></td></tr></table></figure>
+<p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;ntp.conf</span><br><span class="line"></span><br><span class="line">在 #Hosts on local network are less restricted. 下面添加如下语句：</span><br><span class="line">restrict 172.168.1.0 mask 255.255.255.0 nomodifynotrap</span><br><span class="line">&gt; 172.168.1.0 表示：只允许 172.168.1.x 网段内的机器使用本机的服务端同步时间</span><br><span class="line"></span><br><span class="line">在 #manycastclient 239.255.254.254 autokey # manycast client 下面添加如下语句：</span><br><span class="line">server 127.127.1.0</span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br><span class="line">&gt; 本段配置表示：外界同步源无法联系时，使用本地时间为同步服务。</span><br><span class="line"></span><br><span class="line">注释如下语句，并新增本机为同步源：</span><br><span class="line">#server 0.centos.pool.ntp.org iburst</span><br><span class="line">#server 1.centos.pool.ntp.org iburst</span><br><span class="line">#server 2.centos.pool.ntp.org iburst</span><br><span class="line">#server 3.centos.pool.ntp.org iburst</span><br><span class="line">server 172.168.1.1</span><br></pre></td></tr></table></figure>
+<p>启动服务，配置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# systemctl start ntpd </span><br><span class="line">[root@node2]# systemctl enable ntpd</span><br><span class="line">[root@node2]# systemctl status ntpd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-13-安装-NTP-客户端【在除-ambari-server-节点以外的其他所有节点的-root-用户下执行】"><a href="#1-13-安装-NTP-客户端【在除-ambari-server-节点以外的其他所有节点的-root-用户下执行】" class="headerlink" title="1.13 安装 NTP 客户端【在除 ambari server 节点以外的其他所有节点的 root 用户下执行】"></a>1.13 安装 NTP 客户端【在除 ambari server 节点以外的其他所有节点的 root 用户下执行】</h3><p>检查 ntp 服务是否已经安装（一般是已经安装好的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# rpm -q ntp</span><br><span class="line">ntp-4.2.6p5-29.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
+<p>如果没有安装则执行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# yum install ntp ntpdate –y</span><br></pre></td></tr></table></figure>
+<p>修改配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# vim &#x2F;etc&#x2F;ntp.conf</span><br><span class="line"></span><br><span class="line">注释如下语句，并新增 ntp 服务端为同步源：</span><br><span class="line">#server 0.centos.pool.ntp.org iburst</span><br><span class="line">#server 1.centos.pool.ntp.org iburst</span><br><span class="line">#server 2.centos.pool.ntp.org iburst</span><br><span class="line">#server 3.centos.pool.ntp.org iburst</span><br><span class="line">server 172.168.1.1</span><br><span class="line">&gt; 172.168.1.1 即上一步配置的 ntp 服务端的节点 IP</span><br></pre></td></tr></table></figure>
+<p>启动服务，配置开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# systemctl start ntpd </span><br><span class="line">[root@node2]# systemctl enable ntpd</span><br><span class="line">[root@node2]# systemctl status ntpd</span><br></pre></td></tr></table></figure>
+<p>在客户端查看同步状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node2]# ntpq -p</span><br><span class="line">     remote           refid      st t when poll reach   delay   offset  jitter</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">*node1         LOCAL(0)        11 u   29  128  377    0.187   -0.009   0.009</span><br><span class="line"> LOCAL(0)        .LOCL.          10 l 112m   64    0    0.000    0.000   0.000</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-14-配置root用户无密码访问【所有节点-root-用户执行】"><a href="#1-14-配置root用户无密码访问【所有节点-root-用户执行】" class="headerlink" title="1.14 配置root用户无密码访问【所有节点 root 用户执行】"></a>1.14 配置root用户无密码访问【所有节点 root 用户执行】</h3><p>以root用户登录所有服务器，修改配置文件ssh_config，关闭首次无密码访问询问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# vim &#x2F;etc&#x2F;ssh&#x2F;ssh_config</span><br><span class="line">StrictHostKeyChecking no</span><br></pre></td></tr></table></figure>
+<p>设置各台服务器的root用户无密码访问，执行如下命令，出现提示后按回车:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>执行如下命令，设置各台机器的无密码访问，注意每台机器都要执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# ssh-copy-id root@172.168.1.1</span><br><span class="line">[root@node1]# ssh-copy-id root@172.168.1.2</span><br><span class="line">[root@node1]# ssh-copy-id root@172.168.1.3</span><br></pre></td></tr></table></figure>
+<p>使用ssh命令，测试无密码访问是否成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">[root@node1]# ssh root@172.168.1.2</span><br><span class="line">如果没有任何提示，直接登录到该节点上，即表示无密码访问成功</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-15-配置rhino用户无密码访问【所有节点-rhino-用户执行】"><a href="#1-15-配置rhino用户无密码访问【所有节点-rhino-用户执行】" class="headerlink" title="1.15 配置rhino用户无密码访问【所有节点 rhino 用户执行】"></a>1.15 配置rhino用户无密码访问【所有节点 rhino 用户执行】</h3><p>新建rhino用户并为它设定密码，<strong>root用户操作</strong>（如果已经新建了rhino，则可以跳过本步骤）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@node1]# useradd -g root -md &#x2F;home&#x2F;rhino  rhino</span><br><span class="line">[root@node1]# passwd rhino</span><br><span class="line">Changing password for user rhino.</span><br><span class="line">New password: xxxxxxxx</span><br><span class="line">BAD PASSWORD: The password is shorter than 8 characters</span><br><span class="line">Retype new password: xxxxxxxx</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure>
+<p>以rhino用户登录所有服务器，输入命令：ssh-keygen -t rsa生成public key(id_rsa.pub)和private key(id_rsa)文件。当出现”Enter Passphrase”的提示时直接按回车</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>执行如下命令，设置各台机器的无密码访问，注意每台机器都要执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# ssh-copy-id root@172.168.1.1</span><br><span class="line">[rhino@node1 ~]# ssh-copy-id root@172.168.1.2</span><br><span class="line">[rhino@node1 ~]# ssh-copy-id root@172.168.1.3</span><br></pre></td></tr></table></figure>
+<p>使用ssh命令，测试无密码访问是否成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">[rhino@node1 ~]# ssh rhino@172.168.1.2</span><br><span class="line">如果没有任何提示，直接登录到该节点上，即表示无密码访问成功</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="1-2-安装-JDK"><a href="#1-2-安装-JDK" class="headerlink" title="1.2 安装 JDK"></a>1.2 安装 JDK</h2><hr>
+<h3 id="1-2-1-JDK安装及环境配置【选择任一节点的-root-用户下执行】"><a href="#1-2-1-JDK安装及环境配置【选择任一节点的-root-用户下执行】" class="headerlink" title="1.2.1 JDK安装及环境配置【选择任一节点的 root 用户下执行】"></a>1.2.1 JDK安装及环境配置【选择任一节点的 root 用户下执行】</h3><p>将安装包 <code>jdk1.8.0_181.tar.gz</code> 上传至 <code>/home/rhino</code> 目录下</p>
+<p>解压 <code>jdk1.8.0_181.tar.gz</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# cd &#x2F;home&#x2F;rhino</span><br><span class="line">[rhino@node1 ~]# tar -zxvf jdk1.8.0_181.tar.gz</span><br></pre></td></tr></table></figure>
+<p>配置 JAVA_HOME 环境变量 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# vim ~&#x2F;.bashrc </span><br><span class="line">添加如下内容：</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181 </span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>拷贝 JDK 及环境变量到其他节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# scp -r ~&#x2F;jdk1.8.0_181 rhino@node2:~</span><br><span class="line">[rhino@node1 ~]# scp -r ~&#x2F;jdk1.8.0_181 rhino@node3:~</span><br><span class="line">[rhino@node1 ~]# scp ~&#x2F;.bashrc rhino@node2:~</span><br><span class="line">[rhino@node1 ~]# scp ~&#x2F;.bashrc rhino@node3:~</span><br></pre></td></tr></table></figure>
+<p>使每台机器环境变量生效（每台节点都需要执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]# source ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-2-2-环境配置及修改权限【选择任一节点的-root-用户下执行】"><a href="#1-2-2-环境配置及修改权限【选择任一节点的-root-用户下执行】" class="headerlink" title="1.2.2 环境配置及修改权限【选择任一节点的 root 用户下执行】"></a>1.2.2 环境配置及修改权限【选择任一节点的 root 用户下执行】</h3><p>root用户下的 <code>~/.bashrc</code> 文件需要配置JDK相关的环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# vim ~&#x2F;.bashrc </span><br><span class="line">添加如下内容：</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181</span><br><span class="line">export PATH&#x3D;$PATH:$JAVA_HOME&#x2F;bin</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:$JAVA_HOME&#x2F;jre&#x2F;lib&#x2F;amd64&#x2F;server&#x2F;</span><br></pre></td></tr></table></figure>
+<p>root用户下的 <code>/etc/profile</code> 文件添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# vim &#x2F;etc&#x2F;profile </span><br><span class="line">添加如下内容：</span><br><span class="line">export JAVA_HOME&#x3D;&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181&#x2F;lib:&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181&#x2F;jre&#x2F;lib</span><br><span class="line">export PATH&#x3D;&#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181&#x2F;bin:&#x2F;bin:&#x2F;usr&#x2F;lib64&#x2F;qt-3.3&#x2F;bin:&#x2F;root&#x2F;perl5&#x2F;bin:&#x2F;usr&#x2F;local&#x2F;bin&#x2F;:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;root&#x2F;bin</span><br></pre></td></tr></table></figure>
+<p>拷贝JDK及环境变量到其他节点 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# scp &#x2F;etc&#x2F;profile root@node2:&#x2F;etc</span><br><span class="line">[root@node1 ~]# scp &#x2F;etc&#x2F;profile root@node3:&#x2F;etc</span><br><span class="line">[root@node1 ~]# scp ~&#x2F;.bashrc root@node2:~</span><br><span class="line">[root@node1 ~]# scp ~&#x2F;.bashrc root@node3:~</span><br></pre></td></tr></table></figure>
+<p>使每台节点环境变量生效（每台节点都需要执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]$ source ~&#x2F;.bashrc</span><br><span class="line">[root@node1 ~]$ source &#x2F;etc&#x2F;profile</span><br></pre></td></tr></table></figure>
+<p>为 <code>/home/</code> 目录下的 rhino 目录加 755 权限, 而不是 777，否则无密码访问不正常（每台节点都需要执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;home&#x2F;</span><br><span class="line">[root@node1 home]# chmod 755 rhino</span><br></pre></td></tr></table></figure>
+<p>为 <code>rhino/jdk1.8.0_181/bin/java</code> 加 777 权限（每台节点都需要执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;home&#x2F;rhino&#x2F;jdk1.8.0_181&#x2F;bin</span><br><span class="line">[root@node1 bin]# chmod 777 java</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="1-3-MySQL数据库安装"><a href="#1-3-MySQL数据库安装" class="headerlink" title="1.3 MySQL数据库安装"></a>1.3 MySQL数据库安装</h2><blockquote>
+<p>为了方便部署，这里将 Hive元数据库/ambari/业务 所使用的 MySQL 集中在一个 MySQL 上，使用 keepalive 和 mysql 主备保证 MySQL 数据库的高可用和数据安全。</p>
+</blockquote>
+<h3 id="1-3-1-节点规划及端口检查"><a href="#1-3-1-节点规划及端口检查" class="headerlink" title="1.3.1 节点规划及端口检查"></a>1.3.1 节点规划及端口检查</h3><blockquote>
+<p><strong>节点规划</strong>：建议在 Ambari Server 机器上安装 MySQL 主节点，选择另一台机器安装 MySQL 备节点；端口默认 3306。本文档假设在：node1和node2两台节点上部署</p>
+</blockquote>
+<p>检查 3306 端口是否被占用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# netstat -anp|grep 3306</span><br></pre></td></tr></table></figure>
+<p>若3306端口被占用，则使用3307端口，以此类推；服务端口被占用的情况下，端口循序向上叠加+1。<br>另外还需要规划 MySQL 的密码，主要配置 root 和 rhino 两个数据库用户的密码，这里需要注意，数据库用户：root和rhino，与操作系统用户：root和rhino是不一样的概念，不要搞混。</p>
+<h3 id="1-3-2-安装部署Mysql双主备【在规划安装-MySQL-的两台节点的-rhino-用户下操作】"><a href="#1-3-2-安装部署Mysql双主备【在规划安装-MySQL-的两台节点的-rhino-用户下操作】" class="headerlink" title="1.3.2 安装部署Mysql双主备【在规划安装 MySQL 的两台节点的 rhino 用户下操作】"></a>1.3.2 安装部署Mysql双主备【在规划安装 MySQL 的两台节点的 rhino 用户下操作】</h3><p>将<code>mysql-5.6.25-linux-x86_64.tar.gz</code>安装包上传到 node1 机器的<code>/home/rhino</code>目录下<br>解压，拷贝至 node2 节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd &#x2F;home&#x2F;rhino</span><br><span class="line">[rhino@node1 ~]$ tar -zxvf mysql-5.6.25-linux-x86_64.tar.gz</span><br><span class="line">[rhino@node1 ~]$ scp -r ~&#x2F;mysql-5.6.25-linux-x86_64 rhino@node2:~</span><br></pre></td></tr></table></figure>
+<p>新建数据目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ mkdir -p &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;lock&#x2F;subsys</span><br><span class="line">[rhino@node1 ~]$ mkdir -p &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp</span><br></pre></td></tr></table></figure>
+<p>修改配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ vim &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;my.cnf</span><br></pre></td></tr></table></figure>
+<p>配置文件如下，按照说明，进行修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port&#x3D;3306    # mysql端口号，填入规划的端口号即可</span><br><span class="line"></span><br><span class="line">default-character-set&#x3D;utf8     # 字符集，默认为utf8即可</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">join_buffer_size&#x3D;16M</span><br><span class="line"></span><br><span class="line">sort_buffer_size&#x3D;16M</span><br><span class="line"></span><br><span class="line">read_rnd_buffer_size&#x3D;16M</span><br><span class="line"></span><br><span class="line">max_allowed_packet&#x3D;200M     # 该配置按照此处的修改</span><br><span class="line"></span><br><span class="line">max_connections&#x3D;1000      # 该配置按照此处的修改</span><br><span class="line"></span><br><span class="line">port&#x3D;3306        # mysql端口号，填入规划的端口号即可</span><br><span class="line"></span><br><span class="line">socket&#x3D; &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock</span><br><span class="line"></span><br><span class="line">character-set-server&#x3D;utf8  # 字符集，默认为utf8即可</span><br><span class="line"></span><br><span class="line">basedir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64    # 基础目录，为mysql安装目录，需要确认实际目录路径</span><br><span class="line"></span><br><span class="line">datadir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata   # 数据目录，一般在mysql安装目录下的mydata目录，需要确认实际目录路径</span><br><span class="line"></span><br><span class="line">explicit_defaults_for_timestamp&#x3D;true</span><br><span class="line"></span><br><span class="line">binlog_format&#x3D;MIXED</span><br><span class="line"></span><br><span class="line">log-bin&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;master-bin   # 需要确认目录路径</span><br><span class="line"></span><br><span class="line">server_id&#x3D;131 #两台主备mysql id 需要不一样,在一个网段内如果有其他mysql做主备，那么它们的id值都不能相同。</span><br><span class="line"></span><br><span class="line">auto_increment_increment&#x3D;1</span><br><span class="line"></span><br><span class="line">auto_increment_offset&#x3D;1</span><br><span class="line"></span><br><span class="line">#binlog-do-db&#x3D;test</span><br><span class="line"></span><br><span class="line">#binlog-ignore-db&#x3D;mysql</span><br><span class="line"></span><br><span class="line">#replicate-do-db&#x3D;test</span><br><span class="line"></span><br><span class="line">#replicate-ignore-db&#x3D;mysql</span><br><span class="line"></span><br><span class="line">log-slave-updates</span><br><span class="line"></span><br><span class="line">slave-skip-errors&#x3D;all</span><br><span class="line"></span><br><span class="line">sql_mode&#x3D;NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
+
+<p>修改<code>mysql.server</code>配置文件，在配置项<code>basedir</code> 、<code>datadir</code>、<code>lockdir</code>第一次出现的位置修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;support-files</span><br><span class="line">[rhino@node1 ~]$ vim mysql.server</span><br><span class="line"></span><br><span class="line">参照如下内容修改，实际路径需要根据实际情况确认：</span><br><span class="line">basedir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;</span><br><span class="line">datadir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata</span><br><span class="line">lockdir&#x3D;&#39;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;lock&#x2F;subsys&#39;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-3-初始化及启动Mysql数据库【两台-MySQL-节点的-rhino-用户下执行】"><a href="#1-3-3-初始化及启动Mysql数据库【两台-MySQL-节点的-rhino-用户下执行】" class="headerlink" title="1.3.3 初始化及启动Mysql数据库【两台 MySQL 节点的 rhino 用户下执行】"></a>1.3.3 初始化及启动Mysql数据库【两台 MySQL 节点的 rhino 用户下执行】</h3><p>为两台机器分别用mysql用户初始化数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64</span><br><span class="line">[rhino@node1 ~]$ </span><br><span class="line">scripts&#x2F;mysql_install_db  --defaults-file&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;my.cnf --datadir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata  --basedir&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64;</span><br></pre></td></tr></table></figure>
+<p>为两台机器上启动mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ </span><br><span class="line">nohup bin&#x2F;mysqld_safe --defaults-file&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;my.cnf  --user&#x3D;rhino &amp;</span><br></pre></td></tr></table></figure>
+<p>为两台机器上设置root密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ bin&#x2F;mysqladmin --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -P3306  -uroot  password</span><br><span class="line">输入root用户密码：xxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>进入mysql shell，验证mysql是否启动成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ cd mysql-5.6.25-linux-x86_64&#x2F;</span><br><span class="line">[rhino@node1 ~]$ </span><br><span class="line">bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -P3306 -uroot -p</span><br><span class="line"></span><br><span class="line">输入上一步修改完成后的root用户的密码。</span><br></pre></td></tr></table></figure>
+
+<p>停止mysql命令(如果需要停止mysql时执行，不需要停止可以跳过本步骤)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$ bin&#x2F;mysqladmin --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -P3306 -uroot  -p  shutdown</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-4-登录Mysql设置双主备模式【两台-MySQL-节点的-rhino-用户下执行】"><a href="#1-3-4-登录Mysql设置双主备模式【两台-MySQL-节点的-rhino-用户下执行】" class="headerlink" title="1.3.4 登录Mysql设置双主备模式【两台 MySQL 节点的 rhino 用户下执行】"></a>1.3.4 登录Mysql设置双主备模式【两台 MySQL 节点的 rhino 用户下执行】</h3><p>登录 node1 节点的 MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~] cd mysql-5.6.25-linux-x86_64</span><br><span class="line">[rhino@node1 ~]$ bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -P3306 -uroot -pxxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>执行如下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &#39;backup&#39;@&#39;172.168.1.2&#39; IDENTIFIED BY &#39;backup&#39;;</span><br><span class="line">mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &#39;root&#39;@&#39;*&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"></span><br><span class="line">&gt; 172.168.1.2 即另外一台 mysql 节点的 IP</span><br></pre></td></tr></table></figure>
+<p>执行完毕后，会有以下的回显，后面的步骤需要使用到这个回显里的内容：<br><img src="http://static.zybuluo.com/winyter/qex2g3kui8jx7f9qnw128ig0/image.png" alt="image.png-37.1kB"></p>
+<p>登录 node2 的 MySQL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node2 ~] cd mysql-5.6.25-linux-x86_64</span><br><span class="line">[rhino@node2 ~]$ bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -P3306 -uroot -pxxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>执行如下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &#39;backup&#39;@&#39;172.168.1.1&#39; IDENTIFIED BY &#39;backup&#39;;</span><br><span class="line">mysql&gt; GRANT REPLICATION SLAVE ON *.* TO &#39;root&#39;@&#39;*&#39; IDENTIFIED BY &#39;xxxxxxxx&#39;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"></span><br><span class="line">&gt; 172.168.1.1 即另外一台 mysql 节点的 IP</span><br></pre></td></tr></table></figure>
+<p>执行完毕后，会有以下的回显，后面的步骤需要使用到这个回显里的内容：<br><img src="http://static.zybuluo.com/winyter/vwbcgjs0yltlzumljju68ohi/image.png" alt="image.png-33.5kB"></p>
+<p>为 node1 设置主备模式，在 node1 节点的 mysql 内执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;</span><br><span class="line">CHANGE MASTER TO MASTER_HOST&#x3D;&#39;172.168.1.2&#39;,  MASTER_USER&#x3D;&#39;backup&#39;,MASTER_PASSWORD&#x3D;&#39;backup&#39;, MASTER_LOG_FILE&#x3D;&#39;master-bin.000005&#39;,MASTER_LOG_POS&#x3D;772;</span><br><span class="line"></span><br><span class="line">&gt; 此处 MASTER_LOG_FILE 和 MASTER_LOG_POS 的值都是从上面得到的 node2 的状态表格中获取。</span><br><span class="line"></span><br><span class="line">mysql&gt; start slave;</span><br></pre></td></tr></table></figure>
+<p>为 node2 设置主备模式，在 node2 节点的 mysql 内执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;</span><br><span class="line">CHANGE MASTER TO MASTER_HOST&#x3D;&#39;172.168.1.1&#39;,  MASTER_USER&#x3D;&#39;backup&#39;,MASTER_PASSWORD&#x3D;&#39;backup&#39;, MASTER_LOG_FILE&#x3D;&#39;master-bin.000004&#39;,MASTER_LOG_POS&#x3D;625;</span><br><span class="line"></span><br><span class="line">&gt; 此处 MASTER_LOG_FILE 和 MASTER_LOG_POS 的值都是从上面得到的 node1 的状态表格中获取。</span><br><span class="line"></span><br><span class="line">mysql&gt; start slave;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-5-验证Mysql双主备模式【两台节点-MySQL-上执行】"><a href="#1-3-5-验证Mysql双主备模式【两台节点-MySQL-上执行】" class="headerlink" title="1.3.5 验证Mysql双主备模式【两台节点 MySQL 上执行】"></a>1.3.5 验证Mysql双主备模式【两台节点 MySQL 上执行】</h3><p>在 node1 上创建数据库及表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database mysqltest;use  mysqltest;</span><br><span class="line">mysql&gt; create table testtab(id int);insert into testtab values (1), (2);</span><br></pre></td></tr></table></figure>
+<p>在 node2 上查看数据库及表是否已经同步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show databases;use mysqltest;</span><br><span class="line">mysql&gt; show tables;select * from testtab;</span><br></pre></td></tr></table></figure>
+<p>在 node2 上删除mysqltest数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop database mysqltest;</span><br></pre></td></tr></table></figure>
+<p>查看 node1 上mysqltest数据库是否也已经删除成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show databases;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-6-为Mysql添加rhino用户【主-MySQL-节点-rhino-用户下执行】"><a href="#1-3-6-为Mysql添加rhino用户【主-MySQL-节点-rhino-用户下执行】" class="headerlink" title="1.3.6 为Mysql添加rhino用户【主 MySQL 节点 rhino 用户下执行】"></a>1.3.6 为Mysql添加rhino用户【主 MySQL 节点 rhino 用户下执行】</h3><p>登陆rhino213的mysql并为其创建rhino用户、登录密码及设置权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &#39;rhino&#39;@&#39;%&#39; IDENTIFIED BY &#39;xxxxxxxx&#39; WITH GRANT OPTION;</span><br><span class="line">mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;xxxxxxxx&#39; WITH GRANT OPTION;</span><br><span class="line">mysql&gt; delete from mysql.user where user&#x3D;&#39;&#39;;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<p>验证能否用新建的rhino用户登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -urhino -pxxxxxxxx</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-7-创建hive-rhino数据库【主-MySQL-节点-rhino-用户下执行】"><a href="#1-3-7-创建hive-rhino数据库【主-MySQL-节点-rhino-用户下执行】" class="headerlink" title="1.3.7 创建hive_rhino数据库【主 MySQL 节点 rhino 用户下执行】"></a>1.3.7 创建hive_rhino数据库【主 MySQL 节点 rhino 用户下执行】</h3><p>使用rhino用户登录mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rhino@node1 ~]$&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock -urhino -pxxxxxxxx</span><br></pre></td></tr></table></figure>
+<p>创建hive_rhino数据库，字符集为latin1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create database hive_rhino CHARACTER SET latin1;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-3-8-添加Mysql开机自启【在-MySQL-主节点-root-用户下执行】"><a href="#1-3-8-添加Mysql开机自启【在-MySQL-主节点-root-用户下执行】" class="headerlink" title="1.3.8 添加Mysql开机自启【在 MySQL 主节点 root 用户下执行】"></a>1.3.8 添加Mysql开机自启【在 MySQL 主节点 root 用户下执行】</h3><p>在rc.local配置文件中增加配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# vim &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+<p>在文件中添加以下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - rhino -c &quot;cd &#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64; bin&#x2F;mysqld_safe --defaults-file&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;my.cnf  --user&#x3D;rhino &amp;&quot;</span><br></pre></td></tr></table></figure>
+<p>赋予可执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# chmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="1-4-部署-Keepalived（MySQL双机切换）"><a href="#1-4-部署-Keepalived（MySQL双机切换）" class="headerlink" title="1.4 部署 Keepalived（MySQL双机切换）"></a>1.4 部署 Keepalived（MySQL双机切换）</h2><p>元数据mysql需要做双机切换，从而当主 mysql机器宕机后可以立即切换到备份的 mysql 上。  </p>
+<p>该章节以元数据 mysql 为例介绍了如何通过 keepalived 进程进行双机切换。最终 mysql 客户端连接的是虚拟出来的 ip 地址。但是需要注意，这个虚拟出来的 IP 地址也必须在整个网络环境中，未被使用。  </p>
+<p><strong>节点规划</strong>：在 ambari server 机器上安装 keepalived (master)，选择另一台机器安装备 keepalived (slave)。虚拟后的ip地址 172.168.1.4。</p>
+<blockquote>
+<p>keepalived的安装机器和mysql的安装机器保持一致。</p>
+</blockquote>
+<hr>
+<h3 id="1-4-1-安装部署-MySQL-双机切换【在-MySQL-所在两个节点的-root-用户下执行】"><a href="#1-4-1-安装部署-MySQL-双机切换【在-MySQL-所在两个节点的-root-用户下执行】" class="headerlink" title="1.4.1 安装部署 MySQL 双机切换【在 MySQL 所在两个节点的 root 用户下执行】"></a>1.4.1 安装部署 MySQL 双机切换【在 MySQL 所在两个节点的 root 用户下执行】</h3><blockquote>
+<p>根据上面 MySQL 的部署情况，MySQL 分别部署在 node1 和 node2 两个节点</p>
+</blockquote>
+<p>将 keepalived-1.1.20.tar.gz 安装包上传到 node1 和 node2 的 /home/rhino 目录下  </p>
+<p>分别在 node1 和 node2 上执行如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;root</span><br><span class="line">[root@node1 ~]# tar -zxvf keepalived-1.1.20.tar.gz</span><br><span class="line">[root@node1 ~]# cd keepalived-1.1.20</span><br><span class="line">[root@node1 ~]# chmod 700 sbin&#x2F;keepalived</span><br><span class="line">[root@node1 ~]# chmod 755 etc&#x2F;rc.d&#x2F;init.d&#x2F;keepalived</span><br><span class="line">[root@node1 ~]# chmod 755 etc&#x2F;sysconfig&#x2F;keepalived</span><br><span class="line">[root@node1 ~]# chmod 644 etc&#x2F;keepalived&#x2F;keepalived.conf</span><br><span class="line">[root@node1 ~]# chmod 644 etc&#x2F;keepalived&#x2F;samples&#x2F;*</span><br><span class="line">[root@node1 ~]# chmod 644 share&#x2F;man&#x2F;man5</span><br><span class="line">[root@node1 ~]# chmod 644 share&#x2F;man&#x2F;man8</span><br><span class="line">[root@node1 ~]# chmod 755 bin&#x2F;genhash</span><br><span class="line">[root@node1 ~]# chmod 644 share&#x2F;man&#x2F;man1</span><br><span class="line">[root@node1 ~]# cp etc&#x2F;rc.d&#x2F;init.d&#x2F;keepalived &#x2F;etc&#x2F;init.d&#x2F;keepalived</span><br><span class="line">[root@node1 ~]# cp sbin&#x2F;keepalived &#x2F;usr&#x2F;sbin&#x2F;</span><br><span class="line">[root@node1 ~]# cp etc&#x2F;sysconfig&#x2F;keepalived &#x2F;etc&#x2F;sysconfig&#x2F;</span><br><span class="line">[root@node1 ~]# mkdir -p &#x2F;etc&#x2F;keepalived&#x2F;</span><br><span class="line">[root@node1 ~]# cp &#x2F;root&#x2F;keepalived-1.1.20&#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf &#x2F;etc&#x2F;keepalived</span><br></pre></td></tr></table></figure>
+<p>为两台节点的 keepalived 进程添加开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# systemctl enable keepalived.service</span><br><span class="line">[root@node1 ~]# systemctl start keepalived.service</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-4-2-配置Mysql双机切换【在-MySQL-所在两个节点的-root-用户下执行】"><a href="#1-4-2-配置Mysql双机切换【在-MySQL-所在两个节点的-root-用户下执行】" class="headerlink" title="1.4.2 配置Mysql双机切换【在 MySQL 所在两个节点的 root 用户下执行】"></a>1.4.2 配置Mysql双机切换【在 MySQL 所在两个节点的 root 用户下执行】</h3><ul>
+<li><p>配置主节点 node1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# vim &#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</span><br></pre></td></tr></table></figure>
+<p>参照以下内容配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#! Configuration File for keepalived</span><br><span class="line">#check_all puts all check in one process: including check jboss, vip, mysql, timeout, status</span><br><span class="line">vrrp_script chk_all &#123;</span><br><span class="line"></span><br><span class="line">script &quot;&#x2F;etc&#x2F;keepalived&#x2F;check_mysql.sh&quot; # connects and exits</span><br><span class="line">interval 2 # check every second</span><br><span class="line">weight -2 # default prio: -2 if connect fails</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">router_id CM-HA</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"></span><br><span class="line"># state MASTER</span><br><span class="line">state BACKUP</span><br><span class="line">nopreempt</span><br><span class="line"># 通过ifconfig查看可以绑定的网卡名，是eth0还是eth1要根据实际来选择相应的网卡名称，下面同理。</span><br><span class="line"></span><br><span class="line">interface eth1</span><br><span class="line"></span><br><span class="line"># 同一网段内如果有另外一组keepalived进程，那么virtual_router_id值不能相同；同一组keepalived进程virtual_router_id相同。</span><br><span class="line">virtual_router_id 13</span><br><span class="line">priority 100</span><br><span class="line">advert_int 1</span><br><span class="line">authentication &#123;</span><br><span class="line"></span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 8888</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">172.168.1.4&#x2F;24 dev eth1 brd 172.168.1.255 label eth1:1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">track_interface &#123;</span><br><span class="line"></span><br><span class="line">eth1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># notify_master &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh master&quot;</span><br><span class="line"># notify_backup &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh slave&quot;</span><br><span class="line"># notify_fault &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh fault&quot;</span><br><span class="line"># notify_stop &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh stop&quot;</span><br><span class="line">track_script &#123;</span><br><span class="line"></span><br><span class="line">chk_all</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处的 172.168.1.4 为虚拟的 IP 地址。172.168.1.255 为网关地址，按照实际配置。</p>
+</li>
+<li><p>配置备节点 node2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@rhino214 ~]# vim &#x2F;etc&#x2F;keepalived&#x2F;keepalived.conf</span><br></pre></td></tr></table></figure>
+<p>参照以下内容配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#! Configuration File for keepalived</span><br><span class="line">#check_all puts all check in one process: including check jboss, vip, mysql, timeout, status</span><br><span class="line">vrrp_script chk_all &#123;</span><br><span class="line"></span><br><span class="line">script &quot;&#x2F;etc&#x2F;keepalived&#x2F;check_mysql.sh&quot; # connects and exits</span><br><span class="line">interval 2 # check every second</span><br><span class="line">weight -2 # default prio: -2 if connect fails</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line"></span><br><span class="line">router_id CM-HA</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line"></span><br><span class="line"># state MASTER</span><br><span class="line">state BACKUP</span><br><span class="line">nopreempt</span><br><span class="line"># 通过ifconfig查看绑定的网卡名</span><br><span class="line"></span><br><span class="line">interface eth1</span><br><span class="line"></span><br><span class="line"># 同一网段内如果有另外一组keepalived进程，那么virtual_router_id值不能相同；同一组keepalived进程virtual_router_id相同。</span><br><span class="line">virtual_router_id 13</span><br><span class="line">priority 90</span><br><span class="line">advert_int 1</span><br><span class="line">authentication &#123;</span><br><span class="line"></span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 8888</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_ipaddress &#123;</span><br><span class="line"></span><br><span class="line">172.168.1.4&#x2F;24 dev eth1 brd 172.168.1.255 label eth1:1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">track_interface &#123;</span><br><span class="line"></span><br><span class="line">eth1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># notify_master &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh master&quot;</span><br><span class="line"># notify_backup &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh slave&quot;</span><br><span class="line"># notify_fault &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh fault&quot;</span><br><span class="line"># notify_stop &quot;&#x2F;etc&#x2F;keepalived&#x2F;notify.sh stop&quot;</span><br><span class="line">track_script &#123;</span><br><span class="line"></span><br><span class="line">chk_all</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处的 172.168.1.4 为虚拟的 IP 地址。172.168.1.255 为网关地址，按照实际配置。</p>
+</li>
+<li><p>配置检测脚本</p>
+</li>
+</ul>
+<blockquote>
+<p>分别为主备服务器配置检测脚本。 （两台机器都要操作）<br>若需要检测haproxy，需要添加其中注释的部分，并按照注释修改。</p>
+</blockquote>
+<p>下面以 node1 节点配置作为示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]#vim &#x2F;etc&#x2F;keepalived&#x2F;check_mysql.sh</span><br></pre></td></tr></table></figure>
+<p>参照以下内容配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">MYSQL&#x3D;&quot;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;bin&#x2F;mysql --socket&#x3D;&#x2F;home&#x2F;rhino&#x2F;mysql-5.6.25-linux-x86_64&#x2F;mydata&#x2F;tmp&#x2F;mysql.sock&quot;</span><br><span class="line"></span><br><span class="line">MYSQL_HOST&#x3D;localhost</span><br><span class="line"></span><br><span class="line">MYSQL_USER&#x3D;root # mysql用户名</span><br><span class="line"></span><br><span class="line">MYSQL_PASSWORD&#x3D;root@34#$ # mysql密码</span><br><span class="line"></span><br><span class="line">CHECK_TIME&#x3D;2</span><br><span class="line"></span><br><span class="line">#mysql is working MYSQL_OK is 1 , mysql down MYSQL_OK is 0</span><br><span class="line"></span><br><span class="line">MYSQL_OK&#x3D;1</span><br><span class="line"></span><br><span class="line">#检测haproxy时定义haproxy状态</span><br><span class="line"></span><br><span class="line"># HAPROXY_OK&#x3D;1</span><br><span class="line"></span><br><span class="line">function check_mysql_helth ()&#123;</span><br><span class="line"></span><br><span class="line">$MYSQL -h $MYSQL_HOST -u $MYSQL_USER -p$&#123;MYSQL_PASSWORD&#125; -e &quot;show status;&quot;&gt;&#x2F;dev&#x2F;null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">if [ $? -eq 0 ] ;then</span><br><span class="line"></span><br><span class="line">MYSQL_OK&#x3D;1</span><br><span class="line">else</span><br><span class="line">MYSQL_OK&#x3D;0</span><br><span class="line">fi</span><br><span class="line">return</span><br><span class="line">$MYSQL_OK</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#检测haproxy状态的函数</span><br><span class="line"></span><br><span class="line"># function check_haproxy_helth ()&#123;</span><br><span class="line"># haproxyprocessnum&#x3D;ps -ef | grep haproxy | grep -v grep | awk &#39;&#123;print $2&#125;&#39; | wc -l</span><br><span class="line"># if [ $haproxyprocessnum -eq 0 ] ;then</span><br><span class="line"># HAPROXY_OK&#x3D;0</span><br><span class="line"># else</span><br><span class="line"># HAPROXY_OK&#x3D;1</span><br><span class="line"># fi</span><br><span class="line"># return $HAPROXY_OK</span><br><span class="line">#&#125;</span><br><span class="line"></span><br><span class="line">while [ $CHECK_TIME -ne 0 ]</span><br><span class="line"></span><br><span class="line">do</span><br><span class="line"></span><br><span class="line">let &quot;CHECK_TIME -&#x3D; 1&quot;</span><br><span class="line">check_mysql_helth</span><br><span class="line">if [ $MYSQL_OK -eq 1 ] ; then</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CHECK_TIME&#x3D;0</span><br><span class="line">exit 0</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line">if [ $MYSQL_OK -eq 0 ] &amp;&amp; [ $CHECK_TIME -eq 0 ]</span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;keepalived stop</span><br><span class="line">sleep 1</span><br><span class="line">#此处可以添加需要拉起的进程，根据实际需求来定</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;keepalived start</span><br><span class="line">exit 1</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line">sleep 1</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 检测haproxy时上面的while…done部分替换为以下注释内</span><br><span class="line"></span><br><span class="line"># while [ $CHECK_TIME -ne 0 ]</span><br><span class="line"># do</span><br><span class="line"></span><br><span class="line"># let &quot;CHECK_TIME -&#x3D; 1&quot;</span><br><span class="line"># check_mysql_helth</span><br><span class="line"># check_haproxy_helth</span><br><span class="line"># if [ $MYSQL_OK -eq 1 ] &amp;&amp; [ $HAPROXY_OK -eq 1 ]; then</span><br><span class="line"></span><br><span class="line"># CHECK_TIME&#x3D;0</span><br><span class="line"># exit 0</span><br><span class="line"></span><br><span class="line"># fi </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># if [ $MYSQL_OK -eq 0 ] || [ $HAPROXY_OK -eq 0 ] &amp;&amp; [ $CHECK_TIME -eq 0 ] </span><br><span class="line"># then</span><br><span class="line"></span><br><span class="line"># &#x2F;etc&#x2F;init.d&#x2F;keepalived stop</span><br><span class="line"># sleep 1</span><br><span class="line"># &#x2F;etc&#x2F;init.d&#x2F;keepalived start</span><br><span class="line"># exit 1</span><br><span class="line"></span><br><span class="line"># fi</span><br><span class="line"># sleep 1</span><br><span class="line"></span><br><span class="line"># done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为主备服务器检测脚本添加执行权限 （两台机器都要操作）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# chmod +x &#x2F;etc&#x2F;keepalived&#x2F;check_mysql.sh [root@rhino214 ~]# chmod +x &#x2F;etc&#x2F;keepalived&#x2F;check_mysql.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h3 id="1-4-3-启停keepalived进程【在-MySQL-所在两个节点的-root-用户下执行】"><a href="#1-4-3-启停keepalived进程【在-MySQL-所在两个节点的-root-用户下执行】" class="headerlink" title="1.4.3 启停keepalived进程【在 MySQL 所在两个节点的 root 用户下执行】"></a>1.4.3 启停keepalived进程【在 MySQL 所在两个节点的 root 用户下执行】</h3><p>主备服务器启动keepalived</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# systemctl start keepalived.service</span><br><span class="line">[root@node1 ~]# systemctl status keepalived.service</span><br></pre></td></tr></table></figure>
+
+<p>keepalived 停止命令（需要停止该进程时执行，正常安装启动后不需要执行）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# systemctl stop keepalived.service</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-4-4-验证-MySQL-双机切换"><a href="#1-4-4-验证-MySQL-双机切换" class="headerlink" title="1.4.4 验证 MySQL 双机切换"></a>1.4.4 验证 MySQL 双机切换</h3><p><img src="http://cdn.winyter.cn/ambari-install-guide_image6.png" alt="image6.png"><br>主备服务器启动后，可以通过ifconfig命令来查看网卡的状态，其中一台服务器包含一个虚拟网卡，另外一台机器没有虚拟网卡，如下图所示。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image7.png" alt="image7.png"><br><img src="http://cdn.winyter.cn/ambari-install-guide_image8.png" alt="image8.png"></p>
+<p>当将 node1 上的 mysql 停止时，虚拟网卡应该切换到 node2 上。</p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:39:50.065Z" itemprop="dateUpdated">2020-05-31 17:39:50</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&title=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&title=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇一：基本介绍</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&title=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&title=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇二：环境准备》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQU7DQAwFUO5/6bJFKkm/7TEK0suqKmEyb5CwY/vrK75eP6737+/vfL/nfs33n97feeDCw8PDG2z9arnkYdVvkiO4P7LoCPDw8PDWeFeLXn1OqHmQqAahZM94eHh4T+bdbzTPdfN78PDw8P4j7+y7fzX84OHh4T2BN19uEkjyBH2x1oKHh4cX8/Iu0nM+r/T38PDw8MZd9SQhvg8DyYhAr2Qc7RYPDw9vgbfdlMqPYDKe9eFOPDw8vGVeD5CvkB9ZLyD98kQ8PDy8o7w8/e2l1NXWV6GtlRSI8fDw8BZ4k0S22qyqVlzzQa7ob4iHh4d3iJdvPWnt94q2eeNt1LXDw8PDO8TLCxB54TUZ25qn40l7DA8PD2+DlyTE8yOYlBtGK+Dh4eGt8ZL0txceegl0NY2+DEJ4eHh4C7zev/XqceTHNKknXN6Ph4eHt8DrNbQmhYlewTeqrODh4eEt8/LR0skwQbXl1jvoQq0FDw8P7xBvPiiQtLjmCXRht3h4eHgLvI1yba8Z1htRLQQnPDw8vKO8JIWthpBmRaQYrgrRDw8PD2+B12vPz1ti1YZWM+Lh4eHhHeXl26om2X/zNtAb1cLDw8Pr8arlg3xQoLrRydMvn4iHh4e3wOu98Cflg8mRVdtv5S4fHh4e3lFesunqVk6tMyo64OHh4a3xXrdXXqKdpON5Qy4KYHh4eHjLvF5ZYdJIy3+3GeTw8PDwjvJexSsZBchHCvLiQhKEflkHDw8Pb4HXGyOotqZ6R9Yb0moGGDw8PLxWb73a+qom0NUSQ6HF1ZuPwMPDwxvzqslur4V2LAnO18HDw8N7DG8eNvKnVFN5PDw8vGfyCh22Ylm2OqzwoWSMh4eHt8bLy6xJ0bZabpiXcS+ReHh4eAu85qzWOHhUj6Y6EIaHh4e3wPsG/dhek7zsaU0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

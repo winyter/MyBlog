@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、准备工作 确认 Neo4j 版本，以及 Neo4j 部署规划 确认 Neo4j 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Neo4j 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-12-install-neo4j-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、准备工作 确认 Neo4j 版本，以及 Neo4j 部署规划 确认 Neo4j 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Neo4j 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image199.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image200.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image201.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image202.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image203.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image204.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image205.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image206.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image207.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image208.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image209.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image210.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image211.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image212.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image213.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image214.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image215.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image216.png">
+<meta property="article:published_time" content="2020-05-31T09:52:10.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:52:35.665Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image199.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:52:10.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、安装部署Neo4j"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、安装部署Neo4j</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、确认安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、确认安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、启停"><span class="post-toc-number">4.</span> <span class="post-toc-text">4、启停</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-1-启动"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">4.1 启动</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4-2-停止"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">4.2 停止</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-12-install-neo4j-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:52:10" datetime="2020-05-31T09:52:10.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><ul>
+<li>确认 Neo4j 版本，以及 Neo4j 部署规划</li>
+<li>确认 Neo4j 的安装包是否已经上传到 Ambari Server 节点的 <code>/var/www/html/ambari/extend</code> 路径下</li>
+<li>确认 Neo4j 服务包是否已经上传到 Ambari Server 节点的 <code>/var/lib/ambari-server/resources/stacks/HDP/2.6/services</code> 路径下</li>
+</ul>
+<blockquote>
+<p>如果版本包未上传，则需要上传到指定的目录，并且重启 ambari server</p>
+</blockquote>
+<hr>
+<h2 id="2、安装部署Neo4j"><a href="#2、安装部署Neo4j" class="headerlink" title="2、安装部署Neo4j"></a>2、安装部署Neo4j</h2><p>点击 <code>Add Service</code> 选择 Neo4j 版本的服务并点击 <code>NEXT</code>：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image199.png" alt="image-199.png"></p>
+<p>弹出如下图，点击 <code>NEXT</code> 按钮<br><img src="http://cdn.winyter.cn/ambari-install-guide_image200.png" alt="image-200.png"></p>
+<p>修改 <strong>Advanced neo4j-env</strong> 中的 <strong>neo4j_download</strong> 配置<br><code>http://172.168.1.1/ambari/extend/neo4j.tar.gz</code>。（修改 IP 地址和 neo4j 包名）</p>
+<blockquote>
+<p>注意：端口号不能被占用。</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image201.png" alt="image-201.png"></p>
+<p>点击 <code>NEXT</code> 按钮，弹出如下图，点击红色按钮继续<br><img src="http://cdn.winyter.cn/ambari-install-guide_image202.png" alt="image-202.png"></p>
+<hr>
+<h2 id="3、确认安装"><a href="#3、确认安装" class="headerlink" title="3、确认安装"></a>3、确认安装</h2><p>点击 <code>DEPLOY</code> 按钮继续，等待安装完成。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image203.png" alt="image-203.png"></p>
+<p>安装完成后页面如下图，点击 <code>NEXT</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image204.png" alt="image-204.png"></p>
+<p>弹出如下图，点击 <code>COMPLETE</code> 按钮，完成结束。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image205.png" alt="image-205.png"></p>
+<p>完成后页面如下图，左边红色框内服务前面的圆点是绿色，中间红色框内显示为已启动，右边红色框内显示的是 neo4j 服务自带的 web 快速连接，点击可跳转。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image206.png" alt="image-206.png"></p>
+<hr>
+<h2 id="4、启停"><a href="#4、启停" class="headerlink" title="4、启停"></a>4、启停</h2><hr>
+<h3 id="4-1-启动"><a href="#4-1-启动" class="headerlink" title="4.1 启动"></a>4.1 启动</h3><p>neo4j 前置状态是已停止<br>登录 ambari 页面后，点击红色框内按钮进入 neo4j 主页面，如下图，点击右上角绿色的 <code>ACTIONS</code> 按钮<br><img src="http://cdn.winyter.cn/ambari-install-guide_image207.png" alt="image-207.png"></p>
+<p>弹出如下图，点击红色框内按钮<br><img src="http://cdn.winyter.cn/ambari-install-guide_image208.png" alt="image-208.png"></p>
+<p>弹出如下图，点击红色框内按钮，等待服务启动<br><img src="http://cdn.winyter.cn/ambari-install-guide_image209.png" alt="image-209.png"></p>
+<p>弹出如下图，表示 neo4j 服务成功启动，点击绿色的 <code>OK</code> 按钮，结束<br><img src="http://cdn.winyter.cn/ambari-install-guide_image210.png" alt="image-210.png"></p>
+<p>neo4j 服务启动后的主页面如下图<br><img src="http://cdn.winyter.cn/ambari-install-guide_image211.png" alt="image-211.png"></p>
+<hr>
+<h3 id="4-2-停止"><a href="#4-2-停止" class="headerlink" title="4.2 停止"></a>4.2 停止</h3><p>neo4j 前置状态是已启动<br>登录 ambari 页面后，点击红色框内按钮进入 neo4j 主页面，如下图，点击右上角绿色的 <code>ACTIONS</code> 按钮<br><img src="http://cdn.winyter.cn/ambari-install-guide_image212.png" alt="image-212.png"></p>
+<p>弹出如下图，点击红色框内按钮<br><img src="http://cdn.winyter.cn/ambari-install-guide_image213.png" alt="imgae-213.png"></p>
+<p>弹出如下图，点击红色框内按钮，等待服务停止<br><img src="http://cdn.winyter.cn/ambari-install-guide_image214.png" alt="image-214.png"></p>
+<p>弹出如下图，表示 neo4j 服务成功停止，点击绿色的 <code>OK</code> 按钮，结束<br><img src="http://cdn.winyter.cn/ambari-install-guide_image215.png" alt="image-215.png"></p>
+<p>neo4j服务停止后的主页面如下图<br><img src="http://cdn.winyter.cn/ambari-install-guide_image216.png" alt="image-216.png"></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:52:35.665Z" itemprop="dateUpdated">2020-05-31 17:52:35</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&title=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&title=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-13-install-impala-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十三：Ambari 安装 Impala</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&title=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&title=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADM0lEQVR42u3aQXLjMAwEwPz/095rqmJLA0DOWkjr5FJsks1DUBzw6yt+Ht+e72+S77/65s/3r2ZJ5vp6x4ONjY19E/bj8MkZx6P9XOLx+MebVR3nyWjY2NjY69jHheG4qCR/zYtT/iYvq9jY2NjYx0s5BlRh1fKJjY2NjX1VAestbg7GxsbGxs5DpSSgz4OkajshD60uztKwsbGxP56dd0U///Nb+tvY2NjYH8x+FJ8kMKo2cavHifmDjY2NvYmdF4D8Gk0eKiUNhupRp7B+bGxs7EXsvCk7v45TDfd7vMIRBRsbG/vm7LylmkT5yaFlfrDJV35yAsPGxsZewb62NVu9xFMtPL0RXo6MjY2NvYJdDfHnQVL12NOLjU4KJDY2NvYi9iR8r7KT7ZvPWCiK2NjY2CvYvTi+OmUycn6YmRTLJ3UbGxsbex07j3LyTem1e5Ooq9ecxsbGxv477OQgMYnpq2/mmxIVMGxsbOwbsvPp5w2A3tZUL/REjQFsbGzsFey87Zo8eas136BmbJRsHDY2NvYK9iTumUROvY50fgg5+RU2Njb2UnYvcO8F9MlC88/JqqJrl9jY2Ni3ZVebBPMWQnXpOT5aCTY2NvZqdjXWzwtb732vaXEyAjY2NvYidv5fPSdNYqBrtyxqPGBjY2PfnF1tuOa86kZUGwz587JuY2NjY69gV6fpNQDmpEmAdbLF2NjY2Ddn99qoeet3fryZNIBfjomNjY29iN0rXXmJmoRKk5W85RCCjY2N/ZHsHDwJ96tj9q4TJbNjY2Nj72Nf1abttWCrl2+qAVPU7sXGxsZezZ4Utnz6PPSfB09Pqjc2Njb2InY+TTXuT67y9EppfkQZdbaxsbGxb8K+anH5wSABFBjVX2FjY2OvYF9VcvIQKi+Q1as8ebnFxsbG3sTOn7xo5d9JwL0LOpNjDDY2NvYd2dWy0bumU20GVy/u5FeFsLGxsbey81Cmeu2mWi1/qUmAjY2NjV1sIeRHi6j8FJHlKzvY2NjYf4ydNxWqzeN50/ckVMLGxsZexM4DoP/bQuiVrvLFHWxsbOxbsfOgpxcJ9S7i5I3b6nUibGxs7EXsfwFFIUxXDoEBAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

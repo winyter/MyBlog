@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、准备工作 确认 Hive 版本，以及 Hive 部署规划 确认 Hive 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Hive 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-8-install-hive-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、准备工作 确认 Hive 版本，以及 Hive 部署规划 确认 Hive 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Hive 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image127.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image128.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image129.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image130.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image131.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image132.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image133.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image134.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image135.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image136.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image137.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image138.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image139.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image140.png">
+<meta property="article:published_time" content="2020-05-31T09:44:35.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:45:18.355Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image127.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:44:35.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、安装部署-Hive"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、安装部署 Hive</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、确认安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、确认安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、完成安装"><span class="post-toc-number">4.</span> <span class="post-toc-text">4、完成安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、修改-hdfs-配置文件"><span class="post-toc-number">5.</span> <span class="post-toc-text">5、修改 hdfs 配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6、Hive-启停"><span class="post-toc-number">6.</span> <span class="post-toc-text">6、Hive 启停</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-8-install-hive-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:44:35" datetime="2020-05-31T09:44:35.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><ul>
+<li>确认 Hive 版本，以及 Hive 部署规划</li>
+<li>确认 Hive 的安装包是否已经上传到 Ambari Server 节点的 <code>/var/www/html/ambari/extend</code> 路径下</li>
+<li>确认 Hive 服务包是否已经上传到 Ambari Server 节点的 <code>/var/lib/ambari-server/resources/stacks/HDP/2.6/services</code> 路径下<blockquote>
+<p>如果版本包未上传，则需要上传到指定的目录，并且重启 ambari server</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="2、安装部署-Hive"><a href="#2、安装部署-Hive" class="headerlink" title="2、安装部署 Hive"></a>2、安装部署 Hive</h2><p>点击 <code>Add Service</code> 选择 Hive 服务并点击 <code>NEXT</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image127.png" alt="image-127.png"></p>
+<p>选择 Hive Metastore、HiveServer2 和 Hive Monitor 节点：</p>
+<blockquote>
+<p>Hive Monitor和Hive Metastore安装在同一台机器上</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image128.png" alt="image-128.png"></p>
+<p>选择 client 节点<br><img src="http://cdn.winyter.cn/ambari-install-guide_image129.png" alt="image-129.png"></p>
+<p>点击 <code>NEXT</code> 按钮，进行配置界面，修改 Hive 配置文件</p>
+<ul>
+<li>修改 <strong>DATABASE</strong> 配置项<br><strong>Hive Database</strong> 选择 <code>Existing MySQL/MariaDB</code><br><strong>Database Name</strong> 可以自己起名，如果没有特殊要求的话，可以直接填写 <code>hive</code><br><strong>Database Username</strong> &amp; <strong>Database Password</strong> 填写之前安装的 MySQL 的业务用户名及密码，本文档此前使用的是 <code>rhino</code> 用户，密码为 <code>xxxxxxxx</code><br><strong>Database URL</strong> 即 MySQL 数据库的 jdbc 地址： <code>jdbc:mysql://10.0.0.32:3306/hive?createDatabaseIfNotExist=true</code><br>以上未提到的配置一般不需要修改，默认即可，需要注意一下字符集要为 <code>latin1</code></li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image130.png" alt="image-130.png"></p>
+<ul>
+<li><p>修改 ADVANCED 配置项下的 <strong>Advanced hive-env</strong><br><strong>Metrics Collector Host Ip</strong> 对应 metric collector 进程所在节点的 ip 地址；<br><strong>hive_download</strong> 地址 <code>http://172.168.1.1/ambari/extend/apache-hive-2.3.3-bin.tar.gz</code><br><strong>hive_monitor_download</strong>地址 http:// <code>172.168.1.1/ambari/extend/hive-monitor.tar.gz</code><br><strong>hiveserver_jmx</strong> 地址 <code>http://172.168.1.1:10002/jmx</code>，其中 ip 对应 hiveserver2 所在节点地址，端口取 hive.server2.webui.port 配置的端口。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image131.png" alt="image-131.png"></p>
+</li>
+<li><p>上传 <code>mysql-connector-java-5.1.40-bin.jar</code><br>将此前准备的基础版本包中的 MySQL JDBC 驱动包上传到 Ambari Server 节点的 <code>/var/lib/ambari-server/resources</code> 目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;home&#x2F;package&#x2F;base</span><br><span class="line">[root@node1 ~]# cp mysql-connector-java-5.1.40-bin.jar &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources</span><br><span class="line">[root@node1 ~]# chmod 755 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;mysql-connector-java-5.1.40-bin.jar</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="3、确认安装"><a href="#3、确认安装" class="headerlink" title="3、确认安装"></a>3、确认安装</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image132.png" alt="image-132.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image133.png" alt="image-133.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image134.png" alt="image-134.png"></p>
+<hr>
+<h2 id="4、完成安装"><a href="#4、完成安装" class="headerlink" title="4、完成安装"></a>4、完成安装</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image135.png" alt="image-135.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image136.png" alt="image-136.png"></p>
+<p>安装完成后，hive服务进程展示<br><img src="http://cdn.winyter.cn/ambari-install-guide_image137.png" alt="image-137.png"></p>
+<hr>
+<h2 id="5、修改-hdfs-配置文件"><a href="#5、修改-hdfs-配置文件" class="headerlink" title="5、修改 hdfs 配置文件"></a>5、修改 hdfs 配置文件</h2><p>Hive 服务默认用户是 hive，在 hdfs 的 <strong>Custom core-site</strong> 配置项下点击 <code>Add Property</code> 添加两个配置：<strong>hadoop.proxyuser.hive.groups</strong> 和 <strong>hadoop.proxyuser.hive.hosts</strong>，value都配置 <code>*</code> 。<br>然后重启 hdfs 和 yarn 服务。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image138.png" alt="image-138.png"></p>
+<hr>
+<h2 id="6、Hive-启停"><a href="#6、Hive-启停" class="headerlink" title="6、Hive 启停"></a>6、Hive 启停</h2><p>点击右上角ACTIONS里的Stop，即可执行停止服务操作</p>
+<blockquote>
+<p>Hive2.3.3 如果遇到进程无法启动的问题时。要手动按照此顺序启动进程：先启动 metadata 进程，然后启动 server 进程，最后启动 monitor 进程。Monitor 进程可能启动时会一直不成功，如果实在无法解决，可以忽略，monitor 进程不影响流程的运行，只起监控的作用。</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image139.png" alt="image-139.png"></p>
+<p>点击右上角ACTIONS里的Start，启动停止后的服务<br><img src="http://cdn.winyter.cn/ambari-install-guide_image140.png" alt="image-140.png"></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:45:18.355Z" itemprop="dateUpdated">2020-05-31 17:45:18</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&title=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&title=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-9-install-redis-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇九：Ambari 安装 Redis</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-7-install-hbase-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇七：Ambari 安装 HBase</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&title=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&title=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACwElEQVR42u3aS44iQQwFQO5/6R5pttPAe04nwyJqhZr6ZGRLZWP78YiPn7/Hs7//ezy7Kjkz+bx84OHh4Y2WfrLQfDte361dz+tz8PDw8G7zXi+ifVm/eWSwTc8w+Zrx8PDwvoGXhIr2zifBAw8PD+/7ee05r8NDkhDnKT4eHh7e53mzH/9taSAJNnkqv1xrwcPDw4t5bQPsGz5f7O/h4eHhHXTV86NdYlvaGK4KDw8P7wIvGQJom1vteNbrlDppmL1ZOR4eHt4qb1Yy2BovaFtf+Yb+Evfw8PDwVnl5AeKkVZY3zGZPf5pM4+Hh4a3ytgq4s8GsvAG20OLCw8PDW+W1I03t6MBsU9qyRTQZgYeHh3eBN3uVnyTl7d1e3+dNAwwPDw9vlZcsIvl21lrLg0edWOPh4eGt8pLBqZNCQJ6C58l0PqaAh4eH90le3p5vSxJtUTh/1i9n4uHh4V3mJRcnwSMfpZp9W6wZDw8P7wIvL6S2TayTpbflkjd3wMPDw7vGa0u356NXJ+2uvACNh4eHt8srXq+jckN7hySQFNuBh4eHd4FXNJNG6e8sCc4LxHX0w8PDw1vinQxRta2yPFHOS7dvwgkeHh7eBV6SpLbl2rYllr/oTxppeHh4eFu8ljFrXyVPyUcWisEFPDw8vAu8JP09iTCz0DILV8V/Eg8PD++YdzIwWteMg0W3vwneXIuHh4e3ymtT4Rv4JO0ehis8PDy8y7zzcsBWm+pk9AoPDw/vHu+nPHaX1Ta66iQeDw8P7wLvKJ6UyXceZs7HCx4L4RIPDw9v0vS6UURImlizwPD0Wjw8PLxrvCTl3Uqj862c3bPumOHh4eF9kDcbojqHFYUSPDw8vP/KOykoJKnwyaYsBAY8PDy8kteWD/J0ebfFVafdeHh4eBd4szZ/UpBNEu6t4u9Rlw8PDw8vPf8PKC3uAwaU/k8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

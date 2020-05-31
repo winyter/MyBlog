@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、准备工作 确认 ES 版本，以及 ES 部署规划 确认 ES 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 ES 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下 如果版本包未上传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-6-install-elasticsearch-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、准备工作 确认 ES 版本，以及 ES 部署规划 确认 ES 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 ES 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下 如果版本包未上传">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image97.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image99.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image101.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image102.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image103.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image104.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image105.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image106.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image108.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image109.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image110.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image111.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image112.png">
+<meta property="article:published_time" content="2020-05-31T09:42:37.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:43:11.500Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image97.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:42:37.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、安装部署-ElasticSearch"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、安装部署 ElasticSearch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、修改ElasticSearch配置文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、修改ElasticSearch配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、确认安装-ES"><span class="post-toc-number">4.</span> <span class="post-toc-text">4、确认安装 ES</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、启停ElasticSearch"><span class="post-toc-number">5.</span> <span class="post-toc-text">5、启停ElasticSearch</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-6-install-elasticsearch-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:42:37" datetime="2020-05-31T09:42:37.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><ul>
+<li>确认 ES 版本，以及 ES 部署规划</li>
+<li>确认 ES 的安装包是否已经上传到 Ambari Server 节点的 <code>/var/www/html/ambari/extend</code> 路径下</li>
+<li>确认 ES 服务包是否已经上传到 Ambari Server 节点的 <code>/var/lib/ambari-server/resources/stacks/HDP/2.6/services</code> 路径下<blockquote>
+<p>如果版本包未上传，则需要上传到指定的目录，并且重启 ambari server</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h2 id="2、安装部署-ElasticSearch"><a href="#2、安装部署-ElasticSearch" class="headerlink" title="2、安装部署 ElasticSearch"></a>2、安装部署 ElasticSearch</h2><p>点击 <code>Add Service</code> 选择 Elasticsearch 服务并点击 <code>NEXT</code>：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image97.png" alt="image-97.png"></p>
+<p>点击进入后找到 Elasticsearch Master，点击后面的 <code>+</code> 号按钮可以选择在哪几台服务器上部署 ES，例如选择 node1,node2 两台服务器部署 ES；此时 ES Monitor 只需选择 node1 或 node2 其中一台即可（ES Monitor不要单独安装）。如下图所示：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image99.png" alt="image-98.png"></p>
+<hr>
+<h2 id="3、修改ElasticSearch配置文件"><a href="#3、修改ElasticSearch配置文件" class="headerlink" title="3、修改ElasticSearch配置文件"></a>3、修改ElasticSearch配置文件</h2><p>选择好需要部署的服务器后点击next进入下一个界面，该界面比较重要，主要是配置一些常用的ES参数，以及ES多实例的配置（即在一台服务器启多个ES，提高入库性能）。</p>
+<blockquote>
+<p>安装版本时，默认会创建一个elastic用户和elastic组。这个用户就是 ES 的安装用户，绝大部分 ES 的维护，都需要在这个用户下操作</p>
+</blockquote>
+<ul>
+<li><strong>Advanced elastic-config</strong> 配置组配置修改：</li>
+</ul>
+<p>&lt;1&gt; <strong>cluster_name</strong>：集群名称，可以修改成自己想要的集群名称，如果没有特别需求，可以直接设置成 elasticsearch，这里需要注意，ES 的集群名称与 Hadoop 的集群名称是不同的两个名称，不能搞混！<br>&lt;2&gt; <strong>discovery_zen_minimum_master_nodes</strong>：集群中主节点的数量，配置为1。<br>&lt;3&gt; <strong>discovery_zen_ping_unicast_hosts</strong>: 集群中 master 节点初始列表，如两台服务器安装了 ES Master，则配置为 172.168.1.1:9300,172.168.1.2:9300<br>&lt;4&gt; <strong>elastic_download</strong>： ES 版本下载地址，只需将默认值中的 ip 修改即可。<br>&lt;5&gt; <strong>gateway_recover_after_nodes</strong>：设置集群中 N 个节点启动时进行数据恢复，默认为 1。<br>&lt;6&gt; <strong>head_download</strong>： head-master 界面监控工具下载地址，只需修改 ip 即可。<br>&lt;7&gt; <strong>headmaster_ip</strong>：将 ip 修改为刚才 ES Monitor 对应的 ip。</p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image101.png" alt="image-101.png"></p>
+<p>&lt;8&gt; <strong>http_port</strong>: HTTP 端口号，配置和实例个数有关。如果实例个数 为3，则配置9200,9201,9202</p>
+<blockquote>
+<p>注意：中间用英文逗号隔开。</p>
+</blockquote>
+<p>&lt;9&gt; <strong>init_heapspace</strong>：分配给堆内存的初始值，该值与 max_heapspace 值配置相同。如果该服务器有 30G 分配给 ES，每台服务器启 3 个实例，则该值配为 <code>-Xms26g</code>，该参数需要根据实际集群配置进行灵活调整</p>
+<blockquote>
+<p>注意：该值最大值最好配为 -Xms26g（服务器内存足的情况下），前面的 - 符号不能少。</p>
+</blockquote>
+<p>&lt;10&gt; <strong>max_heapspace</strong>：和 init_heapspace 值配置相同。<br>&lt;11&gt; <strong>nodejs_download</strong>: head-master 界面监控工具依赖 nodejs，该项配置 nodejs 下载地址，修改 ip 即可。<br>&lt;12&gt; <strong>path_data</strong>： ES 数据存储路径。现在默认所有实例中有 1 个实例只做 master，该实例不做 data，不存储数据；其余实例只做 data，不做 master。<br>比如该服务器启了 3 个 ES 实例，该服务器总共有 12 块盘，则第一个实例为 master，不存储数据；实际存储数据的为 2 个实例，则每个实例分配 6 块盘，则配置如下：<code>/home/elastic/esdata;/data01/esdata,/data02/esdata,/data03/esdata,/data04/esdata</code>, <code>/data05/esdata,/data06/esdata;/data07/esdata,/data08/esdata,/data09/esdata,/data10/esdata,/data11/esdata,/data12/esdata</code></p>
+<blockquote>
+<p>注意：其中/home/elastic/esdata是分配给实例1。data01、data02、data03、data04、data05、data06是分配给实例2，中间用英文逗号分开。实例1和实例2之间的英文用分号分开。同理实例2和实例3之间也是用英文分号分开。</p>
+</blockquote>
+<p>&lt;13&gt; <strong>path_logs</strong>： ES 启动及一些常用日志存放目录。配置和启动实例个数有关，例如需要启动 3 个实例，则配置为 <code>/home/elastic/elasticsearch/logs0; /home/elastic/elasticsearch/logs1; /home/elastic/elasticsearch/logs2</code>。其中实例1的日志写在 logs0 目录下，实例 2 的日志写在 logs1 目录下，实例3的日志写在 logs2 目录下。</p>
+<blockquote>
+<p>注意：不同目录之间用英文分号分开。</p>
+</blockquote>
+<p>&lt;14&gt; <strong>transport_tcp_port</strong>： TCP 端口号。配置和实例个数有关，如果实例个数为 3，则配置为 <code>9300,9301,9302</code></p>
+<blockquote>
+<p>注意：中间用英文逗号隔开</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image102.png" alt="image-102.png"></p>
+<ul>
+<li>Advanced elastic-env配置项：<br>&lt;1&gt; <strong>elastic_base_dir</strong>： ES 版本解压后的安装目录<br>&lt;2&gt; <strong>elastic_log_dir</strong>： ES 安装日志目录（多实例时采用 path_logs 配置项）<br>&lt;3&gt; <strong>elastic_pid_dir</strong>： ES 启动时 pid 目录，ambari 检测 ES 是否安装成功时会检测该 pid。<br>&lt;4&gt; <strong>elastic_conf_dir</strong>: ES配置文件目录（暂时用不到）<br>&lt;5&gt; <strong>instance_num</strong>：多实例个数。一台服务器启动多少个 ES 就配置多少。如果不用多实例，只启动一个 ES 就配置为 1。默认为 3。</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image103.png" alt="image-103.png"></p>
+<ul>
+<li>Advanced elastic-monitor配置项：<br>&lt;1&gt; <strong>es_host</strong>： 上报监控信息的ip地址，和ES Monitor选择的服务器ip相同即可。<br>&lt;2&gt; <strong>esmonitor_download</strong>： es监控包的下载地址，修改ip即可。<br>&lt;3&gt; <strong>metric_host</strong>： 填写Ambari Metrics的地址。</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image104.png" alt="image-104.png"></p>
+<blockquote>
+<p>Metrics地址查看：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image105.png" alt="image-105.png"></p>
+</blockquote>
+<hr>
+<h2 id="4、确认安装-ES"><a href="#4、确认安装-ES" class="headerlink" title="4、确认安装 ES"></a>4、确认安装 ES</h2><p>修改完成配置项后，点击下一步，进行安装。</p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image106.png" alt="image-106.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image108.png" alt="image-108.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image109.png" alt="image-109.png"></p>
+<p>完成安装后，如果 ES Monitor 未启动，需要手动启动ES Monitor<br><img src="http://cdn.winyter.cn/ambari-install-guide_image110.png" alt="image-110.png"></p>
+<p>ES正常启动后，可以看到左侧的Elasticsearch图标显示为绿色，也可在服务器后台输入命令： curl ip:9200/_cat/nodes,能看到启动的所有ES实例。</p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image111.png" alt="iamge-111.png"></p>
+<blockquote>
+<p>如果遇到提示 elastic 安装不成功，错误为 mkdir 权限被 denied，则自己手动在 home 下创建一个 elastic 的文件夹，用命令：<code>chown elastic:hadoop elastic/</code> 来手动更改一下权限，然后点重新安装即可。</p>
+</blockquote>
+<hr>
+<h2 id="5、启停ElasticSearch"><a href="#5、启停ElasticSearch" class="headerlink" title="5、启停ElasticSearch"></a>5、启停ElasticSearch</h2><p>如果想停止ES服务，则可以先选择左侧的Elasticsearch，然后点击右上角ACTIONS，选择stop，点击CONFIRM STOP停止服务，如下图所示：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image112.png" alt="image-112.png"></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:43:11.500Z" itemprop="dateUpdated">2020-05-31 17:43:11</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-7-install-hbase-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇七：Ambari 安装 HBase</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADM0lEQVR42u3aQW7CQAwF0N7/0nRdqUm+7SAR87JCFCZ504Xx9/z8xNcruI4+max89DpZJ7lL88LGxsZ+CLuHOXrc83fy988/k2/W4frY2NjY69h5aanWhfxeR4C8vCUWbGxsbOzkoXulMS+H1efExsbGxj5/lHNGHgPl0VW+ZdjY2Njfw57ERtVNqTYwydO+MUvDxsbG/nh2HhV9/uu3zLexsbGxP5j9Kl556aoOiXtFrndhY2Njb2LnBSAfu+bNSR5F9bbpYoCBjY2NvYKdR/D5cZxePNSLrprDaWxsbOzV7PPhaDWUr25uPqZN/hmFDgwbGxt7BTu5weS4TH6Ip3DsJm6T/rzGxsbGXsee/D7vNRVJazEfGFyEStjY2NiL2JO24a5ik6yWFMJo47CxsbHXsfOikvzQ721idcvyQcJhqISNjY29gn1XGzB5pxcPna+W3xEbGxt7K/t9Mf28mJ2PdfPPYGNjY+9gF4ajQSjf275ka3rrHxYwbGxs7EXs6g/6/MZ5mZmPJZqHPrGxsbFXsHtxTDWySR5rMh6olltsbGzsrez5QZwkWkreyctY3iBddGDY2NjYD2fPG4De/PSuwXA5bMLGxsZexO5FSMm3JtHPZLVyYcbGxsZ+OLsX30zag+qQYDT3wMbGxv4Cdg9cDYnKD1FcITnoc1GSsbGxsR/LzgG90P8u0uSOh2eUsLGxsVewe0UoKSR5GNRDVocNUZaGjY2N/XB2bwCQf6saKuVFqDpawMbGxv4Gdl48klKUtxmFuXTx7oVEDRsbG/uB7El5uOtYz2Sc0PwuNjY29mp2MtDttSX5EGJSJqOGBBsbG3sduzrczY/d3FUgq5+8+JdgY2Njr2PnMXqvecgjpOqwodoCYWNjY29iv4pXfhSmOtzNI6dquf3nu9jY2NiL2NWIP9+aamGbFM7epmBjY2NvYudFaxJCVQcJk8NAUeOEjY2NvY7dDNnjv+YHbiarlbM0bGxs7K9n50PZ6tUbWhSKHzY2NvYXs/ORbV6cbitLednDxsbGXsfOh7vzFiKJ+O86atk8uIONjY39KHZeAPLyNjmamdy316hgY2Njr2P/Av3MDDfmk7CAAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

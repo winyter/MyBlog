@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、准备工作 确认 Kafka 版本，以及 Kafka 部署规划 确认 Kafka 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Kafka 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-11-install-kafka-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、准备工作 确认 Kafka 版本，以及 Kafka 部署规划 确认 Kafka 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 Kafka 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image185.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image187.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image187.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image188.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image189.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image190.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image191.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image192.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image198.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image193.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image194.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image195.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image196.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image197.png">
+<meta property="article:published_time" content="2020-05-31T09:51:14.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:51:41.625Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image185.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:51:14.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、安装部署"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、安装部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、修改配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、修改配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、确认安装"><span class="post-toc-number">4.</span> <span class="post-toc-text">4、确认安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、手动修改部分参数"><span class="post-toc-number">5.</span> <span class="post-toc-text">5、手动修改部分参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6、启停"><span class="post-toc-number">6.</span> <span class="post-toc-text">6、启停</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-11-install-kafka-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:51:14" datetime="2020-05-31T09:51:14.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><ul>
+<li>确认 Kafka 版本，以及 Kafka 部署规划</li>
+<li>确认 Kafka 的安装包是否已经上传到 Ambari Server 节点的 <code>/var/www/html/ambari/extend</code> 路径下</li>
+<li>确认 Kafka 服务包是否已经上传到 Ambari Server 节点的 <code>/var/lib/ambari-server/resources/stacks/HDP/2.6/services</code> 路径下</li>
+</ul>
+<blockquote>
+<p>如果版本包未上传，则需要上传到指定的目录，并且重启 ambari server</p>
+</blockquote>
+<hr>
+<h2 id="2、安装部署"><a href="#2、安装部署" class="headerlink" title="2、安装部署"></a>2、安装部署</h2><p>点击 <code>Add Service</code> 选择 Kafka1_1 服务并点击 <code>NEXT</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image185.png" alt="image-185.png"></p>
+<p>添加 kafka1_1_broker 节点并点击 <code>NEXT</code></p>
+<blockquote>
+<p>Kafka部署情况以规划部署方案为准。这里以3台为例</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image187.png" alt="image-186.png"></p>
+<hr>
+<h2 id="3、修改配置"><a href="#3、修改配置" class="headerlink" title="3、修改配置"></a>3、修改配置</h2><ul>
+<li><strong>Advanced kafka1.1-broker-server</strong> 配置</li>
+</ul>
+<p><strong>port</strong>, 填写 <code>9092</code>，如果端口被占用，可根据实际情况进行修改；<br><strong>kafka.metrics.reporters</strong>，填写 <code>org.apache.hadoop.metrics2.sink.kafka.KafkaTimelineMetricsReporter</code> ;<br><strong>zookeeper.connect</strong>，配置所有 zookeeper 节点的 <code>主机名:端口</code>；<br><strong>log.dir</strong> 具体填写 <code>/data01/kafka-logs,/data02/kafka-logs,/data03/kafka-logs,/data04/kafka-logs,/data05/kafka-logs,/data06/kafka-logs,/data07/kafka-logs,/data08/kafka-logs,/data09/kafka-logs,/data010/kafka-logs</code> （如果有多块磁盘，并对kafka的性能有较高要求，建议在每个磁盘下都配置一个目录，这里以10块盘为例）</p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image187.png" alt="image-187.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image188.png" alt="image-188.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image189.png" alt="image-189.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image190.png" alt="image-190.png"></p>
+<ul>
+<li>kafka 老化时间配置</li>
+</ul>
+<p><strong>log.rentention.hours</strong>: 默认 168 小时，可根据实际流量计硬盘容量情况配置</p>
+<blockquote>
+<p>老化时间计算方法：<br>假设现网实际场景中，8 台 kafka 服务器，每台服务器 12 块盘，单块容量 1.8T；现网流量数据，最大吞吐值为 10Gbps。<br>那么 96X 1.8X 1024 X 1024 (M) ÷ （1.25 GB X 1024）÷ 3600(s) = 39.3 小时；即在峰值流量情况下，磁盘最多可保存 39.3 个小时的数据量。<br>为了保证磁盘利用率，10Gbps 流量情况下，老化时间配置为 8 小时；15Gbps 流量下配置为 6 小时。</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image191.png" alt="image-191.png"></p>
+<ul>
+<li><strong>Advanced kafka1.1-env</strong> 配置</li>
+</ul>
+<p><strong>kafka_download</strong>，修改为：<code>http://172.168.1.1/ambari/extend/kafka-1.1.0.tar.gz</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image192.png" alt="image-192.png"></p>
+<ul>
+<li>Advanced kafka1.1-broker-server优化配置修改</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image198.png" alt="image-198.png"></p>
+<hr>
+<h2 id="4、确认安装"><a href="#4、确认安装" class="headerlink" title="4、确认安装"></a>4、确认安装</h2><p>配置完成后一直点击下一步，执行安装部署：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image193.png" alt="image-193.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image194.png" alt="image-194.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image195.png" alt="image-195.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image196.png" alt="image-196.png"></p>
+<hr>
+<h2 id="5、手动修改部分参数"><a href="#5、手动修改部分参数" class="headerlink" title="5、手动修改部分参数"></a>5、手动修改部分参数</h2><blockquote>
+<p>kafka 在安装完成后，部分配置内会存在一些使用 localhost 的参数，这可能会导致业务应用启动报错，建议按本节内容修改。<br>或者也可以跳过本节内容，届时如果业务应用启动时，报形如：Unexpected error fetching metadata for topic xxlww2 的错误时，再来修改这些参数。</p>
+</blockquote>
+<p>修改 <code>/home/kafka/kafka/kafka-1.1.0/conf</code> 下 <code>consumer.properties</code> 和 <code>producer.properties</code>，将两个配置文件内所有的 localhost 全部修改为实际的 IP 地址</p>
+<hr>
+<h2 id="6、启停"><a href="#6、启停" class="headerlink" title="6、启停"></a>6、启停</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image197.png" alt="image-197.png"></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:51:41.625Z" itemprop="dateUpdated">2020-05-31 17:51:41</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&title=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&title=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&title=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&title=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMElEQVR42u3aS27bQBAFQN//0s42QEzpvW4ZEUfFlUHTw6kh4EZ/vr7i6zu4/n7y37+9WvPqLVd3knVedmFjY2PfhJ1j8usx4+rnq3WSo8kt2NjY2KeyHweGNqg8PtbH6+R3kvB5eR8bGxsbexRsElgSPpN9YmNjY2MnKUSSHuSrzcDY2NjY2LOifxt+km3lzYBZ8QsbGxv7VHZeGHr/n3+lv42NjY39xuxZ+zZpEuRFqDad2F/Y2NjYJ7HzAJC3AfIift48nh3Tk/1jY2NjH8FuA1Vevm/LQ21ToU2Zhl8JGxsb+ybsfUqQDOi8KrFJUp0n78XGxsY+iJ2M4MwWbVutw7GbuIFx2d/GxsbGvjk7DySbsJR/gU0rtxjQwcbGxj6IvS8z5SWk/KA3TYhhQQobGxv7tuxZOT4JM/mGNuM4bbD8oZaGjY2NfRw7L+W0gS0JS+2xzsaDsLGxsT+HnZSW2rpNnszkbeO29YuNjY19Hjt//SaYzZKZ2duf7AQbGxv7IHbb3G2DWTsi2a6Wrxx9c2xsbOwbstt//cnA5SaZSVbLi1DD9gA2Njb2bdmzV86SgfywNjuMRnawsbGxb85+FWnfMEgGd2aDQZfPYGNjYx/E3heJ8hDS3t80LaInsbGxsY9gt2ORvzFeszma4aFgY2NjH8HOm6wtrz2I2cdIrh92jo2NjX0ce9aaTVKFV5FmbeMnjQFsbGzsj2Hnzdo2kGyQs8SmCGDY2NjYN2HnzddNk3VWVMqrQPme654zNjY29tuz61MZFffzENjW8Idvx8bGxj6I/aokZF9+SkJUW2D6lS43NjY29luy83ZvG4TyQLX/AHWSg42NjX0c+7XIWZl+P+hTVI2wsbGxj2O3m5uFlhbwG/V8bGxs7JPY3+W1KfRvQl17oE/2iY2NjX0QO7/yTeRb2aQrbdGqDZnY2NjY92JvwkY+QNMeQTu4MxzWwcbGxj6IvSnlbH7735oE2NjY2B/M3pR4Zke2R9YjO9jY2NgfwG6bCm2r4FVN3ydFJWxsbOyD2G1zt00hZs+0IbBoHmBjY2MfxM4LPbOS0Kz9kKc6+XFgY2NjH8f+Ax9QxHBg2wnCAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

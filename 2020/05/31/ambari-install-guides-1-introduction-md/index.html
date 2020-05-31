@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇一：基本介绍 | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="基于 Ambari 2.7.3、CentOS 7.x  Ambari官网地址：点击这里  1、大数据组件介绍 Hadoop快速入门系列——篇一：HBase入门 Hadoop快速入门系列——篇二：ElasticSearch Hadoop快速入门系列——篇三：Hive Hadoop快速入门系列——篇四：HDFS Hadoop快速入门系列——篇五：Kafka Hadoop快速入门系列——篇六：其他组件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇一：基本介绍">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-1-introduction-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="基于 Ambari 2.7.3、CentOS 7.x  Ambari官网地址：点击这里  1、大数据组件介绍 Hadoop快速入门系列——篇一：HBase入门 Hadoop快速入门系列——篇二：ElasticSearch Hadoop快速入门系列——篇三：Hive Hadoop快速入门系列——篇四：HDFS Hadoop快速入门系列——篇五：Kafka Hadoop快速入门系列——篇六：其他组件">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-31T09:15:27.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:39:42.199Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇一：基本介绍</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇一：基本介绍</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:15:27.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、大数据组件介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、大数据组件介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、Ambari介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、Ambari介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、集群规划指导"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、集群规划指导</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-1-introduction-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇一：基本介绍</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:15:27" datetime="2020-05-31T09:15:27.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>基于 Ambari 2.7.3、CentOS 7.x</p>
+</blockquote>
+<p>Ambari官网地址：<a href="https://ambari.apache.org/" target="_blank" rel="noopener">点击这里</a></p>
+<hr>
+<h3 id="1、大数据组件介绍"><a href="#1、大数据组件介绍" class="headerlink" title="1、大数据组件介绍"></a>1、大数据组件介绍</h3><ul>
+<li><a href="https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/">Hadoop快速入门系列——篇一：HBase入门</a></li>
+<li><a href="https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/">Hadoop快速入门系列——篇二：ElasticSearch</a></li>
+<li><a href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/">Hadoop快速入门系列——篇三：Hive</a></li>
+<li><a href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/">Hadoop快速入门系列——篇四：HDFS</a></li>
+<li><a href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/">Hadoop快速入门系列——篇五：Kafka</a></li>
+<li><a href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/">Hadoop快速入门系列——篇六：其他组件简介</a></li>
+</ul>
+<hr>
+<h3 id="2、Ambari介绍"><a href="#2、Ambari介绍" class="headerlink" title="2、Ambari介绍"></a>2、Ambari介绍</h3><p>Apache Ambari 是一种基于 Web 的工具，支持 Apache Hadoop 集群的供应、管理和监控。Ambari 已支持大多数 Hadoop 组件，包括 HDFS、MapReduce、Hive、Pig、 Hbase、Zookeeper、Sqoop和Hcatalog 等。</p>
+<p>Apache Ambari 支持 HDFS、MapReduce、Hive、Pig、Hbase、Zookeepr、Sqoop 和 Hcatalog 等的集中管理。也是 5 个顶级 hadoop 管理工具之一。</p>
+<hr>
+<h3 id="3、集群规划指导"><a href="#3、集群规划指导" class="headerlink" title="3、集群规划指导"></a>3、集群规划指导</h3><blockquote>
+<p>大数据集群需要有合理的规划，以满足业务对于高可用、高性能等的要求，如果规划不当，会导致集群性能折损，甚至导致集群出现故障。<br>因此，一个好的部署规划至关重要，在部署之前，需要根据实际的服务器数量和资源，合理进行规划，规划完成后，需要严格遵循规划的内容，进行部署。<br>由于服务器数量、性能千变万化，下面只对各个组件的规划要求进行列举，并给出本次使用的 3 台服务器的部署规划（三台服务器可以认为是集群部署的最低服务器数量要求）</p>
+</blockquote>
+<ul>
+<li>首先必须确定集群组件的版本需求，不同版本的组件对部署的要求是不一样的</li>
+<li><strong>Zookeeper</strong>：zookeeper 需要部署奇数台节点，所以最少需要部署三台，在机器数量允许的情况下，可以适当增加，为后面的高可用集群环境做准备。本文以 3 台为例。机器数量允许的情况下，zookeeper 和 journalnode 要求部署5台。</li>
+<li><strong>Ambari</strong>：ambari server 节点部署 http 服务，ambari agent 节点部署 wget 服务</li>
+<li><strong>Ambari</strong>：为了方便部署组件客户端，如果业务服务器上也需要使用 Ambari 部署客户端的话，也需要在这些服务器上部署 ambari agent，其实比较建议对所有服务器都部署上 ambari agent，ambari agent 不会消耗很多资源，且这样操作方便后期部署工作的灵活调整，当然，后期再扩展 ambari agent 也是很简单的。</li>
+<li><strong>HDFS</strong>：当服务器数量充足的情况下，为考虑管理节点的安全性，部署方案中的两台管理节点上不安装datanode和client。</li>
+<li><strong>HDFS</strong> &amp; <strong>YARN</strong>：HDFS和yarn数据盘规划遵循木桶效应，即实际数据盘个数以所有节点中数据盘最少的节点的数据盘数量为准</li>
+<li><strong>YARN</strong>：NodeManager 和 client 部署方式与 DataNode 一致即可<br>Standby-namenode 选择一台机器作为另一个管理节点。具体情况以部署方案为准。</li>
+<li><strong>HDFS</strong>：为保证 journalnode 的高可用，建议 journalnode 安装5台。本文以 3 台为例。</li>
+<li><strong>ElasticSearch</strong>：ES Monitor 不要单独安装，与主或备 Master 安装在一台节点上，建议与主 ES Master 安装在一个节点上<br>Hive Monitor 和 Hive Metastore 安装在同一台机器上</li>
+<li><strong>Redis</strong>：为了保证业务的正常运行，Redis 集群建议部署三台节点以上，如果节点不够，可以采用单节点多实例的方式进行部署。原则上，Redis 主从服务不建议部署在同一节点上，但如果实际节点数不够的情况下，可以采用单节点一主一从的部署方式</li>
+</ul>
+<blockquote>
+<p>本文档以三台服务器为例，主机名/IP分别为：node1/172.168.1.1，node2/172.168.1.2，node3/172.168.1.3</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:39:42.199Z" itemprop="dateUpdated">2020-05-31 17:39:42</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&title=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&title=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇二：环境准备</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">YARN fair-scheduler 资源调度介绍及配置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&title=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&title=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇一：基本介绍》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpUlEQVR42u3a0U7kMAwFUP7/p9lXJNSZe+0EjVanTxW0iU+RkmD76yu+vn9cP3+SPP/73acx2xGOXXh4eHiL0J+G+15cv+d6uk+oecx4eHh4t3lPg+ahvJ7+9Yyz8V/HjIeHh/dpvGT5TsZsD9Z4eHh4/zcvP6AneDw8PLxP4+XDnVrc82f+KNeCh4eHF/PyKtLn3F+p7+Hh4eGtq+r5gl4fc0cp4zpaPDw8vAu8dvq2cLUpobUJ4scn8fDw8I7y9g0BCa8Nuh3/8R4PDw/vMi8/8u7bBfKtIp+9qOzh4eHhLXhtO9S+QWofaL6R4OHh4d3mnV3Q92mFD6rp4eHh4Y1g+WF31oq6T3YcOF7j4eHhjXjtcbb9BEkraluEK7YQPDw8vDUvn7htG823ls2B+01hDA8PD+8CLzmqzsJtx2y3q+QPg4eHh3eD1/6r/3rbyN9tP1ObesDDw8O7x2uPtnnQbeohD7r9iHh4eHi3ee1CnDdUzRIZ+ZH6QNMqHh4eXsBrm0RnaYt9anjY1IWHh4d3jVcUk8rFfTZO3qr1ZnvAw8PDu8ZLlvuW14LzD1EkhfHw8PAu8/LFN28OmH2stmD2OD4eHh7eBV6+6OeLdX6/2YraVDIeHh7eWd6phqo2RbtpIKjLYHh4eHh/wsvTAbOANqS6gwwPDw/vAi+5ZhO0BbMk6ZDEiYeHh3ebl6RKk7DONlEduPDw8PAuwGYLbr58tx83L869GQcPDw/vAm+2xuaMNri2ceEADA8PD2/Ea4du39qkcQ9sDHh4eHjXeO1hN988Nk/Okil1HxkeHh7en/Dy3+4Tym1zAx4eHt6n8ZJk7qwalYxZNA3g4eHhXeblU25KYskGMEvjDnvK8PDw8Ea8/WF3loZINoNZahgPDw/vGu8f8y6mS+uZs7QAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

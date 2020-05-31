@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="Bigdataa,Ambari">
+    <meta name="keywords" content="Ambari,Bigdata">
     <meta name="description" content="1、准备工作 1.1 Ambari 版本包解析Ambari版本包较多，下面会对所有版本包进行简单的说明，本文档以 Ambari 2.7.3 版本为例：  Ambari 安装包即 Ambari 自身的安装包  ambari-2.7.3.0-centos7.tar.gz   HDP 集群安装包即大数据平台的安装包，包含了各类组件  HDP-2.6.3.0-centos7-rpm.tar.gzHDP-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署">
@@ -56,11 +56,11 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image34.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image35.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image36.png">
-<meta property="article:published_time" content="2020-05-21T11:37:12.000Z">
-<meta property="article:modified_time" content="2020-05-21T11:48:40.662Z">
+<meta property="article:published_time" content="2020-05-21T12:00:17.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:37:57.487Z">
 <meta property="article:author" content="winyter">
-<meta property="article:tag" content="Bigdataa">
 <meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image9.png">
     
@@ -168,7 +168,7 @@
         <h1 class="title">基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</h1>
         <h5 class="subtitle">
             
-                <time datetime="2020-05-21T11:37:12.000Z" itemprop="datePublished" class="page-time">
+                <time datetime="2020-05-21T12:00:17.000Z" itemprop="datePublished" class="page-time">
   2020-05-21
 </time>
 
@@ -201,7 +201,7 @@
     <div class="post-card">
         <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-05-21 19:37:12" datetime="2020-05-21T11:37:12.000Z"  itemprop="datePublished">2020-05-21</time>
+            <time class="post-time" title="2020-05-21 20:00:17" datetime="2020-05-21T12:00:17.000Z"  itemprop="datePublished">2020-05-21</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
@@ -374,6 +374,9 @@
 <h3 id="3-7-安装zookeeper、Ambari-Metrics服务"><a href="#3-7-安装zookeeper、Ambari-Metrics服务" class="headerlink" title="3.7 安装zookeeper、Ambari Metrics服务"></a>3.7 安装zookeeper、Ambari Metrics服务</h3><p>安装 zookeeper，Ambari Metrics。SmartSense 是默认安装的，所以必选。<br>在 Ambari 页面选择 <code>Add Service</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image22.png" alt="image-22.png"></p>
 <p>选择 zookeeper，Ambari Metrics<br><img src="http://cdn.winyter.cn/ambari-install-guide_image23.png" alt="image-23.png"></p>
 <p>点击下一步，会提示没有安装一些必要的服务——Ambari Metrics 和 SmartSence，点击 <code>PROCEED ANYWAY</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image24.png" alt="image-24.png"></p>
+<blockquote>
+<p>Metrics 在第一次安装完后，需要修改 <strong>HBase root directory</strong> 配置项为：<code>file:///data01/var/lib/ambari-metrics-collection/hbase</code>，（实际目录并不一定是上面这个，主要检查目录中，不能出现类似：<code>file:///data01/data01/var/lib/ambari-metrics-collection/hbase</code> 这样的目录存在），否则 Metrics 会一直报错无法启动</p>
+</blockquote>
 <hr>
 <h3 id="3-8-zookeeper服务"><a href="#3-8-zookeeper服务" class="headerlink" title="3.8 zookeeper服务"></a>3.8 zookeeper服务</h3><p>选择需要安装zookeeper服务的主机，其中Metrics Collector所在服务器需要测试一下到所有服务器（包括自己）的无密码访问是否可以，由于存在部分服务器进行首次无密码访问时需要手动输入yes，才能进去，不验证的话，后续Metrics Collector服务会有问题。  </p>
 <p>1.选择需要安装Zookeeper Server的主机。这里选择了三台机器。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image25.png" alt="image-25.png"></p>
@@ -413,7 +416,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-05-21T11:48:40.662Z" itemprop="dateUpdated">2020-05-21 19:48:40</time>
+    最后更新时间：<time datetime="2020-05-31T09:37:57.487Z" itemprop="dateUpdated">2020-05-31 17:37:57</time>
 </span><br>
 
 
@@ -435,7 +438,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdataa/" rel="tag">Bigdataa</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
 
             
@@ -493,18 +496,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/" id="post-prev" class="post-nav-link">
+      <a href="/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇四：Ambari 安装 HDFS</h4>
+        <h4 class="title">YARN fair-scheduler 资源调度介绍及配置</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/MyBlog/2020/04/19/UNIX-commands-collection/" id="post-next" class="post-nav-link">
+      <a href="/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Linux命令集锦【持续更新】</h4>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇四：Ambari 安装 HDFS</h4>
       </a>
     </div>
   

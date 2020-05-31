@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Ambari,Bigdata">
+    <meta name="description" content="1、安装部署点击 Add Service 选择 YARN+MapReduce 服务并下拉到页面底部点击 NEXT： 根据组件规划，选择 ResourceManager 节点，App Timeline Server 和 History Server 直接默认即可，不需要修改，点击 NEXT。 选择 NodeManager 节点  注意：NodeManager 和 client 部署方式与 Data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-5-install-yarn-md&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="1、安装部署点击 Add Service 选择 YARN+MapReduce 服务并下拉到页面底部点击 NEXT： 根据组件规划，选择 ResourceManager 节点，App Timeline Server 和 History Server 直接默认即可，不需要修改，点击 NEXT。 选择 NodeManager 节点  注意：NodeManager 和 client 部署方式与 Data">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image69.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image70.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image71.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image72.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image73.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image74.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image75.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image76.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image77.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image78.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image79.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image80.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image81.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image82.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image83.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image84.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image85.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image86.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image87.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image88.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image90.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image89.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image91.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image92.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image93.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image94.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image95.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image96.png">
+<meta property="article:published_time" content="2020-05-31T09:40:24.000Z">
+<meta property="article:modified_time" content="2020-05-31T09:41:05.393Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="Ambari">
+<meta property="article:tag" content="Bigdata">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image69.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-05-31T09:40:24.000Z" itemprop="datePublished" class="page-time">
+  2020-05-31
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1、安装部署"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、安装部署</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2、修改-YARN-配置文件"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、修改 YARN 配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3、确认安装-YARN"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、确认安装 YARN</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、启停"><span class="post-toc-number">4.</span> <span class="post-toc-text">4、启停</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、YARN-集群高可用"><span class="post-toc-number">5.</span> <span class="post-toc-text">5、YARN 集群高可用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-1-Get-Start"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">5.1 Get Start</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-2-指定standby-resourcemanager节点"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">5.2 指定standby-resourcemanager节点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-3-Review"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">5.3 Review</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-4-Configure-Components"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">5.4 Configure Components</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-5-YARN-相关配置"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">5.5 YARN 相关配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-6-YARN-日志老化配置"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">5.6 YARN 日志老化配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5-7-MapReduced配置"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">5.7 MapReduced配置</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-ambari-install-guides-5-install-yarn-md"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-05-31 17:40:24" datetime="2020-05-31T09:40:24.000Z"  itemprop="datePublished">2020-05-31</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="1、安装部署"><a href="#1、安装部署" class="headerlink" title="1、安装部署"></a>1、安装部署</h2><p>点击 <code>Add Service</code> 选择 YARN+MapReduce 服务并下拉到页面底部点击 <code>NEXT</code>：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image69.png" alt="image-69.png"></p>
+<p>根据组件规划，选择 ResourceManager 节点，App Timeline Server 和 History Server 直接默认即可，不需要修改，点击 <code>NEXT</code>。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image70.png" alt="image-70.png"></p>
+<p>选择 NodeManager 节点</p>
+<blockquote>
+<p>注意：NodeManager 和 client 部署方式与 DataNode 一致即可<br><img src="http://cdn.winyter.cn/ambari-install-guide_image71.png" alt="image-71.png"></p>
+</blockquote>
+<hr>
+<h2 id="2、修改-YARN-配置文件"><a href="#2、修改-YARN-配置文件" class="headerlink" title="2、修改 YARN 配置文件"></a>2、修改 YARN 配置文件</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image72.png" alt="iamge-72.png"></p>
+<p>&lt;1&gt; <strong>Memory allocated for all YARN containers on a node</strong>：<br>该参数值为每个 nodemanager 节点可用内存。大小设置为单台 nodemanager 机器内存大小的80%。<br>&lt;2&gt; <strong>Minimum Container Size (Memory)</strong>：<br>该参数值为单个任务可申请最小内存。该值需要根据实际业务进行调整，如果不知道实际业务需求的话，建议往小了设置，根据集群总资源，设置一个比较小的参数（建议设置 2048）。该参数后期可以随时调整。<br>&lt;3&gt; <strong>Maximum Container Size (Memory)</strong>：<br>该参数值为单个任务可申请最大内存。该值可以设置为64G。<br>&lt;4&gt; <strong>Number of virtual cores</strong>：<br>该参数值设置为单台nodemanager机器cpu逻辑核数的一半。<br>&lt;5&gt; <strong>Maximum Container Size (VCores)</strong>：<br>该参数值必须小于或等于 Number of virtual cores 的值</p>
+<blockquote>
+<p>以上没有提到的配置，一般默认即可，如果实际有需求，也可以进行修改<br>查看CPU逻辑核数命令：<br>cat /proc/cpuinfo |grep processor |wc -l</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image73.png" alt="image-73.png"></p>
+<p>&lt;6&gt; <strong>YARN NodeManager Local directories</strong>：<br>该参数值填写 <code>/data01/hadoop/yarn/local,/data02/hadoop/yarn/local,/data03/hadoop/yarn/local,/data04/hadoop/yarn/local,/data05/hadoop/yarn/local,/data06/hadoop/yarn/local,/data07/hadoop/yarn/local,/data08/hadoop/yarn/local,/data09/hadoop/yarn/local,/data10/hadoop/yarn/local</code></p>
+<p>&lt;7&gt; <strong>YARN NodeManager Log directories</strong>：<br>该参数值填写 <code>/data01/hadoop/yarn/log,/data02/hadoop/yarn/log,/data03/hadoop/yarn/log,/data04/hadoop/yarn/log,/data05/hadoop/yarn/log,/data06/hadoop/yarn/log,/data07/hadoop/yarn/log,/data08/hadoop/yarn/log,/data09/hadoop/yarn/log,/data10/hadoop/yarn/log</code></p>
+<blockquote>
+<p>以上这两个参数根据系统中实际的磁盘数量填写。另外，原则同 HDFS 磁盘选择，遵循木桶效应，即所有节点最多能使用的数据盘数量，取决于所有节点中，数据盘最少的那个节点的数据盘数量</p>
+</blockquote>
+<hr>
+<h2 id="3、确认安装-YARN"><a href="#3、确认安装-YARN" class="headerlink" title="3、确认安装 YARN"></a>3、确认安装 YARN</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image74.png" alt="image-74.png"></p>
+<p>完成安装<br><img src="http://cdn.winyter.cn/ambari-install-guide_image75.png" alt="image-75.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image76.png" alt="image-76.png"></p>
+<hr>
+<h2 id="4、启停"><a href="#4、启停" class="headerlink" title="4、启停"></a>4、启停</h2><p><img src="http://cdn.winyter.cn/ambari-install-guide_image77.png" alt="image-77.png"></p>
+<hr>
+<h2 id="5、YARN-集群高可用"><a href="#5、YARN-集群高可用" class="headerlink" title="5、YARN 集群高可用"></a>5、YARN 集群高可用</h2><hr>
+<h3 id="5-1-Get-Start"><a href="#5-1-Get-Start" class="headerlink" title="5.1 Get Start"></a>5.1 Get Start</h3><p>在 Ambari 主界面，点击 <code>YARN→ACTIONS→Enable ResourceManager HA</code> 进行高可用设置<br><img src="http://cdn.winyter.cn/ambari-install-guide_image78.png" alt="image-78.png"></p>
+<p>按照界面提示，点击Next即可<br><img src="http://cdn.winyter.cn/ambari-install-guide_image79.png" alt="image-79.png"></p>
+<hr>
+<h3 id="5-2-指定standby-resourcemanager节点"><a href="#5-2-指定standby-resourcemanager节点" class="headerlink" title="5.2 指定standby-resourcemanager节点"></a>5.2 指定standby-resourcemanager节点</h3><p>根据部署方案，选择 standby-resourcemanager 管理节点。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image80.png" alt="image-80.png"></p>
+<hr>
+<h3 id="5-3-Review"><a href="#5-3-Review" class="headerlink" title="5.3 Review"></a>5.3 Review</h3><p>默认配置是readonly，不可修改，只可查看，直接点击Next即可<br><img src="http://cdn.winyter.cn/ambari-install-guide_image81.png" alt="iamge-81.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image82.png" alt="image-82.png"></p>
+<hr>
+<h3 id="5-4-Configure-Components"><a href="#5-4-Configure-Components" class="headerlink" title="5.4 Configure Components"></a>5.4 Configure Components</h3><p>自动完成安装及配置，如下图所示，点击complete即可。<br><img src="http://cdn.winyter.cn/ambari-install-guide_image83.png" alt="image-83.png"></p>
+<p>可以使用 <code>jps</code> 查看对应两台机器上的 resourcemanager 和 nodemanager 进程，全部实现了高可用状态。【root用户操作】</p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image84.png" alt="image-84.png"></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image85.png" alt="image-85.png"></p>
+<hr>
+<h3 id="5-5-YARN-相关配置"><a href="#5-5-YARN-相关配置" class="headerlink" title="5.5 YARN 相关配置"></a>5.5 YARN 相关配置</h3><p><img src="http://cdn.winyter.cn/ambari-install-guide_image86.png" alt="image-86.png"></p>
+<ul>
+<li>Resource Manager配置</li>
+</ul>
+<p><strong>yarn.admin.acl</strong> = <code>yarn,rhino</code> </p>
+<blockquote>
+<p>resoucemanager 管理员权限用户配置，加上rhino用户，注意，这里安装文档以 rhino 用户为例，实际安装过程中，根据业务需求添加用户，可以直接配置为 *，即意味着所有用户均可以管理 ResourceManager（不建议这样配置）</p>
+</blockquote>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image87.png" alt="image-87.png"></p>
+<ul>
+<li>Advanced yarn-site 配置：</li>
+</ul>
+<p><strong>yarn.client.failover-proxy-provider</strong> = <code>org.apache.hadoop.yarn.client.ConfiguredRMFailoverProxyProvider</code><br><img src="http://cdn.winyter.cn/ambari-install-guide_image88.png" alt="image-88.png"></p>
+<ul>
+<li>NodeManager 配置</li>
+</ul>
+<p>该组配置安装 Yarn 时就已经修改过，只需检查一下即可<br><img src="http://cdn.winyter.cn/ambari-install-guide_image90.png" alt="image-90.png"></p>
+<ul>
+<li>Setting 配置</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image89.png" alt="image-89.png"></p>
+<ul>
+<li>Scheduler 配置</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image91.png" alt="image-91.png"><br>修改为 <code>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</code></p>
+<blockquote>
+<p>注意：修改yarn.resourcemanager.scheduler.class后，启动yarn之前要先添加fair-scheduler.xml文件，不然启动yarn会报错找不到fair-scheduler.xml，需要配置<br>fair-scheduler.xml文件只需要拷贝到两台ResourceManager机器上</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@node1 ~]# cd &#x2F;usr&#x2F;hdp&#x2F;2.6.3.0-235&#x2F;hadoop-yarn&#x2F;etc&#x2F;hadoop&#x2F;</span><br><span class="line">[root@node1 hadoop]# chown yarn:hadoop fair-scheduler.xml</span><br><span class="line">[root@node1 hadoop]# scp fair-scheduler.xml root@node2:&#x2F;usr&#x2F;hdp&#x2F;2.6.3.0-235&#x2F;hadoop-yarn&#x2F;etc&#x2F;hadoop&#x2F;</span><br></pre></td></tr></table></figure>
+<p>如果没有找到该文件，可以直接在目录下新建这个文件</p>
+<p>fair-scheduler.xml 需要进行配置，详细配置方法<a href="https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/">点击这里</a></p>
+<ul>
+<li>Custom yarn-site中增加配置项：</li>
+</ul>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image92.png" alt="image-92.png"></p>
+<p><strong>yarn.scheduler.fair.allocation.file</strong> = <code>/usr/hdp/2.6.3.0-235/hadoop-yarn/etc/hadoop/fair-scheduler.xml</code><br><strong>hdp.version</strong> = <code>2.6.3.0-235</code><br><strong>yarn.nodemanager.localizer.cache.target-size-mb</strong> = <code>1024</code><br><strong>yarn.nodemanager.localizer.cache.cleanup.interval-ms</strong> = <code>60000</code></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image93.png" alt="image-93.png"></p>
+<blockquote>
+<p>注意：安装ambari 2.7版本的时候，出现因为路径的有空格导致找不到文件，需要注意路径格式。</p>
+</blockquote>
+<hr>
+<h3 id="5-6-YARN-日志老化配置"><a href="#5-6-YARN-日志老化配置" class="headerlink" title="5.6 YARN 日志老化配置"></a>5.6 YARN 日志老化配置</h3><p>找到yarn-log4j的配置项：<br><img src="http://cdn.winyter.cn/ambari-install-guide_image94.png" alt="image-94.png"></p>
+<p>按照以下内容进行修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># Audit logging for ResourceManager</span><br><span class="line">rm.audit.logger&#x3D;$&#123;hadoop.root.logger&#125;</span><br><span class="line">log4j.logger.org.apache.hadoop.yarn.server.resourcemanager.RMAuditLogger&#x3D;$&#123;rm.audit.logger&#125;</span><br><span class="line">log4j.additivity.org.apache.hadoop.yarn.server.resourcemanager.RMAuditLogger&#x3D;false</span><br><span class="line">log4j.appender.RMAUDIT&#x3D;org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.RMAUDIT.File&#x3D;$&#123;yarn.log.dir&#125;&#x2F;rm-audit.log</span><br><span class="line">log4j.appender.RMAUDIT.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.RMAUDIT.layout.ConversionPattern&#x3D;%d&#123;ISO8601&#125; %p %c&#123;2&#125;: %m%n</span><br><span class="line">log4j.appender.RMAUDIT.DatePattern&#x3D;.yyyy-MM-dd</span><br><span class="line"></span><br><span class="line">改为:</span><br><span class="line"></span><br><span class="line"># Audit logging for ResourceManager</span><br><span class="line">rm.audit.logger&#x3D;$&#123;hadoop.root.logger&#125;</span><br><span class="line">log4j.logger.org.apache.hadoop.yarn.server.resourcemanager.RMAuditLogger&#x3D;$&#123;rm.audit.logger&#125;</span><br><span class="line">log4j.additivity.org.apache.hadoop.yarn.server.resourcemanager.RMAuditLogger&#x3D;false</span><br><span class="line">log4j.appender.RMAUDIT&#x3D;org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.RMAUDIT.File&#x3D;$&#123;yarn.log.dir&#125;&#x2F;rm-audit.log</span><br><span class="line">log4j.appender.RMAUDIT.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.RMAUDIT.layout.ConversionPattern&#x3D;%d&#123;ISO8601&#125; %p %c&#123;2&#125;: %m%n</span><br><span class="line">log4j.appender.RMAUDIT.MaxFileSize&#x3D;128MB</span><br><span class="line">log4j.appender.RMAUDIT.MaxBackupIndex&#x3D;5</span><br><span class="line"></span><br><span class="line">------------------------------- 我是分割线 -----------------------------------</span><br><span class="line"></span><br><span class="line"># Audit logging for NodeManager</span><br><span class="line">nm.audit.logger&#x3D;$&#123;hadoop.root.logger&#125;</span><br><span class="line">log4j.logger.org.apache.hadoop.yarn.server.nodemanager.NMAuditLogger&#x3D;$&#123;nm.audit.logger&#125;</span><br><span class="line">log4j.additivity.org.apache.hadoop.yarn.server.nodemanager.NMAuditLogger&#x3D;false</span><br><span class="line">log4j.appender.NMAUDIT&#x3D;org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.NMAUDIT.File&#x3D;$&#123;yarn.log.dir&#125;&#x2F;nm-audit.log</span><br><span class="line">log4j.appender.NMAUDIT.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.NMAUDIT.layout.ConversionPattern&#x3D;%d&#123;ISO8601&#125; %p %c&#123;2&#125;: %m%n</span><br><span class="line">log4j.appender.NMAUDIT.DatePattern&#x3D;.yyyy-MM-dd</span><br><span class="line"></span><br><span class="line">改为:</span><br><span class="line"></span><br><span class="line"># Audit logging for NodeManager</span><br><span class="line">nm.audit.logger&#x3D;$&#123;hadoop.root.logger&#125;</span><br><span class="line">log4j.logger.org.apache.hadoop.yarn.server.nodemanager.NMAuditLogger&#x3D;$&#123;nm.audit.logger&#125;</span><br><span class="line">log4j.additivity.org.apache.hadoop.yarn.server.nodemanager.NMAuditLogger&#x3D;false</span><br><span class="line">log4j.appender.NMAUDIT&#x3D;org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.NMAUDIT.File&#x3D;$&#123;yarn.log.dir&#125;&#x2F;nm-audit.log</span><br><span class="line">log4j.appender.NMAUDIT.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.NMAUDIT.layout.ConversionPattern&#x3D;%d&#123;ISO8601&#125; %p %c&#123;2&#125;: %m%n</span><br><span class="line">log4j.appender.NMAUDIT.MaxFileSize&#x3D;128MB</span><br><span class="line">log4j.appender.NMAUDIT.MaxBackupIndex&#x3D;5</span><br></pre></td></tr></table></figure>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image95.png" alt="image-95.png"></p>
+<hr>
+<h3 id="5-7-MapReduced配置"><a href="#5-7-MapReduced配置" class="headerlink" title="5.7 MapReduced配置"></a>5.7 MapReduced配置</h3><p>在 MapReduce 的 Custom mapred-site 里增加配置项：<br><strong>hdp.version</strong> = <code>2.6.3.0-235</code></p>
+<p><img src="http://cdn.winyter.cn/ambari-install-guide_image96.png" alt="image-96.png"></p>
+<hr>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-05-31T09:41:05.393Z" itemprop="dateUpdated">2020-05-31 17:41:05</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&title=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&title=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇二：环境准备</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&title=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&title=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqElEQVR42u3a0U7DMAwF0P3/T8MrErS7tuNqSGdPE0RpTpESc53XK/58/fj8/Ek+8vf4q5///u39yAMfPDw8vMHSr6brjbl61tX33it781w8PDy8Nd58Kffj8+OkOv8bCx4eHt7H8JIlVmvdfAweHh7e/+L1Aouk+E6KZjw8PLzP4U2mO1UK54HvStaCh4eHF/PyLtLnfF/p7+Hh4eGNu+q9zToptXuRcXm1eHh4eAu8XtCQb9yTFlr1BV2OxMPDwzvKSzbrfFnz8dXZ3nzHw8PDe4Q335qTcjl/EaPLCnh4eHgLvOoieg87e2Greszg4eHhPcNLltKLFaqtrGM9PTw8PLxDvB5g0qzKC+s8jHjT38PDw8Nb4OUXm3oFcdIka/bu7teGh4eHt8CbtLV60e0EUG3U4eHh4e3xqkdCfjzk5fIkKImiEDw8PLxDvGRL7RXcCaba7kpiDjw8PLxtXr6tb0cPvddRvnSFh4eHt8CbhBF5O21+iaGMxMPDwzvE64UC+WGQHC29xls0Mx4eHt4Cb/7geRiRHyS9i1x4eHh4G7zq46vs6hHSi5Iv/254eHh4C7xe+78XHGyUy4V/DPDw8PAO8XpLTMrZpDhOljiKP/Dw8PAWeL3joQerttyqsGOFNR4eHl6Qc+YbdL7d50FDlVSIQvDw8PAe5OWRxPz1Va+rJuvEw8PD2+ZN2vzVK63VqHf0wcPDw3sE1rveFG3TxcsEeZryxzx4eHh4C7yNPbZXrOev9UADDA8PD2/Mq06dX3jqzdPr4F0+BQ8PD2+NNyl2q6Vtzu7FxK88R8HDw8N7nDdvj+Ul+P2aL5+Ih4eH9wG8vKSuxhnVMj2KjPHw8PDWeNWmV3UTn1ylqh5UeHh4eNu8SbF7Nq69x28EGXh4eHjFZ30Dz/TPFO+3U8IAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
