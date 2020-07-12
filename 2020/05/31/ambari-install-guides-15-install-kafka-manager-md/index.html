@@ -24,7 +24,7 @@
     <meta name="description" content="1、简介Kafka Manager 可用于监控和管理 kafka 集群。 主要作用有：  便捷的监控集群状态（topics，consumers，offsets，brokers，副本分布，分区分布）； 根据自定义配置创建 topic； 删除 topic，但是前提是配置 kafka 的 delete.topic.enable&#x3D;true； 增加已存在 topic 的分区； 更新已存在 topic 的配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager">
-<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-15-install-kafka-manager-md&#x2F;">
+<meta property="og:url" content="101.200.81.233&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-15-install-kafka-manager-md&#x2F;">
 <meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="1、简介Kafka Manager 可用于监控和管理 kafka 集群。 主要作用有：  便捷的监控集群状态（topics，consumers，offsets，brokers，副本分布，分区分布）； 根据自定义配置创建 topic； 删除 topic，但是前提是配置 kafka 的 delete.topic.enable&#x3D;true； 增加已存在 topic 的分区； 更新已存在 topic 的配">
 <meta property="og:locale" content="zh_CN">
@@ -38,9 +38,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image230.png">
     
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -57,10 +57,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand">
-        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/MyBlog/img/avatar.jpg">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">winyter</h5>
@@ -72,28 +72,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/"  >
+              <a href="/"  >
                 <i class="icon icon-lg icon-home"></i>
                 Home
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/archives"  >
+              <a href="/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/tags"  >
+              <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/categories"  >
+              <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
@@ -147,7 +147,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
             
         </h5>
@@ -178,7 +178,7 @@
             <time class="post-time" title="2020-05-31 17:55:31" datetime="2020-05-31T09:55:31.000Z"  itemprop="datePublished">2020-05-31</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -247,8 +247,8 @@
     </div>
     
     <footer>
-        <a href="https://winyter.github.io/MyBlog">
-            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+        <a href="101.200.81.233">
+            <img src="/img/avatar.jpg" alt="winyter">
             winyter
         </a>
     </footer>
@@ -259,7 +259,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
 
             
@@ -269,7 +269,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -279,22 +279,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&via=101.200.81.233" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -317,7 +317,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/05/31/ambari-install-guides-16-ambari-manage-md/" id="post-prev" class="post-nav-link">
+      <a href="/2020/05/31/ambari-install-guides-16-ambari-manage-md/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十六：Ambari 管理</h4>
       </a>
@@ -326,7 +326,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/MyBlog/2020/05/31/ambari-install-guides-14-install-spark-md/" id="post-next" class="post-nav-link">
+      <a href="/2020/05/31/ambari-install-guides-14-install-spark-md/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十四：手动安装Spark</h4>
       </a>
@@ -378,7 +378,7 @@
 
         <p>
             
-                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -402,7 +402,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -412,22 +412,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&title=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/&via=101.200.81.233" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -438,7 +438,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLUlEQVR42u3aS27bQBAFQN//0s42gC3pvW4mEEfFlSGTw6kR4HZ/vr7i67u8fj71aM3kk3adyy5sbGzsm7D3gHadRz+36z9f58WRYWNjYx/Hfh4Yni/9aOuzo0zCWHIEL4zY2NjY2GUIyZOQPOwlv8XGxsbGbl/cbi5PJPKQiY2Njf2Z7Nm/+Btk2wZo05vLamnY2NjYb8/Ou6Lv//M/6W9jY2NjvzF7NoiTFIM2TYI8yM0ubGxs7JPYeQCYpQptA6A93Nn+sbGxsU9i5w9sRmryA5o1cev7sbGxsQ9izzbRJi3tPfujz9+LjY2NfSq7LfHkgzibwLPZyYsYjo2NjX1bdl6syUPI5hvYD/pEAzrY2NjYB7E3gWcWcvIUokgnZkERGxsb+wh2sq38mh1Z0kjOy1LJwWFjY2Ofzc6TkHaLs5JQXlQqvgBsbGzs49ht4Jm1bNvhy3wPUdD6+x5sbGzsj2FfNY7TVubblZMWchHAsLGxsW/FbjexKSc9DyptMSsPVw8PDhsbG/sIdv6nv33NrKOaP9uOFmFjY2N/DrstKs2SgRmvbRXXIzvY2NjYN2TPNnFVUnFVk7guJ2FjY2MfxE5K/21Y2iQwSasg2XmUimBjY2Mfwd4UiWbN2s39+8/rmhk2Njb2DdmzMlA+ZNMGnvwtw6ISNjY29s3ZSbGmbRjMivuz1ZIC1ovGADY2NvZx7M3QTB4IZ5F2nwi9GNnBxsbGviE7L6m3bd2clKy5aSHnT2FjY2Ofyp4FiX2hKgk8yXuLg8PGxsa+OTtZug4J6+Gb/Xujdi82Njb2zdnJKzct4bbEn4erPAn55SlsbGzs49ht+MmL77M79+u80GFjY2Mfx94EsLw1W7Rd45A5bBJgY2NjH8H+Lq9rt9gO9LSNhIfPYmNjYx/EnpXaZ83gfItts3bfMMbGxsa+O3sWNmat1vwIZsdRD+tgY2NjH8Rua1FtyrEJlvlv61oaNjY29key23/9N4dyFbIY2cHGxsb+AHZb4v+vYSlIh7CxsbFPZc8KQJsCU5LY5Eefp0zY2NjY57HzTbehKB8DyhOVWZKz6m9jY2Njvy/7D65qShUKIsrTAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3aQW4CMQwFUO5/abquqqBvOx5R6c2qKgP4ZaTE2H694uv95/r7/9P9n/9/+rTT9dq48PDw8Mahf2acgs6Xo3pnEs9xCfDw8PDWeKcdNf+yZGf+fE9yqOQx4+Hh4X0PrxdidVtPPgEPDw/vf/HyEOcHRv7JeHh4eE/y5oFOEvGkXLtea8HDw8Nb6CJ9z98r/T08PDy8cVc9aXpVt+O8edYbLPgVDx4eHt4Cr1qirSa+SeM/KS7ki4iHh4f3DC8vDfRGr6rF2WpLLFosPDw8vEu8HqBXLMhD7z2l44mHh4eHd5XXS3yTO+ep8/yYwcPDw9vj9YoFvfZVDuiNBeDh4eE9w5ts00kx91YiPimU4OHh4W3w8vZ/L8SkPTa5M3pieHh4eJd4ebpcLT30xg7KT+bzEuPh4eEt8Hq35u2oajpefQDlT8bDw8O7ypuUa3tfORkgKMyU4eHh4V3lJW+ohpu3/6vFiHKyjoeHh3eVV2109cYCqks2GdUa9fHw8PDwxv30Ww3+ago+T+7x8PDwnuElSXCvWJBs7tVvjMYI8PDw8BZ486bXM0tTSKPv9vTw8PDw4qR5I6xJMbfZ08PDw8Nb41U3+mq5djTLMHkVDw8Pb4HXKwH0wL3FnTTk8PDw8PZ4vTb/ZDRqMjqQt9nw8PDwtnnzsml1gCBZ4guHEB4eHt4aLwfnoVdfzcsThTIxHh4e3lXeu3hVa6S9Imy1THxcSjw8PLwFXnWrXSkWFFPt+bGBh4eHN+f1WvvVLbu6rfcaY8dfDHh4eHgLvGqjqzdw0Bu6KlRW5mcOHh4e3gIvL1LM22AXHgMeHh7e1/CScYH81eqYV6HQjIeHh7fGq440JUNayXvzskK+rHh4eHjbvN4P/iTo/MDIE/fqWAMeHh7eVd4Pc5Cxhv5ihjoAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
@@ -446,7 +446,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 </script>

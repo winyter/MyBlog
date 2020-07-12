@@ -24,7 +24,7 @@
     <meta name="description" content="当 Greenplum 的组件异常时，可进行恢复操作。Greenplum 恢复功能分为 2 大类：master 恢复和 primary(mirror) 恢复。   1、master 恢复当 master 主机出现故障时（monitor 依赖 master，如果 master 出故障，monitor 也出故障），如图： 点击 ACTIONS 中的 Activestandby 按钮，通过 stand">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作">
-<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-ex1-recover-greenplum-md&#x2F;">
+<meta property="og:url" content="101.200.81.233&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-ex1-recover-greenplum-md&#x2F;">
 <meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="当 Greenplum 的组件异常时，可进行恢复操作。Greenplum 恢复功能分为 2 大类：master 恢复和 primary(mirror) 恢复。   1、master 恢复当 master 主机出现故障时（monitor 依赖 master，如果 master 出故障，monitor 也出故障），如图： 点击 ACTIONS 中的 Activestandby 按钮，通过 stand">
 <meta property="og:locale" content="zh_CN">
@@ -48,9 +48,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image173.png">
     
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -67,10 +67,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand">
-        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/MyBlog/img/avatar.jpg">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">winyter</h5>
@@ -82,28 +82,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/"  >
+              <a href="/"  >
                 <i class="icon icon-lg icon-home"></i>
                 Home
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/archives"  >
+              <a href="/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/tags"  >
+              <a href="/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/MyBlog/categories"  >
+              <a href="/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
@@ -157,7 +157,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
             
         </h5>
@@ -188,7 +188,7 @@
             <time class="post-time" title="2020-05-31 17:49:46" datetime="2020-05-31T09:49:46.000Z"  itemprop="datePublished">2020-05-31</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -259,8 +259,8 @@
     </div>
     
     <footer>
-        <a href="https://winyter.github.io/MyBlog">
-            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+        <a href="101.200.81.233">
+            <img src="/img/avatar.jpg" alt="winyter">
             winyter
         </a>
     </footer>
@@ -271,7 +271,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
 
             
@@ -281,7 +281,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -291,22 +291,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&via=101.200.81.233" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -329,7 +329,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/" id="post-prev" class="post-nav-link">
+      <a href="/2020/05/31/ambari-install-guides-11-install-kafka-md/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</h4>
       </a>
@@ -338,7 +338,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/MyBlog/2020/05/31/ambari-install-guides-10-install-greenplum-md/" id="post-next" class="post-nav-link">
+      <a href="/2020/05/31/ambari-install-guides-10-install-greenplum-md/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇十：Ambari 安装 GreenPlum</h4>
       </a>
@@ -390,7 +390,7 @@
 
         <p>
             
-                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -414,7 +414,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -424,22 +424,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&title=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/&via=101.200.81.233" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -450,7 +450,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADOklEQVR42u3aQW7DMAwEwP7/0+21QGtnl3KAWJ6cgsaxNeqB4VJfX/Hr+/T1+5q/3zq62/n78zu01wxf2NjY2Ddh56R2iUd3SP6erDN5yuGdsbGxsbdjt2Um2Yi85OTb2hbRw79jY2NjP5jd/qq/tjS2n2JjY2Njz6KfZJtm29eWPWxsbOznsFei//zTHNwWyzdmadjY2Ngfz25joE9+/5b5NjY2NvYHs1dioPb9Sqi0El3981xsbGzsjdh5AZg1AMnxnaO/tN/N14+NjY29EzuJXfJHtlHOenQ1HE5jY2Njb8SO6lu8WcOWoCxgV7VA2NjY2Huwzy/Kb3q+uHwr62M38UZgY2Nj782e/XxfOcTTMmYT2yhUwsbGxt6CnY8B8nB/9t18xJts0OG/ARsbG/sB7KuGvnkIlQRM7SA56sCwsbGxb85uBwArEc9KocqjriT8wsbGxt6JvR7or4xyV+L+WdEqQiVsbGzsW7HzaGl27CYpV7NClW/fPwUMGxsbewv2+nLbIcHsMFD+3KIFwsbGxt6CPVv0Vft91eA2CZiwsbGxn8CePfhFfFMWp5XhRL4ebGxs7P3YyaLbK9uFtoc42wNGRS+FjY2NfSt2FKOXP/2vbWNmdytG19jY2NibspNmIJ+ZzhqVC+YeyZlTbGxs7Juzc+SswORD4jbYyl/FfxgbGxv7huyVIrRS9lrSeZvxllAJGxsb+ybsdnFtfJM3Dy1yqVHBxsbG3prdNhX5EttQqR1dFAMMbGxs7K3ZecOwcqCnPawzC5gOV46NjY29EbsNevJwZ7YR+XbnlSiakGBjY2PfnN0ezUnahrbl+B698gbpxcEdbGxs7C3YObXdlHb02xa84ZqxsbGxt2MPQ5m4AcgL2KxRqfHY2NjYW7BnP/1XYqZZq9MeFXqxTmxsbOyN2PnrvLwlJTBZXLs1+eGh/P7Y2NjYd2TnRWsWRbXb2h7HyT+tz/tgY2Nj34rdZlHJw9orV9YzzNKwsbGxH8zOt6Pue5ZblKiMYWNjYz+ePQuJzp91QVkKiig2Njb2rux8uFvHN8E1K4d18vALGxsbe1d23hjMovyrSCutztJ8GxsbG/tz2T/BXGkEhF9BZAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACu0lEQVR42u3aS27DMAwFwNz/0uk2QGP7kZRcFxivinxkjQtIzBNfr/h6f1y/X/l8/fPdo3Gqd0m+O7rw8PDwBlM/mvQRIx/zCJk/oPOHezhDPDw8vG2880U8X+gLNw6+NZ8PHh4e3nN457DzEc63n3xjwMPDw/tfvLwgTraEvHTGw8PDew4vCSPyYKIaxSaA7VkLHh4eXicTeE2me+ffW8738PDw8Man6tXIIGkvSKaYHMJFs8XDw8PbwMsX3HyiefGdFNCTR4OHh4d3Jy85wi8EqcXIY7IxfJkDHh4e3lJeUhDPy+hJY0G11eDw/4aHh4e3iFfdBiaTq7Ya5OOUz/fw8PDwBrzz2yRH+/OCePJQLgp6PDw8vA28XhjRi26Tpb/6WKMx8fDw8LbxqptE77grD3l74Fd+Yzw8PLwBr9cClR999ZALimk8PDy8bbx56ZyHFHlQ27sKJTUeHh5ei1dtbJoc+SfBcXJeV266wsPDw1vKm1+9IKAa+446I/Dw8PBu4eULbq9hK79vHiUXHjEeHh7egLeqGM3bBfLnXS3lv8wfDw8P70ZeL26YxAq90vli/nh4eHgbeJP1s1pSJ6S8NaEZPeDh4eGNedXjq15r1CTUqG4JeHh4eLt5vR/5eYhQLcGTFb76Lh4eHt4+XrXFqhrm9qKESaGPh4eH91e83oKeYHY0DVw0EODh4eHdwpuQ8naEd/EqbFp4eHh4t/CaS3AR2Ru/3P6Fh4eHt5Q3WY6TY6pJk2seAR9uEnh4eHgbeL0FNy9qq+0FecNBb9vAw8PDW8XrtTRVt4FkM+htGM0DMDw8PLwxb9KMlZfgk6h3QU8ZHh4e3mN4vSV+MnIhhsDDw8N7DG/eJrVjhGUbAx4eHl7Amxx6VRPU6md6c8bDw8Pbx5v/4J/EFnk7QhIHj8738PDw8K55P7iiIhZuDUgJAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -458,7 +458,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 </script>
