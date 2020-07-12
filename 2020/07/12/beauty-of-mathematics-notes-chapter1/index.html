@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>beauty-of-mathematics-notes-chapter1 | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CS Concept,Math,Reading,Notes">
+    <meta name="description" content="第一章 文字和语言 vs 数字和信息 数字、文字、语言都是信息的载体，他们诞生的目的，是为了让信息更好的传播 1、信息 早期人类利用声音进行通信，和现在最先进的通信，在原理上没有任何差别 信息[信息源]  &gt;&gt;(怪叫声  编码)&gt;&gt;  信息[信道]  &gt;&gt;(听到的声音  解码)&gt;&gt;  信息[接受者] 2、文字和数字 当语言和词汇多到一定程度，人类仅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="beauty-of-mathematics-notes-chapter1">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;07&#x2F;12&#x2F;beauty-of-mathematics-notes-chapter1&#x2F;">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="第一章 文字和语言 vs 数字和信息 数字、文字、语言都是信息的载体，他们诞生的目的，是为了让信息更好的传播 1、信息 早期人类利用声音进行通信，和现在最先进的通信，在原理上没有任何差别 信息[信息源]  &gt;&gt;(怪叫声  编码)&gt;&gt;  信息[信道]  &gt;&gt;(听到的声音  解码)&gt;&gt;  信息[接受者] 2、文字和数字 当语言和词汇多到一定程度，人类仅">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-12T14:37:05.000Z">
+<meta property="article:modified_time" content="2020-07-12T14:41:12.794Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="CS Concept">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Reading">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
+    
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.1.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
+      <div class="brand">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">winyter</h5>
+          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/MyBlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/winyter" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">beauty-of-mathematics-notes-chapter1</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">beauty-of-mathematics-notes-chapter1</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-12T14:37:05.000Z" itemprop="datePublished" class="page-time">
+  2020-07-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Reading-Notes/">Reading Notes</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#第一章-文字和语言-vs-数字和信息"><span class="post-toc-number">1.</span> <span class="post-toc-text">第一章 文字和语言 vs 数字和信息</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、信息"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">1、信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、文字和数字"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">2、文字和数字</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、文字和语言背后的数学"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">3、文字和语言背后的数学</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-beauty-of-mathematics-notes-chapter1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">beauty-of-mathematics-notes-chapter1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-12 22:37:05" datetime="2020-07-12T14:37:05.000Z"  itemprop="datePublished">2020-07-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Reading-Notes/">Reading Notes</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <hr>
+<h2 id="第一章-文字和语言-vs-数字和信息"><a href="#第一章-文字和语言-vs-数字和信息" class="headerlink" title="第一章 文字和语言 vs 数字和信息"></a>第一章 文字和语言 vs 数字和信息</h2><hr>
+<p>数字、文字、语言都是信息的载体，他们诞生的目的，是为了让信息更好的传播</p>
+<h3 id="1、信息"><a href="#1、信息" class="headerlink" title="1、信息"></a>1、信息</h3><hr>
+<p>早期人类利用声音进行通信，和现在最先进的通信，在原理上没有任何差别</p>
+<p>信息[信息源]  &gt;&gt;(怪叫声  编码)&gt;&gt;  信息[信道]  &gt;&gt;(听到的声音  解码)&gt;&gt;  信息[接受者]</p>
+<h3 id="2、文字和数字"><a href="#2、文字和数字" class="headerlink" title="2、文字和数字"></a>2、文字和数字</h3><hr>
+<p>当语言和词汇多到一定程度，人类仅靠大脑已经及部署所有词汇了。于是，高效记录信息的需求就产生了，这就是文字的起源。</p>
+<p>最早便是使用象形文字。但随着文明的进步，所需的文字越来越多，象形文字无法满足需求。于是，就开始了概念的第一次概括和归类（即一词多意）这种聚类，和如今自然语言处理或者机器学习的聚类有很大的相似性。</p>
+<p>但是，文字按照意思来聚类，会带来一些歧义性。而为了消除歧义（Disambiguation），人们便根据上下文来判断词意，这也是今天自然语言处理时，采用的消歧方法。但是，即使根据上下文也总有做不到确定词意的时候，因此，自然语言处理的消歧，也不可能做到 100%判断出准确的词意</p>
+<p>而在文明发展中，因为地域的原因，各个地方产生了不同的文字，而不同地方的人在交流时，就产生了翻译的需求。</p>
+<p>【重要】翻译这件事之所以能达成，仅仅是因为不同的文字系统在记录信息上的能力是等价的。文字只是信息的载体，不同的文字可以描述相同的信息。这是现代通信的基础。</p>
+<p>罗塞塔石碑带来的启示：1、信息的冗余是信息安全的保障；2、语言的数据，即语料，尤其是双语或者多语的对照语料对翻译至关重要，它是我们从事机器翻译研究的基础。</p>
+<p>数字早期和文字一样，都是承载信息的工具。并不具备任何抽象的含义。</p>
+<p>阿拉伯数字或者说印度数字的革命性，不仅在于它的简洁有效，而且标志着数字和文字的分离。这在客观上，让自然语言的研究和数学在几千年里没有重合的轨迹，而且越走越远。</p>
+<h3 id="3、文字和语言背后的数学"><a href="#3、文字和语言背后的数学" class="headerlink" title="3、文字和语言背后的数学"></a>3、文字和语言背后的数学</h3><hr>
+<p>拼音文字(楔形文字)，起源于两河流域，每个形状不同的楔子实际上是不同的字母。如果把中文的笔画作为字母，它也可以看做是一种拼音文字，只不过是二维的。</p>
+<p>随后拼音文字逐渐发展，古希腊人将字母的拼写和读音紧密结合，使得语言更容易学习。最终成为了今天西方拼音文字的起源——罗马式语言（Roman Languages）</p>
+<p>从象形文字到拼音文字是一个飞跃，因为人类在描述物体的方式上，从物体的外表进化到了抽象的概念，同时不自觉的采用了对信息的编码。同时，文字的编码还非常合理，罗马体系文字中，常用字短，生僻字长，而类似汉字的意形文字也是如此，常用字笔画少，生僻字笔画多。这完全符合信息论中的最短编码原理。</p>
+<p>在古代，书写不是一件容易的事，因此，古人说话和如今的白话差别不大，但书面文字却非常简洁。这非常符合如今信息科学和信息工程中的一些基本原理，即在通行中，如果信道较宽，信息不必压缩就可以直接进行传递；而如果信道较窄，则信息在传递前需要尽可能地压缩。</p>
+<p>犹太人在抄写《圣经》时，为了防止抄错，发明了类似今天计算机和通信中校验码的方法，即每个字母对应一个数字，每行将这些数字相加，获得一个特殊的数字，每抄完一页，对这些数字进行校验，这既能防止抄错，也能在抄错时，快速定位错误位置。这和如今各种校验的原理是相同的。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-07-12T14:41:12.794Z" itemprop="dateUpdated">2020-07-12 22:41:12</time>
+</span><br>
+
+
+        
+        Copyright Info
+        
+    </div>
+    
+    <footer>
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
+            winyter
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/CS-Concept/" rel="tag">CS Concept</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Math/" rel="tag">Math</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Notes/" rel="tag">Notes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Reading/" rel="tag">Reading</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&title=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&title=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MyBlog/2020/06/09/centos7x-install-guide/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 7x 操作系统安装指南</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>winyter &copy; 2019 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&title=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&title=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《beauty-of-mathematics-notes-chapter1》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqElEQVR42u3awW4iMRAE0Pz/T2evkRZIVbeNiPTmhAaw5/lge8r99RVf3z+u5DfPrtdt/v/52beHLzw8PLzFoz97oPZOQsofPe/rQTt4eHh413jPGk1+0079bWv5cODh4eH9FV67MGy26Xh4eHh/kfe6m9fg9j4eHh7eJ/Pa5pIQNp/cN1vzY1kLHh4eXszLT5E+5/OV8z08PDy89al6O6HnkUQ7fLMLDw8P7wYvn3DzDXQeBOcTfTtMeHh4ePd4Z+OGZNJ/fX9W+PX0Mx4eHt5l3uspeHZYNYt6NwNUjB8eHh7eiLcpdXrdZcvIw4vNf/Hw8PD2vKRkahYx5PiLFx4eHt5beHk0kC8Ps1AjDyN+Od/Dw8PDO8qbHVbl0Wq+Xb4RCuPh4eHd4LWT7yxQaGGbMOLBARgeHh7eUd5mA90uALMy1v0yhoeHh3eDl7/kz47883KEfbECHh4e3vt5m1C1PXWaLUuvwas6CDw8PLyAN+tsEy5s4oakl19WPDw8PLxDvM2x1myRiILXEvygZTw8PLwLvLbjGbgNbZNBP/D2gIeHh7fg7ZeB2aOfbb+IJPDw8PDWvFk37XDMygJORcB4eHh493hJBNBGA21ZQDvpD4cSDw8Pb81riwP20WpeHNB+W7w34OHh4Y147UFUu7VNNt/5hjjpZbgs4uHh4ZW8+m9lLJv8q12Q8PDw8D6HNzvgT9o5FWcUCxseHh7eUd53ebVRb7u0bKrGHiDx8PDwLvDa4/wkVM3vtOHFrIgBDw8P7wbvbPy632rvFwY8PDy89/BmUeysy3bbfSBrwcPDw/sAXr7tnj1cGz0cXhjw8PDwjvLqTe0imJhtvvHw8PDew8uDgHy7nE/x+URfl17h4eHhXeC1L/yboqt2ablSKICHh4c35/0DdvlUufGRwr0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
