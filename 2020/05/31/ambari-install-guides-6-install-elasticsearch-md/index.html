@@ -24,7 +24,7 @@
     <meta name="description" content="1、准备工作 确认 ES 版本，以及 ES 部署规划 确认 ES 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 ES 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下 如果版本包未上传">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch">
-<meta property="og:url" content="101.200.81.233&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-6-install-elasticsearch-md&#x2F;">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;31&#x2F;ambari-install-guides-6-install-elasticsearch-md&#x2F;">
 <meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="1、准备工作 确认 ES 版本，以及 ES 部署规划 确认 ES 的安装包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;www&#x2F;html&#x2F;ambari&#x2F;extend 路径下 确认 ES 服务包是否已经上传到 Ambari Server 节点的 &#x2F;var&#x2F;lib&#x2F;ambari-server&#x2F;resources&#x2F;stacks&#x2F;HDP&#x2F;2.6&#x2F;services 路径下 如果版本包未上传">
 <meta property="og:locale" content="zh_CN">
@@ -49,9 +49,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;ambari-install-guide_image97.png">
     
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -68,10 +68,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
       <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">winyter</h5>
@@ -83,28 +83,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/MyBlog/"  >
                 <i class="icon icon-lg icon-home"></i>
                 Home
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/MyBlog/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/MyBlog/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/MyBlog/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
@@ -158,7 +158,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
             
         </h5>
@@ -189,7 +189,7 @@
             <time class="post-time" title="2020-05-31 17:42:37" datetime="2020-05-31T09:42:37.000Z"  itemprop="datePublished">2020-05-31</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Ambari/">Ambari</a></li></ul></li></ul></li></ul>
 
 
 
@@ -287,8 +287,8 @@
     </div>
     
     <footer>
-        <a href="101.200.81.233">
-            <img src="/img/avatar.jpg" alt="winyter">
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
             winyter
         </a>
     </footer>
@@ -299,7 +299,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Ambari/" rel="tag">Ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li></ul>
 
 
             
@@ -309,7 +309,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -319,22 +319,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=101.200.81.233" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -357,7 +357,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/05/31/ambari-install-guides-7-install-hbase-md/" id="post-prev" class="post-nav-link">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-7-install-hbase-md/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇七：Ambari 安装 HBase</h4>
       </a>
@@ -366,7 +366,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2020/05/31/ambari-install-guides-5-install-yarn-md/" id="post-next" class="post-nav-link">
+      <a href="/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</h4>
       </a>
@@ -418,7 +418,7 @@
 
         <p>
             
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -442,7 +442,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -452,22 +452,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&title=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=101.200.81.233" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -478,7 +478,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvklEQVR42u3a0WrrMBAE0P7/T7dwnwol9syulfbC8VNw0khHBWszq4+P+Pr8d31//f1Ocj+5c33/57uPXXh4eHijqb+6Xk3oevjke9px27/Fw8PDO81LNoPr18lGkj/6r7eiZFw8PDy8v8DLh8kX4rqkxsPDw/vfeflgyXSvv21T4uPh4eG9h5d8XVv4tltFO+7DWQseHh5ezJs1wH739fH+Hh4eHt6oq94WtW2UkG8hs9ni4eHhneDlg7XD53FwflygjXTx8PDwTvCSH/P5BpDHB3mkO/s33Ox7eHh4eGte2wxLHtB14VsuwbCzh4eHh7fm5SXs6gG92ELy7apOoPHw8PBGvDYCaHtMbZHdHq66+SQeHh7eAV470U1bq40nZsHu6mQZHh4eXsB7qpieHZlql6aOlfHw8PAO8/ZDtiFCG3PUh7fw8PDwDvBOTK7dZtp2Wrv0eHh4eM/ykjggCSau49r2Ed8GwS+/GQ8PD+8Yr53ihpH0+ttDCfUvBjw8PLwFLz8CtV+COkQ4fXQADw8Pb83LP5REFbPYd3+IIfof4uHh4a15T0UAs+ihXb76XTw8PLxHee0BqX1MsGlr5aX2zVTw8PDwFrw80s2L6WQ7mYUUSamNh4eH9x7eDNYWxLPSuW3X4eHh4b2H10YPbTsqf5Tny1c3w/Dw8PCO8Yo2/Ig3e2LvjzLg4eHhPcvbRKub1tcMlpfaeHh4eKd5yQ/7tmjO49o8wsg3Kjw8PLwTvM/ympXCswMHD4yIh4eHd4A33ElGBwvysGMfSew2Sjw8PLx73j4gmAXB+caTbAwvR8fDw8M7xmtbYm1Em09o336LkmY8PDy8X+XlgW/eyprFyjdHB/Dw8PDezmsD2aSMbkfPS208PDy807xNs/+pMHc2ys2i4+Hh4R3gtQ2wNkrYHL3ax8F4eHh4j/K+AE6wK/C+vxwqAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADM0lEQVR42u3aQW7CQAwF0N7/0nRdqUm+7SAR87JCFCZ504Xx9/z8xNcruI4+max89DpZJ7lL88LGxsZ+CLuHOXrc83fy988/k2/W4frY2NjY69h5aanWhfxeR4C8vCUWbGxsbOzkoXulMS+H1efExsbGxj5/lHNGHgPl0VW+ZdjY2Njfw57ERtVNqTYwydO+MUvDxsbG/nh2HhV9/uu3zLexsbGxP5j9Kl556aoOiXtFrndhY2Njb2LnBSAfu+bNSR5F9bbpYoCBjY2NvYKdR/D5cZxePNSLrprDaWxsbOzV7PPhaDWUr25uPqZN/hmFDgwbGxt7BTu5weS4TH6Ip3DsJm6T/rzGxsbGXsee/D7vNRVJazEfGFyEStjY2NiL2JO24a5ik6yWFMJo47CxsbHXsfOikvzQ721idcvyQcJhqISNjY29gn1XGzB5pxcPna+W3xEbGxt7K/t9Mf28mJ2PdfPPYGNjY+9gF4ajQSjf275ka3rrHxYwbGxs7EXs6g/6/MZ5mZmPJZqHPrGxsbFXsHtxTDWySR5rMh6olltsbGzsrez5QZwkWkreyctY3iBddGDY2NjYD2fPG4De/PSuwXA5bMLGxsZexO5FSMm3JtHPZLVyYcbGxsZ+OLsX30zag+qQYDT3wMbGxv4Cdg9cDYnKD1FcITnoc1GSsbGxsR/LzgG90P8u0uSOh2eUsLGxsVewe0UoKSR5GNRDVocNUZaGjY2N/XB2bwCQf6saKuVFqDpawMbGxv4Gdl48klKUtxmFuXTx7oVEDRsbG/uB7El5uOtYz2Sc0PwuNjY29mp2MtDttSX5EGJSJqOGBBsbG3sduzrczY/d3FUgq5+8+JdgY2Njr2PnMXqvecgjpOqwodoCYWNjY29iv4pXfhSmOtzNI6dquf3nu9jY2NiL2NWIP9+aamGbFM7epmBjY2NvYudFaxJCVQcJk8NAUeOEjY2NvY7dDNnjv+YHbiarlbM0bGxs7K9n50PZ6tUbWhSKHzY2NvYXs/ORbV6cbitLednDxsbGXsfOh7vzFiKJ+O86atk8uIONjY39KHZeAPLyNjmamdy316hgY2Njr2P/Av3MDDfmk7CAAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -486,7 +486,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
 
 
 </script>

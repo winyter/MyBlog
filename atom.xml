@@ -3,11 +3,11 @@
   <title>花不醉的小花园</title>
   
   <subtitle>携一生所爱，看遍世间美好</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/MyBlog/atom.xml" rel="self"/>
   
-  <link href="101.200.81.233/"/>
+  <link href="https://winyter.github.io/MyBlog/"/>
   <updated>2020-07-12T14:54:43.796Z</updated>
-  <id>101.200.81.233/</id>
+  <id>https://winyter.github.io/MyBlog/</id>
   
   <author>
     <name>winyter</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>《数学之美》笔记系列——第一章</title>
-    <link href="101.200.81.233/2020/07/12/beauty-of-mathematics-notes-chapter1/"/>
-    <id>101.200.81.233/2020/07/12/beauty-of-mathematics-notes-chapter1/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/"/>
+    <id>https://winyter.github.io/MyBlog/2020/07/12/beauty-of-mathematics-notes-chapter1/</id>
     <published>2020-07-12T14:37:05.000Z</published>
     <updated>2020-07-12T14:54:43.796Z</updated>
     
@@ -36,25 +36,25 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Reading Notes" scheme="101.200.81.233/categories/CS-Concept/Reading-Notes/"/>
+      <category term="Reading Notes" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Reading-Notes/"/>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/tags/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/tags/CS-Concept/"/>
     
-      <category term="Math" scheme="101.200.81.233/tags/Math/"/>
+      <category term="Math" scheme="https://winyter.github.io/MyBlog/tags/Math/"/>
     
-      <category term="Reading" scheme="101.200.81.233/tags/Reading/"/>
+      <category term="Reading" scheme="https://winyter.github.io/MyBlog/tags/Reading/"/>
     
-      <category term="Notes" scheme="101.200.81.233/tags/Notes/"/>
+      <category term="Notes" scheme="https://winyter.github.io/MyBlog/tags/Notes/"/>
     
   </entry>
   
   <entry>
     <title>CentOS 7x 操作系统安装指南</title>
-    <link href="101.200.81.233/2020/06/09/centos7x-install-guide/"/>
-    <id>101.200.81.233/2020/06/09/centos7x-install-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/06/09/centos7x-install-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/06/09/centos7x-install-guide/</id>
     <published>2020-06-09T15:07:00.000Z</published>
     <updated>2020-06-09T15:08:23.180Z</updated>
     
@@ -71,25 +71,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="Unix" scheme="101.200.81.233/categories/CS-Soft/OS/Unix/"/>
+      <category term="Unix" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/Unix/"/>
     
-      <category term="Linux" scheme="101.200.81.233/categories/CS-Soft/OS/Unix/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/Unix/Linux/"/>
     
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
-      <category term="OS" scheme="101.200.81.233/tags/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/tags/OS/"/>
     
   </entry>
   
   <entry>
     <title>Homebrew 安装指南</title>
-    <link href="101.200.81.233/2020/06/09/homebrew-install-guide/"/>
-    <id>101.200.81.233/2020/06/09/homebrew-install-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/06/09/homebrew-install-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/06/09/homebrew-install-guide/</id>
     <published>2020-06-09T15:03:51.000Z</published>
     <updated>2020-06-09T15:06:36.011Z</updated>
     
@@ -109,21 +109,21 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Homebrew" scheme="101.200.81.233/categories/CS-Soft/Homebrew/"/>
+      <category term="Homebrew" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Homebrew/"/>
     
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十六：Ambari 管理</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-16-ambari-manage-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-16-ambari-manage-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-16-ambari-manage-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-16-ambari-manage-md/</id>
     <published>2020-05-31T09:57:46.000Z</published>
     <updated>2020-05-31T09:58:15.451Z</updated>
     
@@ -140,23 +140,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十五：手动安装 Kafka Manager</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-15-install-kafka-manager-md/</id>
     <published>2020-05-31T09:55:31.000Z</published>
     <updated>2020-05-31T09:55:56.714Z</updated>
     
@@ -176,23 +176,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十四：手动安装Spark</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-14-install-spark-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-14-install-spark-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-14-install-spark-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-14-install-spark-md/</id>
     <published>2020-05-31T09:54:08.000Z</published>
     <updated>2020-05-31T09:54:35.809Z</updated>
     
@@ -209,23 +209,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十三：Ambari 安装 Impala</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-13-install-impala-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-13-install-impala-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-13-install-impala-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-13-install-impala-md/</id>
     <published>2020-05-31T09:53:13.000Z</published>
     <updated>2020-05-31T09:53:38.982Z</updated>
     
@@ -244,23 +244,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十二：Ambari 安装 Neo4j</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-12-install-neo4j-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-12-install-neo4j-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-12-install-neo4j-md/</id>
     <published>2020-05-31T09:52:10.000Z</published>
     <updated>2020-05-31T09:52:35.665Z</updated>
     
@@ -279,23 +279,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十一：Ambari 安装 Kafka</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-11-install-kafka-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-11-install-kafka-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-11-install-kafka-md/</id>
     <published>2020-05-31T09:51:14.000Z</published>
     <updated>2020-05-31T09:51:41.625Z</updated>
     
@@ -314,23 +314,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——番外一：Greenplum 恢复操作</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-ex1-recover-greenplum-md/</id>
     <published>2020-05-31T09:49:46.000Z</published>
     <updated>2020-05-31T09:50:22.048Z</updated>
     
@@ -350,23 +350,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇十：Ambari 安装 GreenPlum</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-10-install-greenplum-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-10-install-greenplum-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-10-install-greenplum-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-10-install-greenplum-md/</id>
     <published>2020-05-31T09:47:55.000Z</published>
     <updated>2020-05-31T09:48:24.558Z</updated>
     
@@ -385,23 +385,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇九：Ambari 安装 Redis</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-9-install-redis-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-9-install-redis-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-9-install-redis-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-9-install-redis-md/</id>
     <published>2020-05-31T09:46:56.000Z</published>
     <updated>2020-05-31T09:47:22.804Z</updated>
     
@@ -420,23 +420,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇八：Ambari 安装 Hive</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-8-install-hive-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-8-install-hive-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-8-install-hive-md/</id>
     <published>2020-05-31T09:44:35.000Z</published>
     <updated>2020-05-31T09:45:18.355Z</updated>
     
@@ -455,23 +455,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇七：Ambari 安装 HBase</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-7-install-hbase-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-7-install-hbase-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-7-install-hbase-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-7-install-hbase-md/</id>
     <published>2020-05-31T09:43:42.000Z</published>
     <updated>2020-05-31T09:44:15.963Z</updated>
     
@@ -490,23 +490,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇六：Ambari 安装 ElasticSearch</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-6-install-elasticsearch-md/</id>
     <published>2020-05-31T09:42:37.000Z</published>
     <updated>2020-05-31T09:43:11.500Z</updated>
     
@@ -525,23 +525,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇五：Ambari 安装 YARN</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-5-install-yarn-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-5-install-yarn-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-5-install-yarn-md/</id>
     <published>2020-05-31T09:40:24.000Z</published>
     <updated>2020-05-31T09:41:05.393Z</updated>
     
@@ -558,23 +558,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇二：环境准备</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-2-environment-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-2-environment-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-2-environment-md/</id>
     <published>2020-05-31T09:19:20.000Z</published>
     <updated>2020-06-09T15:14:53.817Z</updated>
     
@@ -592,23 +592,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇一：基本介绍</title>
-    <link href="101.200.81.233/2020/05/31/ambari-install-guides-1-introduction-md/"/>
-    <id>101.200.81.233/2020/05/31/ambari-install-guides-1-introduction-md/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/</id>
     <published>2020-05-31T09:15:27.000Z</published>
     <updated>2020-05-31T09:39:42.199Z</updated>
     
@@ -627,23 +627,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>YARN fair-scheduler 资源调度介绍及配置</title>
-    <link href="101.200.81.233/2020/05/23/yarn-fair-scheduler-guide/"/>
-    <id>101.200.81.233/2020/05/23/yarn-fair-scheduler-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/</id>
     <published>2020-05-23T01:59:14.000Z</published>
     <updated>2020-05-23T02:12:39.104Z</updated>
     
@@ -660,25 +660,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Hadoop" scheme="101.200.81.233/categories/CS-Soft/Server/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Hadoop/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Yarn" scheme="101.200.81.233/tags/Yarn/"/>
+      <category term="Yarn" scheme="https://winyter.github.io/MyBlog/tags/Yarn/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</title>
-    <link href="101.200.81.233/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/"/>
-    <id>101.200.81.233/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/</id>
     <published>2020-05-21T12:00:17.000Z</published>
     <updated>2020-05-31T09:37:57.487Z</updated>
     
@@ -696,23 +696,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>基于 Ambari 的大数据集群安装指导——篇四：Ambari 安装 HDFS</title>
-    <link href="101.200.81.233/2020/05/21/ambari-install-guides-4-install-hdfs/"/>
-    <id>101.200.81.233/2020/05/21/ambari-install-guides-4-install-hdfs/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/"/>
+    <id>https://winyter.github.io/MyBlog/2020/05/21/ambari-install-guides-4-install-hdfs/</id>
     <published>2020-05-21T12:00:17.000Z</published>
     <updated>2020-05-31T09:39:32.877Z</updated>
     
@@ -729,23 +729,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Ambari" scheme="101.200.81.233/categories/CS-Soft/Server/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Ambari/"/>
     
     
-      <category term="Ambari" scheme="101.200.81.233/tags/Ambari/"/>
+      <category term="Ambari" scheme="https://winyter.github.io/MyBlog/tags/Ambari/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/tags/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/tags/Bigdata/"/>
     
   </entry>
   
   <entry>
     <title>Linux命令集锦【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/UNIX-commands-collection/"/>
-    <id>101.200.81.233/2020/04/19/UNIX-commands-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/UNIX-commands-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/UNIX-commands-collection/</id>
     <published>2020-04-19T06:49:43.000Z</published>
     <updated>2020-04-19T07:44:14.686Z</updated>
     
@@ -762,27 +762,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
     
-      <category term="Collection" scheme="101.200.81.233/tags/Collection/"/>
+      <category term="Collection" scheme="https://winyter.github.io/MyBlog/tags/Collection/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/tags/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/tags/UNIX/"/>
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
-      <category term="Commands" scheme="101.200.81.233/tags/Commands/"/>
+      <category term="Commands" scheme="https://winyter.github.io/MyBlog/tags/Commands/"/>
     
   </entry>
   
   <entry>
     <title>MacOS 快捷键记录【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/MacOS-hotkey-collection/"/>
-    <id>101.200.81.233/2020/04/19/MacOS-hotkey-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/MacOS-hotkey-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/MacOS-hotkey-collection/</id>
     <published>2020-04-19T06:45:04.000Z</published>
     <updated>2020-04-19T07:43:06.195Z</updated>
     
@@ -803,27 +803,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/MacOS/"/>
     
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
-      <category term="Hotkey" scheme="101.200.81.233/tags/Hotkey/"/>
+      <category term="Hotkey" scheme="https://winyter.github.io/MyBlog/tags/Hotkey/"/>
     
-      <category term="Collection" scheme="101.200.81.233/tags/Collection/"/>
+      <category term="Collection" scheme="https://winyter.github.io/MyBlog/tags/Collection/"/>
     
   </entry>
   
   <entry>
     <title>网站配置 DNS 时，各类符号的含义</title>
-    <link href="101.200.81.233/2020/04/19/dns-config-parameters-introduction/"/>
-    <id>101.200.81.233/2020/04/19/dns-config-parameters-introduction/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/dns-config-parameters-introduction/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/dns-config-parameters-introduction/</id>
     <published>2020-04-19T05:47:41.000Z</published>
     <updated>2020-04-19T07:45:51.404Z</updated>
     
@@ -842,23 +842,23 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Basic" scheme="101.200.81.233/categories/CS-Concept/Basic/"/>
+      <category term="Basic" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Basic/"/>
     
-      <category term="Network" scheme="101.200.81.233/categories/CS-Concept/Basic/Network/"/>
+      <category term="Network" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Basic/Network/"/>
     
     
-      <category term="Website" scheme="101.200.81.233/tags/Website/"/>
+      <category term="Website" scheme="https://winyter.github.io/MyBlog/tags/Website/"/>
     
-      <category term="DNS" scheme="101.200.81.233/tags/DNS/"/>
+      <category term="DNS" scheme="https://winyter.github.io/MyBlog/tags/DNS/"/>
     
   </entry>
   
   <entry>
     <title>靠谱的数据来源和数据统计平台</title>
-    <link href="101.200.81.233/2020/04/19/data-resource-platform/"/>
-    <id>101.200.81.233/2020/04/19/data-resource-platform/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/data-resource-platform/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/data-resource-platform/</id>
     <published>2020-04-19T05:43:59.000Z</published>
     <updated>2020-04-19T07:45:02.744Z</updated>
     
@@ -876,17 +876,17 @@
     </summary>
     
     
-      <category term="Source" scheme="101.200.81.233/categories/Source/"/>
+      <category term="Source" scheme="https://winyter.github.io/MyBlog/categories/Source/"/>
     
     
-      <category term="Data_Resource" scheme="101.200.81.233/tags/Data-Resource/"/>
+      <category term="Data_Resource" scheme="https://winyter.github.io/MyBlog/tags/Data-Resource/"/>
     
   </entry>
   
   <entry>
     <title>ES新建索引分片失败&quot;shards_acknowledged&quot;：false的解决</title>
-    <link href="101.200.81.233/2020/04/19/ERRORS-ES-shards-acknowledged-false/"/>
-    <id>101.200.81.233/2020/04/19/ERRORS-ES-shards-acknowledged-false/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/ERRORS-ES-shards-acknowledged-false/</id>
     <published>2020-04-19T05:41:56.000Z</published>
     <updated>2020-04-19T07:40:28.575Z</updated>
     
@@ -902,21 +902,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Big Data" scheme="101.200.81.233/categories/CS-Concept/Big-Data/"/>
+      <category term="Big Data" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Big-Data/"/>
     
     
-      <category term="ERROR" scheme="101.200.81.233/tags/ERROR/"/>
+      <category term="ERROR" scheme="https://winyter.github.io/MyBlog/tags/ERROR/"/>
     
-      <category term="ES" scheme="101.200.81.233/tags/ES/"/>
+      <category term="ES" scheme="https://winyter.github.io/MyBlog/tags/ES/"/>
     
   </entry>
   
   <entry>
     <title>Linux NFS挂载共享文件</title>
-    <link href="101.200.81.233/2020/04/19/linux-NFS-mount-guide/"/>
-    <id>101.200.81.233/2020/04/19/linux-NFS-mount-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/linux-NFS-mount-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/linux-NFS-mount-guide/</id>
     <published>2020-04-19T05:35:35.000Z</published>
     <updated>2020-04-19T07:49:25.285Z</updated>
     
@@ -934,25 +934,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
-      <category term="Linux" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/Linux/"/>
     
     
-      <category term="Tool" scheme="101.200.81.233/tags/Tool/"/>
+      <category term="Tool" scheme="https://winyter.github.io/MyBlog/tags/Tool/"/>
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>VIM 编辑器用法大全【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/vim-editor-guide/"/>
-    <id>101.200.81.233/2020/04/19/vim-editor-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/vim-editor-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/vim-editor-guide/</id>
     <published>2020-04-19T05:34:14.000Z</published>
     <updated>2020-04-19T07:51:26.487Z</updated>
     
@@ -970,23 +970,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="OS" scheme="101.200.81.233/categories/CS-Soft/OS/"/>
+      <category term="OS" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/"/>
     
-      <category term="UNIX" scheme="101.200.81.233/categories/CS-Soft/OS/UNIX/"/>
+      <category term="UNIX" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/OS/UNIX/"/>
     
     
-      <category term="Linux" scheme="101.200.81.233/tags/Linux/"/>
+      <category term="Linux" scheme="https://winyter.github.io/MyBlog/tags/Linux/"/>
     
-      <category term="VIM" scheme="101.200.81.233/tags/VIM/"/>
+      <category term="VIM" scheme="https://winyter.github.io/MyBlog/tags/VIM/"/>
     
   </entry>
   
   <entry>
     <title>Hive操作集锦【持续更新】</title>
-    <link href="101.200.81.233/2020/04/19/hive-commands-collection/"/>
-    <id>101.200.81.233/2020/04/19/hive-commands-collection/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/04/19/hive-commands-collection/"/>
+    <id>https://winyter.github.io/MyBlog/2020/04/19/hive-commands-collection/</id>
     <published>2020-04-19T05:30:29.000Z</published>
     <updated>2020-04-19T07:48:38.611Z</updated>
     
@@ -1003,21 +1003,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Hive" scheme="101.200.81.233/tags/Hive/"/>
+      <category term="Hive" scheme="https://winyter.github.io/MyBlog/tags/Hive/"/>
     
   </entry>
   
   <entry>
     <title>华为FusionInsight大数据集群关系型数据库——Libra入门</title>
-    <link href="101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/"/>
-    <id>101.200.81.233/2020/01/08/FusionInsight-Libra-introduction/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/FusionInsight-Libra-introduction/</id>
     <published>2020-01-07T16:46:51.000Z</published>
     <updated>2020-04-19T07:42:05.319Z</updated>
     
@@ -1034,29 +1034,29 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="HW-FusionInsight" scheme="101.200.81.233/categories/CS-Soft/Server/HW-FusionInsight/"/>
+      <category term="HW-FusionInsight" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/HW-FusionInsight/"/>
     
     
-      <category term="Libra" scheme="101.200.81.233/tags/Libra/"/>
+      <category term="Libra" scheme="https://winyter.github.io/MyBlog/tags/Libra/"/>
     
-      <category term="FusionInsight" scheme="101.200.81.233/tags/FusionInsight/"/>
+      <category term="FusionInsight" scheme="https://winyter.github.io/MyBlog/tags/FusionInsight/"/>
     
-      <category term="PostgreSQL" scheme="101.200.81.233/tags/PostgreSQL/"/>
+      <category term="PostgreSQL" scheme="https://winyter.github.io/MyBlog/tags/PostgreSQL/"/>
     
-      <category term="MPP" scheme="101.200.81.233/tags/MPP/"/>
+      <category term="MPP" scheme="https://winyter.github.io/MyBlog/tags/MPP/"/>
     
-      <category term="BigData" scheme="101.200.81.233/tags/BigData/"/>
+      <category term="BigData" scheme="https://winyter.github.io/MyBlog/tags/BigData/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇五：Kafka</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-kafka/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-kafka/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-kafka/</id>
     <published>2020-01-07T16:46:17.000Z</published>
     <updated>2020-04-19T07:48:00.225Z</updated>
     
@@ -1073,21 +1073,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Kafka" scheme="101.200.81.233/tags/Kafka/"/>
+      <category term="Kafka" scheme="https://winyter.github.io/MyBlog/tags/Kafka/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇六：其他组件简介</title>
-    <link href="101.200.81.233/2020/01/08/hadoop-other/"/>
-    <id>101.200.81.233/2020/01/08/hadoop-other/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/08/hadoop-other/</id>
     <published>2020-01-07T16:46:01.000Z</published>
     <updated>2020-04-19T07:48:14.777Z</updated>
     
@@ -1104,29 +1104,29 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Redis" scheme="101.200.81.233/tags/Redis/"/>
+      <category term="Redis" scheme="https://winyter.github.io/MyBlog/tags/Redis/"/>
     
-      <category term="Flink" scheme="101.200.81.233/tags/Flink/"/>
+      <category term="Flink" scheme="https://winyter.github.io/MyBlog/tags/Flink/"/>
     
-      <category term="Zookeeper" scheme="101.200.81.233/tags/Zookeeper/"/>
+      <category term="Zookeeper" scheme="https://winyter.github.io/MyBlog/tags/Zookeeper/"/>
     
-      <category term="Yarn" scheme="101.200.81.233/tags/Yarn/"/>
+      <category term="Yarn" scheme="https://winyter.github.io/MyBlog/tags/Yarn/"/>
     
-      <category term="Mapreduce" scheme="101.200.81.233/tags/Mapreduce/"/>
+      <category term="Mapreduce" scheme="https://winyter.github.io/MyBlog/tags/Mapreduce/"/>
     
   </entry>
   
   <entry>
     <title>MacOS 安装 Hexo 时提示 EACCES 时的解决方法</title>
-    <link href="101.200.81.233/2020/01/06/ERRORS-hexo-MacOS-EACCES/"/>
-    <id>101.200.81.233/2020/01/06/ERRORS-hexo-MacOS-EACCES/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/ERRORS-hexo-MacOS-EACCES/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/ERRORS-hexo-MacOS-EACCES/</id>
     <published>2020-01-05T16:19:44.000Z</published>
     <updated>2020-04-19T07:41:01.410Z</updated>
     
@@ -1142,27 +1142,27 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Client" scheme="101.200.81.233/categories/CS-Soft/Client/"/>
+      <category term="Client" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/"/>
     
-      <category term="Hexo" scheme="101.200.81.233/categories/CS-Soft/Client/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/Hexo/"/>
     
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Tool" scheme="101.200.81.233/tags/Tool/"/>
+      <category term="Tool" scheme="https://winyter.github.io/MyBlog/tags/Tool/"/>
     
-      <category term="MacOS" scheme="101.200.81.233/tags/MacOS/"/>
+      <category term="MacOS" scheme="https://winyter.github.io/MyBlog/tags/MacOS/"/>
     
-      <category term="ERROR" scheme="101.200.81.233/tags/ERROR/"/>
+      <category term="ERROR" scheme="https://winyter.github.io/MyBlog/tags/ERROR/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇四：HDFS</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-HDFS/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-HDFS/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-HDFS/</id>
     <published>2020-01-05T16:17:10.000Z</published>
     <updated>2020-04-19T07:47:07.804Z</updated>
     
@@ -1179,21 +1179,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="HDFS" scheme="101.200.81.233/tags/HDFS/"/>
+      <category term="HDFS" scheme="https://winyter.github.io/MyBlog/tags/HDFS/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇三：Hive</title>
-    <link href="101.200.81.233/2020/01/06/hadoop-hive/"/>
-    <id>101.200.81.233/2020/01/06/hadoop-hive/</id>
+    <link href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/"/>
+    <id>https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/</id>
     <published>2020-01-05T16:14:47.000Z</published>
     <updated>2020-04-19T07:47:49.693Z</updated>
     
@@ -1210,21 +1210,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="Hive" scheme="101.200.81.233/tags/Hive/"/>
+      <category term="Hive" scheme="https://winyter.github.io/MyBlog/tags/Hive/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇二：ElasticSearch</title>
-    <link href="101.200.81.233/2019/12/27/hadoop-elasticsearch/"/>
-    <id>101.200.81.233/2019/12/27/hadoop-elasticsearch/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/</id>
     <published>2019-12-26T16:35:11.000Z</published>
     <updated>2020-04-19T07:47:31.426Z</updated>
     
@@ -1240,21 +1240,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
-      <category term="ElasticSearch" scheme="101.200.81.233/tags/ElasticSearch/"/>
+      <category term="ElasticSearch" scheme="https://winyter.github.io/MyBlog/tags/ElasticSearch/"/>
     
   </entry>
   
   <entry>
     <title>HBase Shell 过滤器 —— HBase Shell Filter</title>
-    <link href="101.200.81.233/2019/12/25/hbase-shell-filter/"/>
-    <id>101.200.81.233/2019/12/25/hbase-shell-filter/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hbase-shell-filter/</id>
     <published>2019-12-25T15:29:33.000Z</published>
     <updated>2020-04-19T07:48:24.745Z</updated>
     
@@ -1271,21 +1271,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>Hadoop快速入门系列——篇一：HBase入门</title>
-    <link href="101.200.81.233/2019/12/25/hadoop-hbase/"/>
-    <id>101.200.81.233/2019/12/25/hadoop-hbase/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/25/hadoop-hbase/</id>
     <published>2019-12-25T15:01:04.000Z</published>
     <updated>2020-04-19T07:47:40.034Z</updated>
     
@@ -1302,21 +1302,21 @@
     </summary>
     
     
-      <category term="CS Concept" scheme="101.200.81.233/categories/CS-Concept/"/>
+      <category term="CS Concept" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/"/>
     
-      <category term="Bigdata" scheme="101.200.81.233/categories/CS-Concept/Bigdata/"/>
+      <category term="Bigdata" scheme="https://winyter.github.io/MyBlog/categories/CS-Concept/Bigdata/"/>
     
     
-      <category term="HBase" scheme="101.200.81.233/tags/HBase/"/>
+      <category term="HBase" scheme="https://winyter.github.io/MyBlog/tags/HBase/"/>
     
-      <category term="Hadoop" scheme="101.200.81.233/tags/Hadoop/"/>
+      <category term="Hadoop" scheme="https://winyter.github.io/MyBlog/tags/Hadoop/"/>
     
   </entry>
   
   <entry>
     <title>网站推荐（持续更新哟）</title>
-    <link href="101.200.81.233/2019/12/23/webpage-recommend/"/>
-    <id>101.200.81.233/2019/12/23/webpage-recommend/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/webpage-recommend/</id>
     <published>2019-12-22T16:14:43.000Z</published>
     <updated>2020-04-19T07:51:58.930Z</updated>
     
@@ -1332,15 +1332,15 @@
     </summary>
     
     
-      <category term="Source" scheme="101.200.81.233/categories/Source/"/>
+      <category term="Source" scheme="https://winyter.github.io/MyBlog/categories/Source/"/>
     
     
   </entry>
   
   <entry>
     <title>PostgreSQL表间复制数据</title>
-    <link href="101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
-    <id>101.200.81.233/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/</id>
     <published>2019-12-22T16:08:01.000Z</published>
     <updated>2020-04-19T07:50:34.144Z</updated>
     
@@ -1357,25 +1357,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Postgre" scheme="101.200.81.233/categories/CS-Soft/Server/Postgre/"/>
+      <category term="Postgre" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/"/>
     
     
-      <category term="Postgre" scheme="101.200.81.233/tags/Postgre/"/>
+      <category term="Postgre" scheme="https://winyter.github.io/MyBlog/tags/Postgre/"/>
     
-      <category term="SQL" scheme="101.200.81.233/tags/SQL/"/>
+      <category term="SQL" scheme="https://winyter.github.io/MyBlog/tags/SQL/"/>
     
-      <category term="Database" scheme="101.200.81.233/tags/Database/"/>
+      <category term="Database" scheme="https://winyter.github.io/MyBlog/tags/Database/"/>
     
   </entry>
   
   <entry>
     <title>Shell脚本实现FTP文件增量传输</title>
-    <link href="101.200.81.233/2019/12/19/ftp-increment-download-with-shell/"/>
-    <id>101.200.81.233/2019/12/19/ftp-increment-download-with-shell/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/19/ftp-increment-download-with-shell/</id>
     <published>2019-12-19T11:29:51.000Z</published>
     <updated>2020-04-19T07:46:35.366Z</updated>
     
@@ -1393,25 +1393,25 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Language" scheme="101.200.81.233/categories/CS-Soft/Language/"/>
+      <category term="Language" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Language/"/>
     
-      <category term="Shell" scheme="101.200.81.233/categories/CS-Soft/Language/Shell/"/>
+      <category term="Shell" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Language/Shell/"/>
     
     
-      <category term="Shell" scheme="101.200.81.233/tags/Shell/"/>
+      <category term="Shell" scheme="https://winyter.github.io/MyBlog/tags/Shell/"/>
     
-      <category term="FTP" scheme="101.200.81.233/tags/FTP/"/>
+      <category term="FTP" scheme="https://winyter.github.io/MyBlog/tags/FTP/"/>
     
-      <category term="Code" scheme="101.200.81.233/tags/Code/"/>
+      <category term="Code" scheme="https://winyter.github.io/MyBlog/tags/Code/"/>
     
   </entry>
   
   <entry>
     <title>Nginx快速部署指南</title>
-    <link href="101.200.81.233/2019/12/18/Nginx-install-guide/"/>
-    <id>101.200.81.233/2019/12/18/Nginx-install-guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/18/Nginx-install-guide/</id>
     <published>2019-12-18T10:04:44.000Z</published>
     <updated>2020-04-19T07:43:46.092Z</updated>
     
@@ -1427,23 +1427,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Server" scheme="101.200.81.233/categories/CS-Soft/Server/"/>
+      <category term="Server" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/"/>
     
-      <category term="Nginx" scheme="101.200.81.233/categories/CS-Soft/Server/Nginx/"/>
+      <category term="Nginx" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Nginx/"/>
     
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
-      <category term="Nginx" scheme="101.200.81.233/tags/Nginx/"/>
+      <category term="Nginx" scheme="https://winyter.github.io/MyBlog/tags/Nginx/"/>
     
   </entry>
   
   <entry>
     <title>Hexo部署指南</title>
-    <link href="101.200.81.233/2019/12/16/Hexo_install_guide/"/>
-    <id>101.200.81.233/2019/12/16/Hexo_install_guide/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/16/Hexo_install_guide/</id>
     <published>2019-12-16T11:25:37.000Z</published>
     <updated>2020-04-19T07:42:33.634Z</updated>
     
@@ -1460,23 +1460,23 @@
     </summary>
     
     
-      <category term="CS Soft" scheme="101.200.81.233/categories/CS-Soft/"/>
+      <category term="CS Soft" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/"/>
     
-      <category term="Client" scheme="101.200.81.233/categories/CS-Soft/Client/"/>
+      <category term="Client" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/"/>
     
-      <category term="Hexo" scheme="101.200.81.233/categories/CS-Soft/Client/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/categories/CS-Soft/Client/Hexo/"/>
     
     
-      <category term="Hexo" scheme="101.200.81.233/tags/Hexo/"/>
+      <category term="Hexo" scheme="https://winyter.github.io/MyBlog/tags/Hexo/"/>
     
-      <category term="Tools" scheme="101.200.81.233/tags/Tools/"/>
+      <category term="Tools" scheme="https://winyter.github.io/MyBlog/tags/Tools/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="101.200.81.233/2019/12/12/hello-world/"/>
-    <id>101.200.81.233/2019/12/12/hello-world/</id>
+    <link href="https://winyter.github.io/MyBlog/2019/12/12/hello-world/"/>
+    <id>https://winyter.github.io/MyBlog/2019/12/12/hello-world/</id>
     <published>2019-12-11T19:09:49.000Z</published>
     <updated>2020-04-19T07:37:21.965Z</updated>
     

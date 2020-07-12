@@ -24,7 +24,7 @@
     <meta name="description" content="ES简介ES数据模型Index：即索引，是Elasticsearch中一个逻辑命名空间，指向一个或多个分片，内部Apache Lucene实现索引中数据的读写。索引与关系数据库实例Database相当。一个Elasticsearch实例可以包含多个索引。Type：文档类型，文档类型使得同一个索引中在存储结构不同的文档时，只需要依据文档类型就可以找到对应的参数映射信息，方便文档的存储。相当于数据库中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop快速入门系列——篇二：ElasticSearch">
-<meta property="og:url" content="101.200.81.233&#x2F;2019&#x2F;12&#x2F;27&#x2F;hadoop-elasticsearch&#x2F;">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2019&#x2F;12&#x2F;27&#x2F;hadoop-elasticsearch&#x2F;">
 <meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="ES简介ES数据模型Index：即索引，是Elasticsearch中一个逻辑命名空间，指向一个或多个分片，内部Apache Lucene实现索引中数据的读写。索引与关系数据库实例Database相当。一个Elasticsearch实例可以包含多个索引。Type：文档类型，文档类型使得同一个索引中在存储结构不同的文档时，只需要依据文档类型就可以找到对应的参数映射信息，方便文档的存储。相当于数据库中">
 <meta property="og:locale" content="zh_CN">
@@ -39,9 +39,9 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-elasticsearch_image1.png">
     
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/atom.xml">
+        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
@@ -58,10 +58,10 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
       <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/img/avatar.jpg">
+        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/MyBlog/img/avatar.jpg">
         </a>
         <hgroup class="introduce">
           <h5 class="nickname">winyter</h5>
@@ -73,28 +73,28 @@
       <ul class="nav">
         
             <li class="waves-block waves-effect">
-              <a href="/"  >
+              <a href="/MyBlog/"  >
                 <i class="icon icon-lg icon-home"></i>
                 Home
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/archives"  >
+              <a href="/MyBlog/archives"  >
                 <i class="icon icon-lg icon-archives"></i>
                 Archives
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/MyBlog/tags"  >
                 <i class="icon icon-lg icon-tags"></i>
                 Tags
               </a>
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/categories"  >
+              <a href="/MyBlog/categories"  >
                 <i class="icon icon-lg icon-th-list"></i>
                 Categories
               </a>
@@ -148,7 +148,7 @@
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
 
             
         </h5>
@@ -179,7 +179,7 @@
             <time class="post-time" title="2019-12-27 00:35:11" datetime="2019-12-26T16:35:11.000Z"  itemprop="datePublished">2019-12-27</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
 
 
 
@@ -349,8 +349,8 @@
     </div>
     
     <footer>
-        <a href="101.200.81.233">
-            <img src="/img/avatar.jpg" alt="winyter">
+        <a href="https://winyter.github.io/MyBlog">
+            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
             winyter
         </a>
     </footer>
@@ -361,7 +361,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li></ul>
 
 
             
@@ -371,7 +371,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -381,22 +381,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&via=101.200.81.233" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -419,7 +419,7 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2020/01/06/hadoop-hive/" id="post-prev" class="post-nav-link">
+      <a href="/MyBlog/2020/01/06/hadoop-hive/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
         <h4 class="title">Hadoop快速入门系列——篇三：Hive</h4>
       </a>
@@ -428,7 +428,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/12/25/hbase-shell-filter/" id="post-next" class="post-nav-link">
+      <a href="/MyBlog/2019/12/25/hbase-shell-filter/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">HBase Shell 过滤器 —— HBase Shell Filter</h4>
       </a>
@@ -480,7 +480,7 @@
 
         <p>
             
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
             <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
@@ -504,7 +504,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&pic=101.200.81.233/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -514,22 +514,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&title=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=101.200.81.233/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&url=101.200.81.233/2019/12/27/hadoop-elasticsearch/&via=101.200.81.233" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇二：ElasticSearch》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=101.200.81.233/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2019/12/27/hadoop-elasticsearch/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -540,7 +540,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aS27DMAwFwNz/0uk2QGvnkZIKWBqvCsexNFmw4uf1iq/3x/V55/enV09effdqrdeKCwMD47GM9+1V3WgOGFn3DyoGBsYBjPvAd//M5auDn2BkXQwMDIz7QJkfH/PQjIGBgbGCkSSc96G2l+5iYGCcyUiSyatXXN3pHRaX5+IYGBgPZORV9///e0l/AwMD41GMd/HqHemq2yrvCgMDY2tGLxFNUsq8AdA79mFgYJzG6AW75gLFAly1DIeBgbErYzzhHAmRyRYjMAYGxqaM/KXJwMRIgzMp8GFgYJzJyFuS+cGxF2qHxiwwMDC2Zsx6de+QVw3uhZiNgYGxESMPuLOaB71kOEprMTAwtmbkwTG532tSzuJhYGDsyhhZplAOK7ZIk58PAwPjHMa6zU1ITaszIxgYGNsxJiSNA8vnx8Ev+8HAwDiA0Sv398Yyyrl1ErIxMDC2Zoz3BNeNjjWTWAwMjK0Z442B6nt6hbwJ8yMYGBgPZFQbjdXyfXXFXqKLgYFxAiNZrDoiljxfxRT+Y2BgYGzHKOe4rfQ1PzIma2FgYJzAmDWeVR3RSI6AeZKMgYGxN6M3NlFILFuFs5EhDAwMjF0ZI2WvkcZkNaBHnQ0MDIytGdXAlwfTvFWQh34MDAyMWSfN+2DaG/L4kpFjYGBgLCjr5y2EL9/CwMA4gJEnlvmRrpeyVtufGBgYJzBGUsekVZk3MpPVJ/Q3MDAwnsT4AaN8slDo8c+hAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3a0U7kMAwFUP7/p3elfYXp3msnDEKnT6jQTo6REo/tj4/4+vPv+nzn+Xp+9tWdz2949dSxCw8PD2+09GSJ+UfO7udhSv4eDw8P7zbveSnPvHbrTz4l4UXhw8PDw3sr73lDT5Y7CwEeHh7e7+O1BYuzQcTDw8N7F29Tis039DwQ7f0DtRY8PDy8mNc2wH7Czxf7e3h4eHiLrnqbCrdLSYrC+WHwxWrx8PDwLvCStDXZb5OdOX92ligX3xjw8PDwDvGSBW2aVWeDlRdK8PDw8G7z8sbYbAwrH7HawPDw8PC+h9eWBmbbd3LwzML9n4MBDw8P7wLv1JBT3qbKR6w2iTgeHh7eDd6ppv6sSdYObyXHWFTMxcPDwxvx2tJAXpzdAw603PDw8PCu8fLUNimn5mNbeQjaoEe5OR4eHt6C174i/6bflolnjbGX9/Hw8PAu8JKtPF/WLDVPArRq1OHh4eEd5eUNpFmZoC0H7xtgRTECDw8Pb8Rrt/XhS8vA5Ul2/QUADw8P7xBvk8627bH2ENoUmvHw8PBu8NqG1qmF5s+uyr54eHh4F3izKy8rtGfUpgk3+0s8PDy8ltc2uvLNt936h2NVz7/Fw8PDu8zbp7NtgypJ4jfFETw8PLwbvNmWvR+rmt3Pj7Hov4qHh4c34iXbdBuh9gg59eywAYaHh4e35rXpdXKEJAWOTSurGB3Aw8PDW/NmXbJokmvRhdvzjn08Hh4eXtAAS8oNyW/zQ2U2fJCMIODh4eHd4G028eSlmyMkDxweHh7e9/Paw2DW4rpR7Cj+M3h4eHgXeG0NI2mDzZY7ZLyy4OHh4b2Vt0mINyMC7WAWHh4e3s/n5WWCGT4vJX/xZjw8PLxrvFkxYpb4tgWRVVkEDw8P727FddgA2yTBm5GCU8HFw8PDi3l/AY0FXpPr5zdzAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
@@ -548,7 +548,7 @@
 
     <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
 
 
 </script>
