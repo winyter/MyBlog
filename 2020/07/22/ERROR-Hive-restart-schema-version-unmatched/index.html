@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/MyBlog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/MyBlog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/MyBlog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/MyBlog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/MyBlog/css/main.css">
+
+
+<link rel="stylesheet" href="/MyBlog/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/MyBlog/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"winyter.github.io","root":"/MyBlog/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="参考来源：https:&#x2F;&#x2F;blog.csdn.net&#x2F;struggling_rong&#x2F;article&#x2F;details&#x2F;82598277  问题现象：使用 Ambari 重启 Hive 时，遇到在启动 HiveServer2 失败，报错为： resource_management.core.exceptions.Fail: ZooKeeper node &#x2F;hiveserver2 is n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决 Hive 重启时，Metastore 报：MetaException(message:Hive Schema version 2.3.0 does not match metastore&#39;s schema version 1.2.0">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;07&#x2F;22&#x2F;ERROR-Hive-restart-schema-version-unmatched&#x2F;index.html">
+<meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="参考来源：https:&#x2F;&#x2F;blog.csdn.net&#x2F;struggling_rong&#x2F;article&#x2F;details&#x2F;82598277  问题现象：使用 Ambari 重启 Hive 时，遇到在启动 HiveServer2 失败，报错为： resource_management.core.exceptions.Fail: ZooKeeper node &#x2F;hiveserver2 is n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-22T14:23:25.000Z">
+<meta property="article:modified_time" content="2020-07-25T10:59:32.479Z">
+<meta property="article:author" content="winyter">
+<meta property="article:tag" content="ERROR">
+<meta property="article:tag" content="Hive">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://winyter.github.io/MyBlog/2020/07/22/ERROR-Hive-restart-schema-version-unmatched/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>解决 Hive 重启时，Metastore 报：MetaException(message:Hive Schema version 2.3.0 does not match metastore's schema version 1.2.0 | 花不醉的小花园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/MyBlog/atom.xml" title="花不醉的小花园" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/MyBlog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花不醉的小花园</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">携一生所爱，看遍世间美好</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/MyBlog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/MyBlog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/MyBlog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/MyBlog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="winyter"
+      src="/MyBlog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">winyter</p>
+  <div class="site-description" itemprop="description">IT,Photograph,Travel,Love</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winyter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winyter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mrwinterwei@outlook.com" title="E-Mail → mailto:mrwinterwei@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/winyter" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://winyter.github.io/MyBlog/2020/07/22/ERROR-Hive-restart-schema-version-unmatched/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/MyBlog/images/avatar.jpg">
+      <meta itemprop="name" content="winyter">
+      <meta itemprop="description" content="IT,Photograph,Travel,Love">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花不醉的小花园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          解决 Hive 重启时，Metastore 报：MetaException(message:Hive Schema version 2.3.0 does not match metastore's schema version 1.2.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-22 22:23:25" itemprop="dateCreated datePublished" datetime="2020-07-22T22:23:25+08:00">2020-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-25 18:59:32" itemprop="dateModified" datetime="2020-07-25T18:59:32+08:00">2020-07-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Concept/" itemprop="url" rel="index"><span itemprop="name">CS Concept</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Concept/Big-Data/" itemprop="url" rel="index"><span itemprop="name">Big Data</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<p>参考来源：<a href="https://blog.csdn.net/struggling_rong/article/details/82598277" target="_blank" rel="noopener">https://blog.csdn.net/struggling_rong/article/details/82598277</a></p>
+<hr>
+<p><strong>问题现象</strong>：<br>使用 Ambari 重启 Hive 时，遇到在启动 HiveServer2 失败，报错为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">resource_management.core.exceptions.Fail: ZooKeeper node &#x2F;hiveserver2 is not ready yet</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p><strong>问题定位</strong>：<br>在查看 HiveServer2 的日志时，可以看到：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2020-07-21T17:55:41,864 INFO  [main]: sqlstd.SQLStdHiveAccessController (SQLStdHiveAccessController.java:&lt;init&gt;(95)) - Created SQLStdHiveAccessController for session context : HiveAuthzSessionContext [sessionString&#x3D;53ee998b-175a-4bc8-985c-a27bfc138166, clientType&#x3D;HIVESERVER2]</span><br><span class="line">2020-07-21T17:55:41,869 WARN  [main]: session.SessionState (SessionState.java:setAuthorizerV2Config(903)) - METASTORE_FILTER_HOOK will be ignored, since hive.security.authorization.manager is set to instance of HiveAuthorizerFactory.</span><br><span class="line">2020-07-21T17:55:42,352 INFO  [main]: hive.metastore (HiveMetaStoreClient.java:open(407)) - Trying to connect to metastore with URI thrift:&#x2F;&#x2F;zz-hadoop2:9083</span><br><span class="line">2020-07-21T17:55:42,381 WARN  [main]: hive.metastore (HiveMetaStoreClient.java:open(490)) - Failed to connect to the MetaStore Server...</span><br><span class="line">2020-07-21T17:55:42,381 INFO  [main]: hive.metastore (HiveMetaStoreClient.java:open(521)) - Waiting 5 seconds before next connection attempt.</span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">2020-07-21T17:57:37,424 INFO  [main]: hive.metastore (HiveMetaStoreClient.java:open(407)) - Trying to connect to metastore with URI thrift:&#x2F;&#x2F;zz-hadoop2:9083</span><br><span class="line">2020-07-21T17:57:37,425 WARN  [main]: hive.metastore (HiveMetaStoreClient.java:open(490)) - Failed to connect to the MetaStore Server...</span><br><span class="line">2020-07-21T17:57:37,425 INFO  [main]: hive.metastore (HiveMetaStoreClient.java:open(521)) - Waiting 5 seconds before next connection attempt.</span><br><span class="line">2020-07-21T17:57:42,434 WARN  [main]: metadata.Hive (Hive.java:registerAllFunctionsOnce(234)) - Failed to register all functions.</span><br><span class="line">java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br><span class="line">        at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1701) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.&lt;init&gt;(RetryingMetaStoreClient.java:83) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:133) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:104) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.createMetaStoreClient(Hive.java:3600) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getMSC(Hive.java:3652) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getMSC(Hive.java:3632) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getAllFunctions(Hive.java:3894) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.reloadFunctions(Hive.java:248) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.registerAllFunctionsOnce(Hive.java:231) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.&lt;init&gt;(Hive.java:388) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.create(Hive.java:332) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getInternal(Hive.java:312) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.get(Hive.java:288) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setAuthorizerV2Config(SessionState.java:913) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setupAuth(SessionState.java:877) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.applyAuthorizationPolicy(SessionState.java:1683) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.applyAuthorizationConfigPolicy(CLIService.java:130) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.init(CLIService.java:114) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.CompositeService.init(CompositeService.java:59) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.init(HiveServer2.java:142) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.startHiveServer2(HiveServer2.java:607) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.access$700(HiveServer2.java:100) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2$StartOptionExecutor.execute(HiveServer2.java:855) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.main(HiveServer2.java:724) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_181]</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]</span><br><span class="line">        at org.apache.hadoop.util.RunJar.run(RunJar.java:233) ~[hadoop-common-2.7.3.2.6.3.0-235.jar:?]</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:148) ~[hadoop-common-2.7.3.2.6.3.0-235.jar:?]</span><br><span class="line">Caused by: java.lang.reflect.InvocationTargetException</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_181]</span><br><span class="line">        at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_181]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1699) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        ... 30 more</span><br><span class="line">Caused by: org.apache.hadoop.hive.metastore.api.MetaException: Could not connect to meta store using any of the URIs provided. Most recent failure: org.apache.thrift.transport.TTransportException: java.net.ConnectException: Connection refused (Connection refused)</span><br><span class="line">        at org.apache.thrift.transport.TSocket.open(TSocket.java:226)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.open(HiveMetaStoreClient.java:480)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.&lt;init&gt;(HiveMetaStoreClient.java:247)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient.&lt;init&gt;(SessionHiveMetaStoreClient.java:70)</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)</span><br><span class="line">        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1699)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.&lt;init&gt;(RetryingMetaStoreClient.java:83)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:133)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.getProxy(RetryingMetaStoreClient.java:104)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.createMetaStoreClient(Hive.java:3600)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getMSC(Hive.java:3652)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getMSC(Hive.java:3632)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getAllFunctions(Hive.java:3894)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.reloadFunctions(Hive.java:248)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.registerAllFunctionsOnce(Hive.java:231)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.&lt;init&gt;(Hive.java:388)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.create(Hive.java:332)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getInternal(Hive.java:312)</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.get(Hive.java:288)</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setAuthorizerV2Config(SessionState.java:913)</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setupAuth(SessionState.java:877)</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.applyAuthorizationPolicy(SessionState.java:1683)</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.applyAuthorizationConfigPolicy(CLIService.java:130)</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.init(CLIService.java:114)</span><br><span class="line">        at org.apache.hive.service.CompositeService.init(CompositeService.java:59)</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.init(HiveServer2.java:142)</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.startHiveServer2(HiveServer2.java:607)</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.access$700(HiveServer2.java:100)</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2$StartOptionExecutor.execute(HiveServer2.java:855)</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.main(HiveServer2.java:724)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.run(RunJar.java:233)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:148)</span><br><span class="line">Caused by: java.net.ConnectException: Connection refused (Connection refused)</span><br><span class="line">        at java.net.PlainSocketImpl.socketConnect(Native Method)</span><br><span class="line">        at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)</span><br><span class="line">        at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)</span><br><span class="line">        at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)</span><br><span class="line">        at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)</span><br><span class="line">        at java.net.Socket.connect(Socket.java:589)</span><br><span class="line">        at org.apache.thrift.transport.TSocket.open(TSocket.java:221)</span><br><span class="line">        ... 38 more</span><br><span class="line"></span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.open(HiveMetaStoreClient.java:529) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.&lt;init&gt;(HiveMetaStoreClient.java:247) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient.&lt;init&gt;(SessionHiveMetaStoreClient.java:70) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_181]</span><br><span class="line">        at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_181]</span><br><span class="line">        at org.apache.hadoop.hive.metastore.MetaStoreUtils.newInstance(MetaStoreUtils.java:1699) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        ... 30 more</span><br><span class="line">2020-07-21T17:57:42,461 INFO  [main]: server.HiveServer2 (HiveServer2.java:stop(518)) - Shutting down HiveServer2</span><br><span class="line">2020-07-21T17:57:42,460 ERROR [main]: session.SessionState (SessionState.java:setupAuth(884)) - Error setting up authorization: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br><span class="line">org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setAuthorizerV2Config(SessionState.java:917) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setupAuth(SessionState.java:877) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.applyAuthorizationPolicy(SessionState.java:1683) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.applyAuthorizationConfigPolicy(CLIService.java:130) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.cli.CLIService.init(CLIService.java:114) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.CompositeService.init(CompositeService.java:59) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.init(HiveServer2.java:142) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.startHiveServer2(HiveServer2.java:607) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.access$700(HiveServer2.java:100) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2$StartOptionExecutor.execute(HiveServer2.java:855) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hive.service.server.HiveServer2.main(HiveServer2.java:724) ~[hive-service-2.3.3.jar:2.3.3]</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_181]</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_181]</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_181]</span><br><span class="line">        at org.apache.hadoop.util.RunJar.run(RunJar.java:233) ~[hadoop-common-2.7.3.2.6.3.0-235.jar:?]</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:148) ~[hadoop-common-2.7.3.2.6.3.0-235.jar:?]</span><br><span class="line">Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.registerAllFunctionsOnce(Hive.java:236) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.&lt;init&gt;(Hive.java:388) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.create(Hive.java:332) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.getInternal(Hive.java:312) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.metadata.Hive.get(Hive.java:288) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        at org.apache.hadoop.hive.ql.session.SessionState.setAuthorizerV2Config(SessionState.java:913) ~[hive-exec-2.3.3.jar:2.3.3]</span><br><span class="line">        ... 16 more</span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>可以看到是因为 Hive 的 Metastore 无法访问导致 HiveServer2 启动失败，于是，再去看 Metastore 的日志：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2020-07-21T17:55:41,118 ERROR [main]: metastore.RetryingHMSHandler (RetryingHMSHandler.java:invokeInternal(204)) - MetaException(message:Hive Schema version 2.3.0 does not match metastore&#39;s schema version 1.2.0 Metastore is not upgraded or corrupt)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.ObjectStore.checkSchema(ObjectStore.java:7579)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.ObjectStore.verifySchema(ObjectStore.java:7542)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RawStoreProxy.invoke(RawStoreProxy.java:101)</span><br><span class="line">        at com.sun.proxy.$Proxy24.verifySchema(Unknown Source)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMSForConf(HiveMetaStore.java:591)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.getMS(HiveMetaStore.java:584)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.createDefaultDB(HiveMetaStore.java:651)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore$HMSHandler.init(HiveMetaStore.java:427)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invokeInternal(RetryingHMSHandler.java:148)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.invoke(RetryingHMSHandler.java:107)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.&lt;init&gt;(RetryingHMSHandler.java:79)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.RetryingHMSHandler.getProxy(RetryingHMSHandler.java:92)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:6887)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore.newRetryingHMSHandler(HiveMetaStore.java:6882)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore.startMetaStore(HiveMetaStore.java:7140)</span><br><span class="line">        at org.apache.hadoop.hive.metastore.HiveMetaStore.main(HiveMetaStore.java:7067)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">        at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.run(RunJar.java:233)</span><br><span class="line">        at org.apache.hadoop.util.RunJar.main(RunJar.java:148)</span><br></pre></td></tr></table></figure>
+
+<p><strong>问题原因</strong>：<br><code>Hive Schema version 2.3.0 does not match metastore&#39;s schema version 1.2.0 Metastore is not upgraded or corrupt</code>问题的核心就在这一句报错，即 Hive 的 Schema 版本不兼容</p>
+<p><strong>解决问题</strong>：</p>
+<ul>
+<li><p>临时解决：<br>在 mysql（假定 metastore 的数据库为 mysql）中，切换到 hive 库，执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">UPDATE VERSION SET SCHEMA_VERSION&#x3D;&#39;2.3.0&#39;, VERSION_COMMENT&#x3D;&#39;fix conflict&#39; where VER_ID&#x3D;1;</span><br></pre></td></tr></table></figure>
+<p>这样解决后，当通过 spark 应用再创建新表时仍会报错。</p>
+</li>
+<li><p>更好的解决：</p>
+</li>
+</ul>
+<ol>
+<li>metastore 模式使用remote方式</li>
+<li>通过cdh来解决版本问题</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/MyBlog/tags/ERROR/" rel="tag"># ERROR</a>
+              <a href="/MyBlog/tags/Hive/" rel="tag"># Hive</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MyBlog/2020/07/22/beauty-of-mathematics-notes-chapter2/" rel="prev" title="《数学之美》笔记系列——第二章">
+      <i class="fa fa-chevron-left"></i> 《数学之美》笔记系列——第二章
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MyBlog/2020/07/22/ERROR-ambari-install-hive-table-doesnt-exist/" rel="next" title="Ambari 安装 Hive 失败，报 “Table ‘hive.dbs’ doesn’t exist”">
+      Ambari 安装 Hive 失败，报 “Table ‘hive.dbs’ doesn’t exist” <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">winyter</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/MyBlog/lib/anime.min.js"></script>
+
+<script src="/MyBlog/js/utils.js"></script>
+
+<script src="/MyBlog/js/motion.js"></script>
+
+
+<script src="/MyBlog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

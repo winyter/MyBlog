@@ -1,197 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/MyBlog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/MyBlog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/MyBlog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/MyBlog/images/logo.svg" color="#222">
 
-    
-
-    
+<link rel="stylesheet" href="/MyBlog/css/main.css">
 
 
+<link rel="stylesheet" href="/MyBlog/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/MyBlog/lib/animate-css/animate.min.css">
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>YARN fair-scheduler 资源调度介绍及配置 | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Hadoop,Yarn,Bigdata">
-    <meta name="description" content="本文部分内容来源网络：CSDN用户@冰上浮云另附官方文档中这部分内容的解析：点击这里   简介公平调度器（FairScheduler）它是hadoop的一个可插拔的调度器，目的是让应用程序在YARN上能够公平的共享巨大的集群资源。公平调度是一种将资源分配给应用程序的方法，这样所有应用程序平均都能在一段时间内获得相同的资源份额。Hadoop NextGen能够调度多个资源类型。默认情况下，Fair">
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"winyter.github.io","root":"/MyBlog/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="本文部分内容来源网络：CSDN用户@冰上浮云另附官方文档中这部分内容的解析：点击这里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="YARN fair-scheduler 资源调度介绍及配置">
-<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;23&#x2F;yarn-fair-scheduler-guide&#x2F;">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;05&#x2F;23&#x2F;yarn-fair-scheduler-guide&#x2F;index.html">
 <meta property="og:site_name" content="花不醉的小花园">
-<meta property="og:description" content="本文部分内容来源网络：CSDN用户@冰上浮云另附官方文档中这部分内容的解析：点击这里   简介公平调度器（FairScheduler）它是hadoop的一个可插拔的调度器，目的是让应用程序在YARN上能够公平的共享巨大的集群资源。公平调度是一种将资源分配给应用程序的方法，这样所有应用程序平均都能在一段时间内获得相同的资源份额。Hadoop NextGen能够调度多个资源类型。默认情况下，Fair">
+<meta property="og:description" content="本文部分内容来源网络：CSDN用户@冰上浮云另附官方文档中这部分内容的解析：点击这里">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-23T01:59:14.000Z">
-<meta property="article:modified_time" content="2020-05-23T02:12:39.104Z">
+<meta property="article:modified_time" content="2020-07-25T11:17:42.852Z">
 <meta property="article:author" content="winyter">
+<meta property="article:tag" content="Bigdata">
 <meta property="article:tag" content="Hadoop">
 <meta property="article:tag" content="Yarn">
-<meta property="article:tag" content="Bigdata">
 <meta name="twitter:card" content="summary">
-    
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
-    
-    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<link rel="canonical" href="https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/">
 
-<meta name="generator" content="Hexo 4.1.0"></head>
 
-<body>
-    <div id="loading" class="active"></div>
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
-      <div class="brand">
-        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/MyBlog/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">winyter</h5>
-          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/"  >
-                <i class="icon icon-lg icon-home"></i>
-                Home
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                Categories
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/winyter" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-      </ul>
+  <title>YARN fair-scheduler 资源调度介绍及配置 | 花不醉的小花园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/MyBlog/atom.xml" title="花不醉的小花园" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
-</aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">YARN fair-scheduler 资源调度介绍及配置</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+  <div class="site-meta">
+
+    <a href="/MyBlog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花不醉的小花园</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">携一生所爱，看遍世间美好</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">YARN fair-scheduler 资源调度介绍及配置</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2020-05-23T01:59:14.000Z" itemprop="datePublished" class="page-time">
-  2020-05-23
-</time>
+  </div>
+</div>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Hadoop/">Hadoop</a></li></ul></li></ul></li></ul>
 
-            
-        </h5>
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/MyBlog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/MyBlog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/MyBlog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/MyBlog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列简析"><span class="nav-text">队列简析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动将应用程序放入队列"><span class="nav-text">自动将应用程序放入队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前提"><span class="nav-text">前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置详解"><span class="nav-text">配置详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义配置文件配置方法"><span class="nav-text">自定义配置文件配置方法</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="winyter"
+      src="/MyBlog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">winyter</p>
+  <div class="site-description" itemprop="description">IT,Photograph,Travel,Love</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winyter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winyter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mrwinterwei@outlook.com" title="E-Mail → mailto:mrwinterwei@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/winyter" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
 
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/MyBlog/images/avatar.jpg">
+      <meta itemprop="name" content="winyter">
+      <meta itemprop="description" content="IT,Photograph,Travel,Love">
+    </span>
 
-</header>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花不醉的小花园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          YARN fair-scheduler 资源调度介绍及配置
+        </h1>
 
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#队列简析"><span class="post-toc-number">2.</span> <span class="post-toc-text">队列简析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自动将应用程序放入队列"><span class="post-toc-number">3.</span> <span class="post-toc-text">自动将应用程序放入队列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前提"><span class="post-toc-number">4.</span> <span class="post-toc-text">前提</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置详解"><span class="post-toc-number">5.</span> <span class="post-toc-text">配置详解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义配置文件配置方法"><span class="post-toc-number">6.</span> <span class="post-toc-text">自定义配置文件配置方法</span></a></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-yarn-fair-scheduler-guide"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">YARN fair-scheduler 资源调度介绍及配置</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-05-23 09:59:14" datetime="2020-05-23T01:59:14.000Z"  itemprop="datePublished">2020-05-23</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Hadoop/">Hadoop</a></li></ul></li></ul></li></ul>
+              <time title="创建时间：2020-05-23 09:59:14" itemprop="dateCreated datePublished" datetime="2020-05-23T09:59:14+08:00">2020-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-25 19:17:42" itemprop="dateModified" datetime="2020-07-25T19:17:42+08:00">2020-07-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Soft/" itemprop="url" rel="index"><span itemprop="name">CS Soft</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Soft/Server/" itemprop="url" rel="index"><span itemprop="name">Server</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Soft/Server/Hadoop/" itemprop="url" rel="index"><span itemprop="name">Hadoop</span></a>
+                </span>
+            </span>
 
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
+          
 
         </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <blockquote>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<blockquote>
 <p>本文部分内容来源网络：<a href="https://blog.csdn.net/clj198606061111/article/details/104114983" target="_blank" rel="noopener">CSDN用户@冰上浮云</a><br>另附官方文档中这部分内容的解析：<a href="https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/FairScheduler.html" target="_blank" rel="noopener">点击这里</a></p>
 </blockquote>
 <hr>
+<a id="more"></a>
+
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>公平调度器（FairScheduler）它是hadoop的一个可插拔的调度器，目的是让应用程序在YARN上能够公平的共享巨大的集群资源。<br>公平调度是一种将资源分配给应用程序的方法，这样所有应用程序平均都能在一段时间内获得相同的资源份额。Hadoop NextGen能够调度多个资源类型。默认情况下，Fair调度器仅基于内存来进行公平性决策。利用Ghodsi等人提出的占主导地位的资源公平性概念，可以将其配置为同时使用内存和CPU进行调度。当只有一个应用程序运行时，该应用程序将使用整个群集资源。当其他应用被提交时，释放的资源被分配给新的应用，这样每个应用最终获得的资源量大致相同。与默认的Hadoop调度程序（它构造一个应用程序队列）不同，它允许小的应用程序在合理的时间内完成，而不会使耗时长的应用挨饿。这也是在多个用户之间共享集群的合理方法。最后，公平分享也可以与应用程序优先级一起工作-优先级被用作权重，以确定每个应用程序应获得的总资源的百分比。</p>
 <p>调度程序将应用程序进一步组织到“队列”中，并在这些队列之间公平地共享资源。默认情况下，所有用户共享一个名为“default”的队列。如果应用程序在容器资源请求中明确列出队列，则请求将提交到该队列。还可以通过配置根据请求中包含的用户名分配队列。在每个队列中，调度策略用于在运行的应用程序之间共享资源。默认情况下是基于内存的公平共享，但也可以配置具有主要资源公平性的FIFO和多资源共享策略。队列可以按层次结构排列以划分资源，并配置权重以按特定比例共享集群。</p>
 <p>除了提供公平共享外，公平调度程序还允许将保证的最小资源分配给队列，这对于确保某些用户、组或生产应用程序始终获得足够的资源非常有用。当队列包含应用程序时，它至少获得其最小共享，但当队列不需要其完全保证的共享时，多余的部分将在其他正在运行的应用程序之间分配。这样，当队列不包含应用程序时，调度器可以保证队列的容量，同时有效地利用资源。</p>
@@ -207,7 +317,7 @@
 <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>务必确认 YARN 的以下配置，否则 yarn 不会读取这个文件<br><strong>yarn.resourcemanager.scheduler.class</strong> = <code>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</code><br>两周方法进行配置：</p>
 <ol>
 <li>使用 Ambari 配置<br>在 YARN 的 Config 内，找到这个配置项，将内容修改为上面的内容即可</li>
-<li>使用 yarn-site.xml 文件配置<br>打开文件，查找该配置项，并修改内容，如果没有该配置项，则需要新建：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.scheduler.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>使用 yarn-site.xml 文件配置<br>打开文件，查找该配置项，并修改内容，如果没有该配置项，则需要新建：<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.scheduler.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -314,12 +424,12 @@
 <h2 id="自定义配置文件配置方法"><a href="#自定义配置文件配置方法" class="headerlink" title="自定义配置文件配置方法"></a>自定义配置文件配置方法</h2><ol>
 <li>登录YARN ResourceManager（active或standby均可）所在服务器</li>
 <li>进入yarn安装目录：/usr/hdp/2.6.3.0-235/hadoop-yarn/etc/hadoop/</li>
-<li>修改：fair-schedule.xml文件<br>下面给出该文件的配置项说明和配置参考：<br>配置说明：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;allocations&gt;</span><br><span class="line">   &lt;queue name&#x3D;&quot;sample_queue&quot;&gt; &#x2F;&#x2F;队列名</span><br><span class="line">     &lt;minResources&gt;10000 mb,0vcores&lt;&#x2F;minResources&gt; &#x2F;&#x2F;最小资源</span><br><span class="line">     &lt;maxResources&gt;90000 mb,0vcores&lt;&#x2F;maxResources&gt; &#x2F;&#x2F;最大资源</span><br><span class="line">     &lt;maxRunningApps&gt;50&lt;&#x2F;maxRunningApps&gt; &#x2F;&#x2F;可以同时运行的作业数</span><br><span class="line">     &lt;weight&gt;2.0&lt;&#x2F;weight&gt; &#x2F;&#x2F;权值</span><br><span class="line">     &lt;schedulingPolicy&gt;fair&lt;&#x2F;schedulingPolicy&gt; &#x2F;&#x2F;队列内部调度策略，可选的有：fair、fifo、drf 或者 继承该类的子类（org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.SchedulingPolicy）</span><br><span class="line">        &lt;queue name&#x3D;&quot;sample_sub_queue&quot;&gt; &#x2F;&#x2F;队列的子目录</span><br><span class="line">           &lt;minResources&gt;5000 mb,0vcores&lt;&#x2F;minResources&gt;</span><br><span class="line">        &lt;&#x2F;queue&gt;</span><br><span class="line">   &lt;&#x2F;queue&gt;</span><br><span class="line">   &lt;user name&#x3D;&quot;sample_user&quot;&gt; &#x2F;&#x2F;对于特定用户的配置</span><br><span class="line">      &lt;maxRunningApps&gt;30&lt;&#x2F;maxRunningApps&gt;</span><br><span class="line">   &lt;&#x2F;user&gt;</span><br><span class="line">   &lt;userMaxAppsDefault&gt;5&lt;&#x2F;userMaxAppsDefault&gt; &#x2F;&#x2F;默认的用户最多可以同时运行的任务</span><br><span class="line">&lt;&#x2F;allocations&gt;</span><br></pre></td></tr></table></figure>
+<li>修改：fair-schedule.xml文件<br>下面给出该文件的配置项说明和配置参考：<br>配置说明：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;allocations&gt;</span><br><span class="line">   &lt;queue name&#x3D;&quot;sample_queue&quot;&gt; &#x2F;&#x2F;队列名</span><br><span class="line">     &lt;minResources&gt;10000 mb,0vcores&lt;&#x2F;minResources&gt; &#x2F;&#x2F;最小资源</span><br><span class="line">     &lt;maxResources&gt;90000 mb,0vcores&lt;&#x2F;maxResources&gt; &#x2F;&#x2F;最大资源</span><br><span class="line">     &lt;maxRunningApps&gt;50&lt;&#x2F;maxRunningApps&gt; &#x2F;&#x2F;可以同时运行的作业数</span><br><span class="line">     &lt;weight&gt;2.0&lt;&#x2F;weight&gt; &#x2F;&#x2F;权值</span><br><span class="line">     &lt;schedulingPolicy&gt;fair&lt;&#x2F;schedulingPolicy&gt; &#x2F;&#x2F;队列内部调度策略，可选的有：fair、fifo、drf 或者 继承该类的子类（org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.SchedulingPolicy）</span><br><span class="line">        &lt;queue name&#x3D;&quot;sample_sub_queue&quot;&gt; &#x2F;&#x2F;队列的子目录</span><br><span class="line">           &lt;minResources&gt;5000 mb,0vcores&lt;&#x2F;minResources&gt;</span><br><span class="line">        &lt;&#x2F;queue&gt;</span><br><span class="line">   &lt;&#x2F;queue&gt;</span><br><span class="line">   &lt;user name&#x3D;&quot;sample_user&quot;&gt; &#x2F;&#x2F;对于特定用户的配置</span><br><span class="line">      &lt;maxRunningApps&gt;30&lt;&#x2F;maxRunningApps&gt;</span><br><span class="line">   &lt;&#x2F;user&gt;</span><br><span class="line">   &lt;userMaxAppsDefault&gt;5&lt;&#x2F;userMaxAppsDefault&gt; &#x2F;&#x2F;默认的用户最多可以同时运行的任务</span><br><span class="line">&lt;&#x2F;allocations&gt;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
 <p>这里给出一个模板作为参考，实际部署时，可以按照这个模板，修改一些配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">allocations</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>262144 mb,112 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingMode</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingMode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span> <span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclAdministerApps</span>&gt;</span> <span class="tag">&lt;/<span class="name">aclAdministerApps</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-max"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>125829 mb,53 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-min"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>41943 mb,17 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-mid"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>41943 mb,17 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">"rhino"</span>&gt;</span><span class="comment">&lt;!-- 对于特定用户的配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>5<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">userMaxAppsDefault</span>&gt;</span>5<span class="tag">&lt;/<span class="name">userMaxAppsDefault</span>&gt;</span><span class="comment">&lt;!-- 默认的用户最多可以同时运行的任务 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">allocations</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">allocations</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>262144 mb,112 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingMode</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingMode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span> <span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclAdministerApps</span>&gt;</span> <span class="tag">&lt;/<span class="name">aclAdministerApps</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-max"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>125829 mb,53 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>2.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-min"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>41943 mb,17 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"spark-mid"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>41943 mb,17 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">queue</span> <span class="attr">name</span>=<span class="string">"root.hive"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">minResources</span>&gt;</span>2048 mb,4 vcores<span class="tag">&lt;/<span class="name">minResources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxResources</span>&gt;</span>41943 mb,17 vcores<span class="tag">&lt;/<span class="name">maxResources</span>&gt;</span> <span class="comment">&lt;!-- 现场修改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aclSubmitApps</span>&gt;</span>rhino,admin,flink<span class="tag">&lt;/<span class="name">aclSubmitApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">weight</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">weight</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">schedulingPolicy</span>&gt;</span>fair<span class="tag">&lt;/<span class="name">schedulingPolicy</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">name</span>=<span class="string">"rhino"</span>&gt;</span><span class="comment">&lt;!-- 对于特定用户的配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">maxRunningApps</span>&gt;</span>10<span class="tag">&lt;/<span class="name">maxRunningApps</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">queue</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">userMaxAppsDefault</span>&gt;</span>10<span class="tag">&lt;/<span class="name">userMaxAppsDefault</span>&gt;</span><span class="comment">&lt;!-- 默认的用户最多可以同时运行的任务 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">allocations</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>模板中标注了“现场修改”字样的部分，前面的 “41943 mb” 为内存，后面的 “17 vcores” 为逻辑核数<br>注意：模板复制后，建议将里面的中文全部删除，否则可能会因为字符的原因，导致文件读取失败</p>
 </blockquote>
@@ -332,276 +442,131 @@
 <li>登录 ambari 界面，重启 YARN 组件，然后根据 ambari 界面指示，重启其他受影响的组件</li>
 </ol>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-05-23T02:12:39.104Z" itemprop="dateUpdated">2020-05-23 10:12:39</time>
-</span><br>
-
-
-        
-        Copyright Info
-        
     </div>
+
     
-    <footer>
-        <a href="https://winyter.github.io/MyBlog">
-            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
-            winyter
-        </a>
-    </footer>
-</blockquote>
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/MyBlog/tags/Bigdata/" rel="tag"># Bigdata</a>
+              <a href="/MyBlog/tags/Hadoop/" rel="tag"># Hadoop</a>
+              <a href="/MyBlog/tags/Yarn/" rel="tag"># Yarn</a>
+          </div>
 
         
 
 
-        <div class="post-footer">
-            
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Bigdata/" rel="tag">Bigdata</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Yarn/" rel="tag">Yarn</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/" rel="prev" title="基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署">
+      <i class="fa fa-chevron-left"></i> 基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" rel="next" title="基于 Ambari 的大数据集群安装指导——篇一：基本介绍">
+      基于 Ambari 的大数据集群安装指导——篇一：基本介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&title=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&title=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
+  </article>
+  
+  
+  
 
 
 
         </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/05/31/ambari-install-guides-1-introduction-md/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇一：基本介绍</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/MyBlog/2020/05/21/ambari-install-guides-3-install-ambari-and-base-components/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">基于 Ambari 的大数据集群安装指导——篇三：Ambari 及基础组件部署</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
         
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>winyter &copy; 2019 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&title=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&title=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《YARN fair-scheduler 资源调度介绍及配置》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/05/23/yarn-fair-scheduler-guide/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3a0Y4iMQwEQP7/p/ceb0+rGdp2POxJlSeEgEkFKbHaeb3i8fVt/Hz/6vM/v3s17r91/6wDAw8PD28w9fsHX/Gqn08wkyXDw8PDe4aX/Fx1UXLGZGneWPDw8PB+DS9nVxlJQY+Hh4f3f/F6U89fV2MLPDw8vE/xtgPW+2MgOU7WsxY8PDy8mJd3kX7P65X+Hh4eHt64q55suNUGWB40zAceHh7eBq9XEJ8KJvKNfrJYeHh4eBu8SV1aDXyr7F4IgoeHh/cMLwHk7+fXC/KQtxr+4uHh4W3w7jfZeRDQK4XzAr0QQ+Dh4eEd4iVHQtISq1br94Bm7d878fDw8PAGFwKqlwYmW3YSN+RRxeXv4+Hh4a3xqgdDNZKoBq9J9DCKbvHw8PDGvN4GXZ3uSuP/vjGGh4eHt8ybtJ2SCPjsVYCo0MfDw8Nb4+VHQlKp5stRxedPx8PDw9vmJUVtL2ytNromh82bMAIPDw/vKK/aWMqvalWDieq1rehOGR4eHt4ab3JR4GxIMQkj/vllPDw8vAVes7E02OKT8nqjlMfDw8M7xUu276SQrcYN1Tg4+U+ikhoPDw/vEC/Zgnuf6Y3qol/OAQ8PD2+ZVy1zzx4J1U0/OlTw8PDwFniTyrN6yWAeBPcOKjw8PLxtXrmNFJfIvXA2CXabj8fDw8M7xMub9L1iOimak5F8Fw8PD+8ZXm8SPczrmYGHh4e3AOttx70lSMLZUyEIHh4e3gZvvsfm0+1Fw5PXeHh4eHu85DDIJ90rwSfXvKIGGB4eHt4CL+8cTS4HbMQThUtXeHh4eB/lVev0ZOvPW2jlkhoPDw/vo7x5CJsHE/kylc8cPDw8vDFvfi0gDxHyhUuW9c0M8fDw8BZ484tZ9yVvXlhXMQ/dO8PDw8P7O/4AUmXkKTM93qsAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
 
 <script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-})();
+  }
 </script>
 
+      </div>
+    </main>
 
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">winyter</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/MyBlog/lib/anime.min.js"></script>
+
+<script src="/MyBlog/js/utils.js"></script>
+
+<script src="/MyBlog/js/motion.js"></script>
+
+
+<script src="/MyBlog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

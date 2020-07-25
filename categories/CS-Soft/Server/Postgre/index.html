@@ -1,443 +1,368 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/MyBlog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/MyBlog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/MyBlog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/MyBlog/images/logo.svg" color="#222">
 
-    
-
-    
+<link rel="stylesheet" href="/MyBlog/css/main.css">
 
 
+<link rel="stylesheet" href="/MyBlog/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/MyBlog/lib/animate-css/animate.min.css">
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>Categories: Postgre | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="IT,computer,photograph,travel">
-    <meta property="og:type" content="website">
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"winyter.github.io","root":"/MyBlog/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="IT,Photograph,Travel,Love">
+<meta property="og:type" content="website">
 <meta property="og:title" content="花不醉的小花园">
-<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;categories&#x2F;CS-Soft&#x2F;Server&#x2F;Postgre&#x2F;">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;categories&#x2F;CS-Soft&#x2F;Server&#x2F;Postgre&#x2F;index.html">
 <meta property="og:site_name" content="花不醉的小花园">
+<meta property="og:description" content="IT,Photograph,Travel,Love">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="winyter">
 <meta property="article:tag" content="IT">
-<meta property="article:tag" content="computer">
-<meta property="article:tag" content="photograph">
-<meta property="article:tag" content="travel">
+<meta property="article:tag" content="Photograph">
+<meta property="article:tag" content="Travel">
+<meta property="article:tag" content="Love">
 <meta name="twitter:card" content="summary">
-    
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
-    
-    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<link rel="canonical" href="https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/">
 
-<meta name="generator" content="Hexo 4.1.0"></head>
 
-<body>
-    <div id="loading" class="active"></div>
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
 
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
-      <div class="brand">
-        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/MyBlog/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">winyter</h5>
-          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/"  >
-                <i class="icon icon-lg icon-home"></i>
-                Home
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect active">
-              <a href="/MyBlog/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                Categories
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/winyter" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-      </ul>
+  <title>分类: Postgre | 花不醉的小花园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/MyBlog/atom.xml" title="花不醉的小花园" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
-</aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Categories: Postgre</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+  <div class="site-meta">
+
+    <a href="/MyBlog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花不醉的小花园</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">携一生所爱，看遍世间美好</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
-</header>
-<header class="content-header categories-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">Categories: Postgre</h1>
-        <h5 class="subtitle">
-            
-        </h5>
-    </div>
-
-    
-<div class="tabs-bar container">
-    <nav class="tags-list">
-        <a href="/MyBlog/categories" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
-            ">全部</a>
-        
-
-            <a href="/MyBlog/categories/CS-Concept/" style="-webkit-order:24;order:24" class="tags-list-item waves-effect waves-button waves-light">CS Concept</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Concept/Big-Data/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">Big Data</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">CS Soft</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Client/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">Client</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Client/Hexo/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">Hexo</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light active">Server</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/HW-FusionInsight/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">HW-FusionInsight</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/" style="-webkit-order:6;order:6" class="tags-list-item waves-effect waves-button waves-light">OS</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/UNIX/" style="-webkit-order:7;order:7" class="tags-list-item waves-effect waves-button waves-light">UNIX</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/UNIX/MacOS/" style="-webkit-order:8;order:8" class="tags-list-item waves-effect waves-button waves-light">MacOS</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/Nginx/" style="-webkit-order:9;order:9" class="tags-list-item waves-effect waves-button waves-light">Nginx</a>
-
-        
-
-            <a href="/MyBlog/categories/Source/" style="-webkit-order:10;order:10" class="tags-list-item waves-effect waves-button waves-light">Source</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Concept/Basic/" style="-webkit-order:11;order:11" class="tags-list-item waves-effect waves-button waves-light">Basic</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Concept/Basic/Network/" style="-webkit-order:12;order:12" class="tags-list-item waves-effect waves-button waves-light">Network</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Language/" style="-webkit-order:13;order:13" class="tags-list-item waves-effect waves-button waves-light">Language</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Language/Shell/" style="-webkit-order:14;order:14" class="tags-list-item waves-effect waves-button waves-light">Shell</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Concept/Bigdata/" style="-webkit-order:15;order:15" class="tags-list-item waves-effect waves-button waves-light">Bigdata</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/UNIX/Linux/" style="-webkit-order:16;order:16" class="tags-list-item waves-effect waves-button waves-light">Linux</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/Postgre/" style="-webkit-order:17;order:17" class="tags-list-item waves-effect waves-button waves-light active">Postgre</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/Ambari/" style="-webkit-order:18;order:18" class="tags-list-item waves-effect waves-button waves-light">Ambari</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Server/Hadoop/" style="-webkit-order:19;order:19" class="tags-list-item waves-effect waves-button waves-light">Hadoop</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/Unix/" style="-webkit-order:20;order:20" class="tags-list-item waves-effect waves-button waves-light">Unix</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/Homebrew/" style="-webkit-order:21;order:21" class="tags-list-item waves-effect waves-button waves-light">Homebrew</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Soft/OS/Unix/Linux/" style="-webkit-order:22;order:22" class="tags-list-item waves-effect waves-button waves-light">Linux</a>
-
-        
-
-            <a href="/MyBlog/categories/CS-Concept/Reading-Notes/" style="-webkit-order:23;order:23" class="tags-list-item waves-effect waves-button waves-light">Reading Notes</a>
-
-        
-    </nav>
-    <!-- PC show more-->
-    <div class="tags-list-more">
-        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
-    </div>
+  </div>
 </div>
 
 
 
-</header>
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-<div class="container body-wrap fade">
-    
-            <div class="waterfall">
+    <a href="/MyBlog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/MyBlog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/MyBlog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/MyBlog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
           
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-            <div class="waterfall-item">
-  <article class="article-card archive-article">
-    <div class="post-meta">
-      <time class="post-time" title="2019-12-23 00:08:01" datetime="2019-12-22T16:08:01.000Z"  itemprop="datePublished">2019-12-23</time>
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="winyter"
+      src="/MyBlog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">winyter</p>
+  <div class="site-description" itemprop="description">IT,Photograph,Travel,Love</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winyter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winyter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mrwinterwei@outlook.com" title="E-Mail → mailto:mrwinterwei@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
 
       
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/">CS Soft</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/">Server</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Soft/Server/Postgre/">Postgre</a></li></ul></li></ul></li></ul>
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/winyter" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
 
-
-    </div>
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/">PostgreSQL表间复制数据</a>
-    </h3>
-  
-
-
-
-    
-    <div class="post-footer">
+      <div class="main-inner">
         
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Database/" rel="tag">Database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Postgre/" rel="tag">Postgre</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/SQL/" rel="tag">SQL</a></li></ul>
 
+        <div class="content category">
+          
+
+  
+  
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">Postgre
+          <small>分类</small>
+        </h2>
+      </div>
+
+      
+    <div class="collection-year">
+      <span class="collection-header">2019</span>
     </div>
-    
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2019-12-23T00:08:01+08:00"
+              content="2019-12-23">
+          12-23
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/MyBlog/2019/12/23/postgreSQL-copy-data-between-two-tables/" itemprop="url">
+            <span itemprop="name">PostgreSQL表间复制数据</span>
+          </a>
+      </div>
+
+    </header>
   </article>
-</div>
 
-        
-            </div>
-        
-    
-</div>
-
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
     </div>
-    <div class="bottom">
-        <p><span>winyter &copy; 2019 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
+  </div>
+  
+  
+  
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/&title=花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/&title=花不醉的小花园&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=花不醉的小花园&url=https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/categories/CS-Soft/Server/Postgre/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aQW7CQAwFUO5/6VbqCqkNfNtjoNLLClE6mTeL2LF9u8XX1891//n+m+T3j9f5vdrXxXXbuPDw8PBaW3+8XHWL880l+4nugoeHh7fGqwaD6hFUA8xVqMj3jIeHh/cJvCosOawkYDy+Ix4eHt4n86qP/t5h4eHh4f0XXvXlP/k+T50n6fixWgseHh5ezOs1wN77eb2/h4eHh9fqqk+CxDy9zsPA5W7x8PDwFnhJq2kSHubHMT9KPDw8vA1e/vBN2lfJFvMV8kGuJ1Q8PDy8Q7xJC796iqfGBQpFYTw8PLwF3llAfrO8cZWsgIeHh/d6Xm+7SSo8ScR7fa5C7w4PDw+vxau+9uepcF4ULhdk8+EGPDw8vDfx8sd3ssJGILn8Kx4eHt4aL28y5Y2u3iP+8H3x8PDw1niTokCeavdGAfKC8h/f4OHh4S3w8mJBr8WVrFMNMOUSCR4eHt4yb97Cn/wmL0wUEnc8PDy8BV5SFOgNpOZl4uRxPzliPDw8vLO8/LW/esskwMzLDU/Sazw8PLyjvDlgEoWqI1zVsi8eHh7eHq8XGHoFiLykW03Nn0xG4OHh4S3w8mJEkuBWy8T5MRVKt3h4eHgLvN4Wzw4fnBreKgxd4eHh4Q14815ZtZ1fTb5vkwsPDw9vmZczeuGhd/deCfiySo2Hh4c35iUP9+qIVW+gKl/zwNAVHh4e3oBXXahXWq22zY6VJ/Dw8PDexJuMEeT/VS1bROvg4eHhLfAmFdHegzsfxuodIh4eHt5reHkwmHeX5il7udiBh4eHt8brBYNq26wXHkZzAnh4eHhv5SWP+0LnrViA6P0SDw8P7xN4kyJvHn56BYhRSo2Hh4dX5E0Gp061x3oDB3h4eHiv51Vf9fMAUD2CSUp9rL+Hh4eH9+j6BghrnHHOWh6LAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
         </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
+        
 
 <script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-})();
+  }
 </script>
 
+      </div>
+    </main>
 
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">winyter</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/MyBlog/lib/anime.min.js"></script>
+
+<script src="/MyBlog/js/utils.js"></script>
+
+<script src="/MyBlog/js/motion.js"></script>
+
+
+<script src="/MyBlog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>

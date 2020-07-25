@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/MyBlog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/MyBlog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/MyBlog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/MyBlog/images/logo.svg" color="#222">
 
-    
-
-    
+<link rel="stylesheet" href="/MyBlog/css/main.css">
 
 
+<link rel="stylesheet" href="/MyBlog/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/MyBlog/lib/animate-css/animate.min.css">
 
-    <meta charset="utf-8">
-    
-    
-    
-    
-    <title>Hadoop快速入门系列——篇三：Hive | 花不醉的小花园 | 携一生所爱，看遍世间美好</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Hadoop,Hive">
-    <meta name="description" content="Hive简介Hive是建立在Hadoop上的数据仓库框架，提供大数据平台批处理计算能力，能够对结构化&#x2F;半结构化数据进行批量分析汇总完成数据计算。提供类似SQL的Hive Query Language语言操作结构化数据，其基本原理是将HQL语言自动转换成MapReduce任务，从而完成对Hadoop集群中存储的海量数据进行查询和分析。 Hive构建在关系型数据库结构之上，有着与Oracle、MyS">
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"winyter.github.io","root":"/MyBlog/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Hive简介Hive是建立在Hadoop上的数据仓库框架，提供大数据平台批处理计算能力，能够对结构化&#x2F;半结构化数据进行批量分析汇总完成数据计算。提供类似SQL的Hive Query Language语言操作结构化数据，其基本原理是将HQL语言自动转换成MapReduce任务，从而完成对Hadoop集群中存储的海量数据进行查询和分析。 Hive构建在关系型数据库结构之上，有着与Oracle、MyS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop快速入门系列——篇三：Hive">
-<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;01&#x2F;06&#x2F;hadoop-hive&#x2F;">
+<meta property="og:url" content="https:&#x2F;&#x2F;winyter.github.io&#x2F;MyBlog&#x2F;2020&#x2F;01&#x2F;06&#x2F;hadoop-hive&#x2F;index.html">
 <meta property="og:site_name" content="花不醉的小花园">
 <meta property="og:description" content="Hive简介Hive是建立在Hadoop上的数据仓库框架，提供大数据平台批处理计算能力，能够对结构化&#x2F;半结构化数据进行批量分析汇总完成数据计算。提供类似SQL的Hive Query Language语言操作结构化数据，其基本原理是将HQL语言自动转换成MapReduce任务，从而完成对Hadoop集群中存储的海量数据进行查询和分析。 Hive构建在关系型数据库结构之上，有着与Oracle、MyS">
 <meta property="og:locale" content="zh_CN">
@@ -34,168 +35,272 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hive_image4.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hive_image5.png">
 <meta property="article:published_time" content="2020-01-05T16:14:47.000Z">
-<meta property="article:modified_time" content="2020-04-19T07:47:49.693Z">
+<meta property="article:modified_time" content="2020-07-25T11:16:25.216Z">
 <meta property="article:author" content="winyter">
-<meta property="article:tag" content="Hadoop">
 <meta property="article:tag" content="Hive">
+<meta property="article:tag" content="Hadoop">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;cdn.winyter.cn&#x2F;hadoop-hive_image1.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="花不醉的小花园" href="/MyBlog/atom.xml">
-    
-    <link rel="shortcut icon" href="/MyBlog/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<link rel="canonical" href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/">
 
-<meta name="generator" content="Hexo 4.1.0"></head>
 
-<body>
-    <div id="loading" class="active"></div>
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(/MyBlog/img/brand.jpg)">
-      <div class="brand">
-        <a href="/MyBlog/" class="avatar waves-effect waves-circle waves-light">
-          <img src="/MyBlog/img/avatar.jpg">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">winyter</h5>
-          <a href="mailto:mrwinterwei@outlook.com" title="mrwinterwei@outlook.com" class="mail">mrwinterwei@outlook.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/"  >
-                <i class="icon icon-lg icon-home"></i>
-                Home
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/archives"  >
-                <i class="icon icon-lg icon-archives"></i>
-                Archives
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/tags"  >
-                <i class="icon icon-lg icon-tags"></i>
-                Tags
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/MyBlog/categories"  >
-                <i class="icon icon-lg icon-th-list"></i>
-                Categories
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/winyter" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
-        
-      </ul>
+  <title>Hadoop快速入门系列——篇三：Hive | 花不醉的小花园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/MyBlog/atom.xml" title="花不醉的小花园" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
-</aside>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Hadoop快速入门系列——篇三：Hive</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+  <div class="site-meta">
+
+    <a href="/MyBlog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">花不醉的小花园</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">携一生所爱，看遍世间美好</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
-</header>
-<header class="content-header post-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">Hadoop快速入门系列——篇三：Hive</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2020-01-05T16:14:47.000Z" itemprop="datePublished" class="page-time">
-  2020-01-06
-</time>
+  </div>
+</div>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
 
-            
-        </h5>
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/MyBlog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/MyBlog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/MyBlog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/MyBlog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive简介"><span class="nav-text">Hive简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive架构"><span class="nav-text">Hive架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hive客户端的使用"><span class="nav-text">Hive客户端的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive-Beeline客户端使用步骤"><span class="nav-text">Hive Beeline客户端使用步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive的“分区剪枝”特性"><span class="nav-text">Hive的“分区剪枝”特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hive删表操作"><span class="nav-text">Hive删表操作</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="winyter"
+      src="/MyBlog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">winyter</p>
+  <div class="site-description" itemprop="description">IT,Photograph,Travel,Love</div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/winyter" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;winyter" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mrwinterwei@outlook.com" title="E-Mail → mailto:mrwinterwei@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/winyter" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
 
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/MyBlog/images/avatar.jpg">
+      <meta itemprop="name" content="winyter">
+      <meta itemprop="description" content="IT,Photograph,Travel,Love">
+    </span>
 
-</header>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花不醉的小花园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop快速入门系列——篇三：Hive
+        </h1>
 
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hive简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">Hive简介</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hive架构"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Hive架构</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Hive客户端的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">Hive客户端的使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hive-Beeline客户端使用步骤"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Hive Beeline客户端使用步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hive的“分区剪枝”特性"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Hive的“分区剪枝”特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Hive删表操作"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Hive删表操作</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-
-
-<article id="post-hadoop-hive"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Hadoop快速入门系列——篇三：Hive</h1>
         <div class="post-meta">
-            <time class="post-time" title="2020-01-06 00:14:47" datetime="2020-01-05T16:14:47.000Z"  itemprop="datePublished">2020-01-06</time>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-            
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/">CS Concept</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/MyBlog/categories/CS-Concept/Bigdata/">Bigdata</a></li></ul></li></ul>
+              <time title="创建时间：2020-01-06 00:14:47" itemprop="dateCreated datePublished" datetime="2020-01-06T00:14:47+08:00">2020-01-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-25 19:16:25" itemprop="dateModified" datetime="2020-07-25T19:16:25+08:00">2020-07-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Concept/" itemprop="url" rel="index"><span itemprop="name">CS Concept</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/MyBlog/categories/CS-Concept/Bigdata/" itemprop="url" rel="index"><span itemprop="name">Bigdata</span></a>
+                </span>
+            </span>
 
-
-
-            
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
+          
 
         </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <hr>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
 <h2 id="Hive简介"><a href="#Hive简介" class="headerlink" title="Hive简介"></a>Hive简介</h2><p>Hive是建立在Hadoop上的数据仓库框架，提供大数据平台批处理计算能力，能够对结构化/半结构化数据进行批量分析汇总完成数据计算。提供类似SQL的Hive Query Language语言操作结构化数据，其基本原理是将HQL语言自动转换成MapReduce任务，从而完成对Hadoop集群中存储的海量数据进行查询和分析。</p>
 <p>Hive构建在关系型数据库结构之上，有着与Oracle、MySQL相似的数据结构，同时Hive还提供了类SQL语句进行数据库的增删改查，因此，一个习惯使用传统关系型数据库的操作者，也能无缝对接上Hive的使用。</p>
+<a id="more"></a>
+
 <h3 id="Hive架构"><a href="#Hive架构" class="headerlink" title="Hive架构"></a>Hive架构</h3><p><strong>HiveServer</strong>：一个集群内可部署多个HiveServer，负荷分担。对外提供Hive数据库服务，将用户提交的HQL语句进行编译，解析成对应的Yarn任务或者HDFS操作，从而完成数据的提取、转换、分析。</p>
 <p><strong>MetaStore</strong>：一个集群内可部署多个MetaStore，负荷分担。提供Hive的元数据服务，负责Hive表的结构和属性信息读、写、维护和修改。提供Thrift接口，供HiveServer、Spark、WebHCat等MetaStore客户端来访问，操作元数据。</p>
 <p><strong>WebHCat</strong>：一个集群内可部署多个WebHCat，负荷分担。提供Rest接口，通过Rest执行Hive命令，提交MapReduce任务。</p>
@@ -203,337 +308,154 @@
 <p><strong>ZooKeeper集群</strong>：Zookeeper作为临时节点记录各HiveServer实例的IP地址列表，客户端驱动连接Zookeeper获取该列表，并根据路由机制选取对应的HiveServer实例。</p>
 <p><strong>HDFS/HBase集群</strong>：Hive表数据存储在HDFS集群中。</p>
 <p><strong>MapReduce/Yarn集群</strong>：提供分布式计算服务：Hive的大部分数据操作依赖MapReduce，HiveServer的主要功能是将HQL语句转换成MapReduce任务，从而完成对海量数据的处理。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://cdn.winyter.cn/hadoop-hive_image1.png" alt="图1 Hive结构" title="">
-                </div>
-                <div class="image-caption">图1 Hive结构</div>
-            </figure>
-
-
+<p><img src="http://cdn.winyter.cn/hadoop-hive_image1.png" alt="图1 Hive结构"></p>
 <h2 id="Hive客户端的使用"><a href="#Hive客户端的使用" class="headerlink" title="Hive客户端的使用"></a>Hive客户端的使用</h2><p>由于Hive有着与SQL几乎一样的查询语句，故本节将不再讲述Hive数据库基础的增删改查命令，如果对命令有所疑问，建议查阅SQL相关资料。本节将着重介绍基于天津现场华为集群的Hive Beeline客户端的使用，以及Hive客户端一些高级特性，开源的Hive组件的使用也能从本文中找到启发。</p>
 <h3 id="Hive-Beeline客户端使用步骤"><a href="#Hive-Beeline客户端使用步骤" class="headerlink" title="Hive Beeline客户端使用步骤"></a>Hive Beeline客户端使用步骤</h3><p>1、登陆到客户端所在服务器<br>2、安全认证(如果有的话)<br>3、登陆客户端</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">beeline或spark-sql</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">beeline或spark-sql</span><br></pre></td></tr></table></figure>
 <p>4、执行操作命令，Hive操作命令与sql语言几乎一样，一般的增删改查操作均可使用sql语句完成，同时，Hive数据的组织和展示形式，与关系型数据库相似。<br>个别命令举例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看数据库：show databases;</span><br><span class="line">进入某个数据库：use &lt;database_name&gt;;</span><br><span class="line">查看所有表：show tables;</span><br><span class="line">查看某一表结构：show create table &lt;table_name&gt;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">查看数据库：show databases;</span><br><span class="line">进入某个数据库：use &lt;database_name&gt;;</span><br><span class="line">查看所有表：show tables;</span><br><span class="line">查看某一表结构：show create table &lt;table_name&gt;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Hive的“分区剪枝”特性"><a href="#Hive的“分区剪枝”特性" class="headerlink" title="Hive的“分区剪枝”特性"></a>Hive的“分区剪枝”特性</h3><p>我们知道，在Oracle中，面对大数据量的情况下，一张表无法存储海量数据，而通过以时间分区来切分一张表，则能实现逻辑上的一张表存储海量数据的能力，其实，前面讲到的HBase中也有类似的特性(Region)，而Hive也拥有这样的能力，Hive表中，使用date_partition来实现Hive分区，date_partition会从文件存储层就将数据进行分离，如下图为某张表数据存储在HDFS上的结构：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://cdn.winyter.cn/hadoop-hive_image2.png" alt="图2 date_partition在HDFS上的路径" title="">
-                </div>
-                <div class="image-caption">图2 date_partition在HDFS上的路径</div>
-            </figure>
-
+<p><img src="http://cdn.winyter.cn/hadoop-hive_image2.png" alt="图2 date_partition在HDFS上的路径"></p>
 <p>从图中可以看到，一张表的目录下，还会根据date_partition再分目录切分Hive表的数据文件，这会给Hive表的分区剪枝功能带来实质性的性能提升，而且，在有些查询场景数据量过大的情况下，甚至会导致Hive语句的执行失败，下图展示了未启用分区剪枝的大数据查询场景下出现的报错情况：</p>
 <p>未启用分区剪枝，报错原因主要是由于大数据量的查询会使提交的数据超过设置的输入数据限制大小：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://cdn.winyter.cn/hadoop-hive_image3.png" alt="图3 输入数据限制报错" title="">
-                </div>
-                <div class="image-caption">图3 输入数据限制报错</div>
-            </figure>
-
+<p><img src="http://cdn.winyter.cn/hadoop-hive_image3.png" alt="图3 输入数据限制报错"></p>
 <p>已启用分区剪枝：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://cdn.winyter.cn/hadoop-hive_image4.png" alt="图4 启用分区剪枝后的查询结果" title="">
-                </div>
-                <div class="image-caption">图4 启用分区剪枝后的查询结果</div>
-            </figure>
-
+<p><img src="http://cdn.winyter.cn/hadoop-hive_image4.png" alt="图4 启用分区剪枝后的查询结果"></p>
 <p>同时，在这张图中还能看到，Hive的查询是调用了MapReduce，同时，还显示出了执行语句所消耗的CPU性能。</p>
 <p>查询时分区剪枝功能的启用：<br>在查询时，如果需要启用分区剪枝功能，需要在查询语句的where子句中，添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date_partition between &lt;start_partition&gt; and &lt;end_partition&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">date_partition between &lt;start_partition&gt; and &lt;end_partition&gt;</span><br></pre></td></tr></table></figure>
 <p>且必须注意：该条件必须放在where子句中所有条件中的第一个，否则分区剪枝功能将不会启用。</p>
 <h3 id="Hive删表操作"><a href="#Hive删表操作" class="headerlink" title="Hive删表操作"></a>Hive删表操作</h3><p>因Hive基于HDFS建表，Hive中直接drop操作删表会报错。以网吧流程为例，正确的删表方式是如下：</p>
 <p>1、查询建表语句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">show create table &lt;table_name&gt;</span><br><span class="line">找到hive表的location位置</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show create table &lt;table_name&gt;</span><br><span class="line">找到hive表的location位置</span><br></pre></td></tr></table></figure>
 <p>2、hadoop客户端中执行命令删除<code>/&lt;table_name&gt;</code>文件目录即可<br>注意：每个现场的Hive表文件的HDFS目录结构均不一样，删除之前，需要进行确认，以免误删，另外，删表操作生产环境，务必谨慎操作！<br>下图展示了Hive数据在HDFS上的存储结构，其中，1为库名，2为表名，3为分区名，4为实际存储的数据文件，下图展示的是parquet存储格式:</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://cdn.winyter.cn/hadoop-hive_image5.png" alt="图5 Hive数据在HDFS上的存储结构" title="">
-                </div>
-                <div class="image-caption">图5 Hive数据在HDFS上的存储结构</div>
-            </figure>
+<p><img src="http://cdn.winyter.cn/hadoop-hive_image5.png" alt="图5 Hive数据在HDFS上的存储结构"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/MyBlog/tags/Hive/" rel="tag"># Hive</a>
+              <a href="/MyBlog/tags/Hadoop/" rel="tag"># Hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MyBlog/2019/12/27/hadoop-elasticsearch/" rel="prev" title="Hadoop快速入门系列——篇二：ElasticSearch">
+      <i class="fa fa-chevron-left"></i> Hadoop快速入门系列——篇二：ElasticSearch
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MyBlog/2020/01/06/hadoop-HDFS/" rel="next" title="Hadoop快速入门系列——篇四：HDFS">
+      Hadoop快速入门系列——篇四：HDFS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
 
 
 
         </div>
-
-        <blockquote class="post-copyright">
-    
-    <div class="content">
         
-<span class="post-time">
-    最后更新时间：<time datetime="2020-04-19T07:47:49.693Z" itemprop="dateUpdated">2020-04-19 15:47:49</time>
-</span><br>
-
-
-        
-        Copyright Info
-        
-    </div>
-    
-    <footer>
-        <a href="https://winyter.github.io/MyBlog">
-            <img src="/MyBlog/img/avatar.jpg" alt="winyter">
-            winyter
-        </a>
-    </footer>
-</blockquote>
-
-        
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hadoop/" rel="tag">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/MyBlog/tags/Hive/" rel="tag">Hive</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&title=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&title=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/MyBlog/2020/01/06/hadoop-HDFS/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Hadoop快速入门系列——篇四：HDFS</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/MyBlog/2019/12/27/hadoop-elasticsearch/" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Hadoop快速入门系列——篇二：ElasticSearch</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</article>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/MyBlog/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>winyter &copy; 2019 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
-    </div>
-</footer>
-
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
-
-
-
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&title=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&pic=https://winyter.github.io/MyBlog/img/avatar.jpg" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&title=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&source=" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hadoop快速入门系列——篇三：Hive》 — 花不醉的小花园&url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/&via=https://winyter.github.io/MyBlog" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://winyter.github.io/MyBlog/2020/01/06/hadoop-hive/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aQXLCMAwFUO5/abrtDCX5kqAzUZ5XTFpiPy+MZOnxiMfzZfx+fvyt6vPjd44GBgbGZRnPw/E68bu/vk6fgPM3v1sbBgbGfRjVCfIjMt+m/EDHwMDAyBm9ADHfFAwMDIwqo7rQXiiJgYGBMUlic1hvccdb8LFcHAMD44KMfCn///kr9Q0MDIxLMZ6tkV+Q5QvND9k/5sXAwFjNqE6cBGd5qaA6y0mIiYGBsZTRa7OYXJBNSgsnRy0GBsZSxjzImxQDkkCzsFkYGBg3YCTH3KS0+dmNwMDAuA/j+IBLjrxJQ0Zy9RZtBwYGxmpG/tKkrFg9uPMENWkpw8DA2MqoHqDfxuRFzXJEiYGBcVlGHvxNnlcLBtW2DAwMjN2MamI5SVzzImV5czEwMG7AmIRlOW9Sniy0WWBgYNyMUW32yke1RHqyHgwMjNWMHNMrTyYjKY5+7NjFwMC4LCMvElQxkwJAr6UDAwNjH6OXmlbbtnqB46imgYGBsYgxCQGry+21nZV/MTAwMNYxJhdtvcayfDvy/8fAwNjN6H35G8XO/MLu7SwYGBhLGfPS47ylrFoAOMnFMTAw1jHmhcZqFpmnteVcHAMDYzWj18LVCyWrhcw89MTAwLgDo3op3ytA5lds1eIEBgYGRt6w1UtK8/aLDxy4GBgYqxl5qJfXJXrXfBgYGPdk9F5RvRrrtV8UQkMMDIyljF7qOElEk1DviyVMDAyMKzF+AGnjjnSRS+dvAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/MyBlog/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
-
-
-
-
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
 
 <script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '死鬼去哪里了！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '(つェ⊂)咦!又好了!';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
-})();
+  }
 </script>
 
+      </div>
+    </main>
 
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">winyter</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/MyBlog/lib/anime.min.js"></script>
+
+<script src="/MyBlog/js/utils.js"></script>
+
+<script src="/MyBlog/js/motion.js"></script>
+
+
+<script src="/MyBlog/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
 </html>
